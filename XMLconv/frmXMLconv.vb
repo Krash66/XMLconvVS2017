@@ -2,6 +2,7 @@
     Inherits frmBlank
     '/// Created by TK   November 2011
     '/// Creates XML DTD files from XML messages
+    '/// Modified Dec. 2018 to add changing of values in specified elements
 
     Private InFilePath As String                      '** Input XML Message File Path
     Private OutFilePath As String                     '** Output DTD XML Description File
@@ -11,9 +12,12 @@
     Private ArrParentNodes As New ArrayList           '** Array of all elements that are parents of other elements
     Private ArrPrintedChildren As New ArrayList       '** Array of child elements that have children
     Private ArrCDataNodes As New ArrayList            '** Array of child elements that have NO children
+    Private ddlOfElements As New ArrayList            '** Array of All Elements with parent objects for Drop Down List
     Private InputDir As String = ""                   '** Input Directory of the XML Message
 
     Private sb As System.Text.StringBuilder           '** String Builder Object that is built to create DTD message
+
+    Private IsAll As Boolean = False
 
     Private Enum enumXMLActionType
         Failed = 0
@@ -31,6 +35,8 @@
             btnConv.Enabled = False
             btnbrowseOut.Enabled = False
             'btnImportDTD.Visible = False
+            RbOnlyThisElement.Checked = True
+            RbAllElements.Checked = False
 
             Me.Show()
 
@@ -40,6 +46,8 @@
         End Try
 
     End Function
+
+
 
     Public Function GetDTD(Optional ByVal InDir As String = "") As String
 
@@ -119,6 +127,9 @@ doAgain:
                 txtInPath.Text = InFilePath
                 LoadInText()
                 btnConv.Enabled = True
+                ' Added for Value Cahange Peice
+                BtnNewValue.Enabled = True
+                LoadComboBox()
             End If
 
         Catch ex As Exception
@@ -126,6 +137,19 @@ doAgain:
         End Try
 
     End Sub
+
+    Private Sub LoadComboBox()
+        Try
+            xml_Indoc.Load(InFilePath)
+            For Each node As Xml.XmlElement In xml_Indoc
+                cbElement.Items.Add(node.Name)
+            Next
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
 
     Private Sub LoadInText()
 
@@ -156,6 +180,59 @@ doAgain:
         End Try
 
     End Function
+
+#End Region
+
+#Region "Change Data Values"
+
+    Private Sub BtnNewValue_Click(sender As Object, e As EventArgs) Handles BtnNewValue.Click
+        Try
+            ArrAllElements.Clear()
+            ArrParentNodes.Clear()
+            ArrPrintedChildren.Clear()
+            ArrCDataNodes.Clear()
+            'Convert xml_doc to new string builder text
+            'EncodeXMLFile(InFilePath) '//encode some special characters like & to &amp;
+            'xml_Indoc.Load(InFilePath)
+            sb = New System.Text.StringBuilder
+            txtXMLout.Text = ""
+
+            'Start processing each node in the Message
+            If xml_Indoc.HasChildNodes = True Then
+                For Each nd As Xml.XmlNode In xml_Indoc.ChildNodes
+                    '*** Process each Node, if it is an element
+                    '*** if it's not an element, ignore it
+                    If nd.NodeType = Xml.XmlNodeType.Element Then
+                        processNode(nd)
+                    End If
+                Next 'next doc child
+            End If
+
+            If printCData(ArrCDataNodes) = True Then
+                txtXMLout.Text = sb.ToString
+                btnbrowseOut.Enabled = True
+            End If
+
+        Catch ex As Exception
+            'LogError(ex, "frmXMLconv btnConv_Click")
+        End Try
+
+    End Sub
+
+    Private Sub RbOnlyThisElement_CheckedChanged(sender As Object, e As EventArgs) Handles RbOnlyThisElement.CheckedChanged
+        If RbOnlyThisElement.Checked = True Then
+            IsAll = False
+            RbAllElements.Checked = False
+        End If
+    End Sub
+
+    Private Sub RbAllElements_CheckedChanged(sender As Object, e As EventArgs) Handles RbAllElements.CheckedChanged
+        If RbAllElements.Checked = True Then
+            IsAll = True
+            RbOnlyThisElement.Checked = False
+        End If
+    End Sub
+
 
 #End Region
 
@@ -200,6 +277,7 @@ doAgain:
 
         Try
             Dim Action As enumXMLActionType = GetNodeAction(Node)
+            Dim ElementValue As String = Node.InnerText
 
             Select Case Action
                 Case enumXMLActionType.E_PrintwCldrn
@@ -218,7 +296,8 @@ doAgain:
 
                 Case enumXMLActionType.E_PrintAsCdata
                     Dim QualName As String = GetCDataName(Node)
-                    ArrCDataNodes.Add(QualName)
+                    Dim ArrayName As String = String.Format("{0,-32}{1, -8}{2,-40}", QualName, "value:", ElementValue)
+                    ArrCDataNodes.Add(ArrayName)
                     'ArrAllElements.Add(QualName)
 
                 Case enumXMLActionType.E_Ignore
@@ -385,6 +464,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
         Try
             Dim QualName As String = GetElementName(node)
 
+
             If QualName <> "" Then
                 Dim ChildElementName As String = ""
                 Dim Prefix As String = "     "
@@ -398,21 +478,21 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
                 ArrParentNodes.Add(QualName)
 
                 '*** Print element and it's children
-                sb.AppendLine(Line1)
-                sb.AppendLine(Line2)
+                'sb.AppendLine(Line1)                                        Uncomment for DTD convert
+                'sb.AppendLine(Line2)                                        Uncomment for DTD convert
                 For Each cld As Xml.XmlNode In node.ChildNodes
                     If cld.NodeType = Xml.XmlNodeType.Element Then
                         ChildElementName = GetChildName(cld)
                         Dim LineChild As String = String.Format("{0}{1}", Prefix, ChildElementName)
-                        sb.AppendLine(LineChild)
-                        Prefix = "    ,"
+                        'sb.AppendLine(LineChild)                                        Uncomment for DTD convert
+                        'Prefix = "    ,"                                        Uncomment for DTD convert
                         '*** Add children to the child array
                         ArrAllElements.Add(ChildElementName)
                         ArrPrintedChildren.Add(ChildElementName)
                     End If
                 Next
-                sb.AppendLine(LastLine)
-                sb.AppendLine()
+                'sb.AppendLine(LastLine)                                        Uncomment for DTD convert
+                'sb.AppendLine()                                        Uncomment for DTD convert
 
                 Return True
             Else
@@ -433,7 +513,8 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             Dim FORfld As String
 
             For Each name As String In Arr
-                FORfld = String.Format("{0}{1,-40}{2}", "<!ELEMENT ", name, " (#PCDATA)>")
+                'FORfld = String.Format("{0}{1,30}{2,-100}", "<!ELEMENT ", name, " (#PCDATA)>")
+                FORfld = String.Format("{0}{1,30}", "<Element> Name: ", name)
                 sb.AppendLine(FORfld)
             Next
 
@@ -541,7 +622,10 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
     End Function
 
-#End Region
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbElement.SelectedIndexChanged
 
+    End Sub
+
+#End Region
 
 End Class
