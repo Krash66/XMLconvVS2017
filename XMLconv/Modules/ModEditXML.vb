@@ -42,7 +42,7 @@ Module ModEditXML
             ArrParentNodes.Clear()
             ArrPrintedChildren.Clear()
             ArrCDataNodes.Clear()
-
+            ProcessXMLmessage = ""
             '            OutDir = DirOut
             '            sbldr = New System.Text.StringBuilder
 
@@ -344,4 +344,15 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
     End Function
 
 #End Region
+
+    Friend Function FormatDoc() As Boolean
+        Try
+            For Each node As XmlNode In xml_Indoc.ChildNodes
+                node.Normalize()
+            Next
+
+        Catch ex As Exception
+
+        End Try
+    End Function
 End Module

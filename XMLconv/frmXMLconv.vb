@@ -126,9 +126,11 @@ doAgain:
             If InFilePath <> "" Then
                 txtInPath.Text = InFilePath
                 LoadInText()
+                LoadXMLdoc()
                 btnConv.Enabled = True
                 ' Added for Value Cahange Peice
                 BtnNewValue.Enabled = True
+                FormatDoc()
                 LoadComboBox()
             End If
 
@@ -155,8 +157,10 @@ doAgain:
 
         ' Load the XML document in to the Text Window
         Try
+            Dim InText As String = ""
             txtXMLout.Text = ""
-            txtInMessage.Text = LoadTextFile(InFilePath)
+            InText = LoadTextFile(InFilePath)
+            txtInMessage.Text = InText
 
         Catch ex As Exception
             'LogError(ex, "frmXMLconv LoadInText")
@@ -167,10 +171,13 @@ doAgain:
     Function LoadTextFile(ByVal FilePath As String) As String
 
         Dim sr As System.IO.StreamReader = Nothing
-
+        Dim xr As System.Xml.XmlReader = Nothing
+        Dim inputXMLdoc As Xml.XmlDocument = Nothing
         Try
             sr = New System.IO.StreamReader(FilePath)
             LoadTextFile = sr.ReadToEnd()
+
+            inputXMLdoc.LoadXml(LoadTextFile)
 
         Catch ex As Exception
             'LogError(ex, "modGeneral LoadTextFile")

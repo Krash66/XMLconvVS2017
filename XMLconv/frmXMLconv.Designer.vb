@@ -126,7 +126,7 @@ Partial Class frmXMLconv
         Me.txtInMessage.Name = "txtInMessage"
         Me.txtInMessage.ReadOnly = True
         Me.txtInMessage.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtInMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtInMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both
         Me.txtInMessage.Size = New System.Drawing.Size(1102, 147)
         Me.txtInMessage.TabIndex = 1
         Me.txtInMessage.Text = " "
@@ -169,6 +169,7 @@ Partial Class frmXMLconv
         Me.txtXMLout.Multiline = True
         Me.txtXMLout.Name = "txtXMLout"
         Me.txtXMLout.ReadOnly = True
+        Me.txtXMLout.ScrollBars = System.Windows.Forms.ScrollBars.Both
         Me.txtXMLout.Size = New System.Drawing.Size(1102, 124)
         Me.txtXMLout.TabIndex = 3
         '
