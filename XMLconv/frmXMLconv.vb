@@ -8,7 +8,8 @@ Public Class frmXMLconv
 
     Private InFilePath As String                      '** Input XML Message File Path
     Private OutFilePath As String                     '** Output DTD XML Description File
-    Private xml_Indoc As New Xml.XmlDocument              '** Windows XML doc that XML message is read into
+    Private FileName As String                        '** Name of the file without path and extension
+    Private xml_Indoc As New Xml.XmlDocument          '** Windows XML doc that XML message is read into
 
     Private ArrAllElements As New ArrayList           '** Array of all elements in Document
     Private ArrParentNodes As New ArrayList           '** Array of all elements that are parents of other elements
@@ -36,7 +37,6 @@ Public Class frmXMLconv
             cmdOk.Enabled = False
             btnConv.Enabled = False
             btnbrowseOut.Enabled = False
-            'btnImportDTD.Visible = False
             RbOnlyThisElement.Checked = True
             RbAllElements.Checked = False
 
@@ -49,28 +49,26 @@ Public Class frmXMLconv
 
     End Function
 
+    '    Public Function GetDTD(Optional ByVal InDir As String = "") As String
 
+    '        cmdOk.Enabled = False
+    '        btnConv.Enabled = False
+    '        btnbrowseOut.Enabled = False
+    '        'btnImportDTD.Visible = True
+    '        'btnImportDTD.Enabled = False
+    '        InputDir = InDir
 
-    Public Function GetDTD(Optional ByVal InDir As String = "") As String
+    'doAgain:
+    '        Select Case Me.ShowDialog
+    '            Case Windows.Forms.DialogResult.OK
+    '                GetDTD = txtOutPath.Text
+    '            Case Windows.Forms.DialogResult.Retry
+    '                GoTo doAgain
+    '            Case Else
+    '                GetDTD = ""
+    '        End Select
 
-        cmdOk.Enabled = False
-        btnConv.Enabled = False
-        btnbrowseOut.Enabled = False
-        'btnImportDTD.Visible = True
-        'btnImportDTD.Enabled = False
-        InputDir = InDir
-
-doAgain:
-        Select Case Me.ShowDialog
-            Case Windows.Forms.DialogResult.OK
-                GetDTD = txtOutPath.Text
-            Case Windows.Forms.DialogResult.Retry
-                GoTo doAgain
-            Case Else
-                GetDTD = ""
-        End Select
-
-    End Function
+    '    End Function
 
     Private Sub cmdCancel_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
 
@@ -96,13 +94,6 @@ doAgain:
 
     End Sub
 
-    Private Sub btnImportDTD_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-        Me.Close()
-        Me.DialogResult = Windows.Forms.DialogResult.OK
-
-    End Sub
-
 #End Region
 
 #Region "Load Input XML Message"
@@ -125,6 +116,7 @@ doAgain:
 
         Try
             InFilePath = OFD1.FileName
+            FileName = OFD1.SafeFileName.Remove(OFD1.SafeFileName.LastIndexOf("."))
             If InFilePath <> "" Then
                 txtInPath.Text = InFilePath
                 xml_Indoc = LoadXMLdoc()
@@ -146,7 +138,7 @@ doAgain:
 
         ' Load the XML document in to the Text Window
         Try
-            txtXMLout.Text = ""
+            txtCSVout.Text = ""
             txtInMessage.Text = LoadTextFile(InFilePath)
 
         Catch ex As Exception
@@ -212,10 +204,15 @@ doAgain:
                     '*** if it's not an element, ignore it
                     If nd.NodeType = XmlNodeType.Element Then
                         Dim tnode As New TreeNode(nd.Name)
+                        tnode.Tag = nd
                         TVxml.Nodes.Add(tnode)
+                        TVxml.SelectedNode = tnode
                         ProcessTreeChild(nd, tnode)
                     End If
                 Next 'next doc child
+                TVxml.ExpandAll()
+                TVxml.CheckBoxes = True
+                TVxml.SelectedNode.EnsureVisible()
             End If
         Catch ex As Exception
             MessageBox.Show("Error loading Treeview")
@@ -224,56 +221,70 @@ doAgain:
 
     Sub ProcessTreeChild(nd As XmlNode, tnd As TreeNode)
         Try
-            'add this node to tree
-            Dim tnode As New TreeNode(nd.Name)
-
-            'now process the node's children
+            'now process all child nodes recursively
             If nd.HasChildNodes = True Then
                 For Each cn As XmlNode In nd.ChildNodes
-
+                    If cn.NodeType = XmlNodeType.Element Then
+                        Dim tn As New TreeNode(cn.Name)  ' & " " & cn.InnerText
+                        tn.Tag = cn
+                        tnd.Nodes.Add(tn)
+                        ProcessTreeChild(cn, tn)
+                    End If
                 Next
             End If
         Catch ex As Exception
             MessageBox.Show("Error loading Treeview")
         End Try
     End Sub
+
+    Friend Function FormatDoc() As Boolean
+        Try
+            For Each node As XmlNode In xml_Indoc.ChildNodes
+                node.Normalize()
+            Next
+            Return True
+        Catch ex As Exception
+            MessageBox.Show("Error formatting XML Document")
+        End Try
+    End Function
+
 #End Region
 
 #Region "Change Data Values"
 
-    Private Sub BtnNewValue_Click(sender As Object, e As EventArgs)
-        Try
-            ArrAllElements.Clear()
-            ArrParentNodes.Clear()
-            ArrPrintedChildren.Clear()
-            ArrCDataNodes.Clear()
-            'Convert xml_doc to new string builder text
-            'EncodeXMLFile(InFilePath) '//encode some special characters like & to &amp;
-            'xml_Indoc.Load(InFilePath)
-            sb = New System.Text.StringBuilder
-            txtXMLout.Text = ""
+    'Private Sub BtnNewValue_Click(sender As Object, e As EventArgs)
+    '    Try
+    '        ArrAllElements.Clear()
+    '        ArrParentNodes.Clear()
+    '        ArrPrintedChildren.Clear()
+    '        ArrCDataNodes.Clear()
+    '        'Convert xml_doc to new string builder text
+    '        'EncodeXMLFile(InFilePath) '//encode some special characters like & to &amp;
+    '        'xml_Indoc.Load(InFilePath)
+    '        sb = New System.Text.StringBuilder
+    '        txtCSVout.Text = ""
 
-            'Start processing each node in the Message
-            If xml_Indoc.HasChildNodes = True Then
-                For Each nd As Xml.XmlNode In xml_Indoc.ChildNodes
-                    '*** Process each Node, if it is an element
-                    '*** if it's not an element, ignore it
-                    If nd.NodeType = Xml.XmlNodeType.Element Then
-                        processNode(nd)
-                    End If
-                Next 'next doc child
-            End If
+    '        'Start processing each node in the Message
+    '        If xml_Indoc.HasChildNodes = True Then
+    '            For Each nd As Xml.XmlNode In xml_Indoc.ChildNodes
+    '                '*** Process each Node, if it is an element
+    '                '*** if it's not an element, ignore it
+    '                If nd.NodeType = Xml.XmlNodeType.Element Then
+    '                    processNode(nd)
+    '                End If
+    '            Next 'next doc child
+    '        End If
 
-            If printCData(ArrCDataNodes) = True Then
-                txtXMLout.Text = sb.ToString
-                btnbrowseOut.Enabled = True
-            End If
+    '        If printCData(ArrCDataNodes) = True Then
+    '            txtCSVout.Text = sb.ToString
+    '            btnbrowseOut.Enabled = True
+    '        End If
 
-        Catch ex As Exception
-            'LogError(ex, "frmXMLconv btnConv_Click")
-        End Try
+    '    Catch ex As Exception
+    '        'LogError(ex, "frmXMLconv btnConv_Click")
+    '    End Try
 
-    End Sub
+    'End Sub
 
     Private Sub RbOnlyThisElement_CheckedChanged(sender As Object, e As EventArgs) Handles RbOnlyThisElement.CheckedChanged
         If RbOnlyThisElement.Checked = True Then
@@ -305,7 +316,7 @@ doAgain:
             'EncodeXMLFile(InFilePath) '//encode some special characters like & to &amp;
             xml_Indoc.Load(InFilePath)
             sb = New System.Text.StringBuilder
-            txtXMLout.Text = ""
+            txtCSVout.Text = ""
 
             'Start processing each node in the Message           
             If xml_Indoc.HasChildNodes = True Then
@@ -319,7 +330,7 @@ doAgain:
             End If
 
             If printCData(ArrCDataNodes) = True Then
-                txtXMLout.Text = sb.ToString
+                txtCSVout.Text = sb.ToString
                 btnbrowseOut.Enabled = True
             End If
 
@@ -352,7 +363,7 @@ doAgain:
 
                 Case enumXMLActionType.E_PrintAsCdata
                     Dim QualName As String = GetCDataName(Node)
-                    Dim ArrayName As String = String.Format("{0,-32}{1, -8}{2,-40}", QualName, "value:", ElementValue)
+                    Dim ArrayName As String = String.Format("{0,-32}{1, -8}{2,-40}", QualName, ",  value:,", ElementValue)
                     ArrCDataNodes.Add(ArrayName)
                     'ArrAllElements.Add(QualName)
 
@@ -570,7 +581,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
             For Each name As String In Arr
                 'FORfld = String.Format("{0}{1,30}{2,-100}", "<!ELEMENT ", name, " (#PCDATA)>")
-                FORfld = String.Format("{0}{1,30}", "<Element> Name: ", name)
+                FORfld = String.Format("{0}{1,30}", "Name:, ", name)
                 sb.AppendLine(FORfld)
             Next
 
@@ -590,9 +601,10 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
     Private Sub btnbrowseOut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnbrowseOut.Click
 
         Try
-            SFD1.Title = "XML DTD File"
+            SFD1.Title = "Output File"
             If InputDir <> "" Then
                 SFD1.InitialDirectory = InputDir
+                SFD1.FileName = FileName
             End If
             SFD1.ShowDialog()
 
@@ -646,7 +658,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
         Try
             If SFD1.FileName <> "" Then
-                Save = SaveTextFile(OutFilePath, txtXMLout.Text)
+                Save = SaveTextFile(OutFilePath, txtCSVout.Text)
             Else
                 MsgBox("Please enter a valid Output File Path", MsgBoxStyle.Information, "No Valid Output Path")
                 Save = False
@@ -662,7 +674,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
     Public Function SaveTextFile(ByVal FilePath As String, ByVal FileContent As String, Optional ByVal Append As Boolean = False) As Boolean
 
         Dim sw As System.IO.StreamWriter = Nothing
-        Dim sw2 As System.IO.StreamWriter = Nothing
+        'Dim sw2 As System.IO.StreamWriter = Nothing
         Try
             sw = New System.IO.StreamWriter(FilePath, Append)
 

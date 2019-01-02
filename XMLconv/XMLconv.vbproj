@@ -70,6 +70,7 @@
     <Compile Include="frmXMLconv.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modules\ModCSV.vb" />
     <Compile Include="Modules\ModDTDCreate.vb" />
     <Compile Include="Modules\ModEditXML.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -116,7 +117,9 @@
   <ItemGroup>
     <None Include="Ball.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="EpdIcon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
