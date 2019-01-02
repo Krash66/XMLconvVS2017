@@ -60,7 +60,7 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsXMLelement.vb" />
+    <Compile Include="Classes\ClsXMLelement.vb" />
     <Compile Include="frmBlank.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -116,9 +116,7 @@
   <ItemGroup>
     <None Include="Ball.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

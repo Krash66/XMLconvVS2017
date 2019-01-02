@@ -1,4 +1,6 @@
-﻿Public Class frmXMLconv
+﻿Imports System.Xml
+
+Public Class frmXMLconv
     Inherits frmBlank
     '/// Created by TK   November 2011
     '/// Creates XML DTD files from XML messages
@@ -125,11 +127,13 @@ doAgain:
             InFilePath = OFD1.FileName
             If InFilePath <> "" Then
                 txtInPath.Text = InFilePath
-                LoadInText()
-                btnConv.Enabled = True
-                ' Added for Value Cahange Peice
-                BtnNewValue.Enabled = True
-                LoadComboBox()
+                xml_Indoc = LoadXMLdoc()
+                'Format the XML Document
+                If FormatDoc() Then
+                    LoadInText()
+                    btnConv.Enabled = True
+                    LoadTreeView()
+                End If
             End If
 
         Catch ex As Exception
@@ -137,19 +141,6 @@ doAgain:
         End Try
 
     End Sub
-
-    Private Sub LoadComboBox()
-        Try
-            xml_Indoc.Load(InFilePath)
-            For Each node As Xml.XmlElement In xml_Indoc
-                cbElement.Items.Add(node.Name)
-            Next
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
 
     Private Sub LoadInText()
 
@@ -167,7 +158,6 @@ doAgain:
     Function LoadTextFile(ByVal FilePath As String) As String
 
         Dim sr As System.IO.StreamReader = Nothing
-
         Try
             sr = New System.IO.StreamReader(FilePath)
             LoadTextFile = sr.ReadToEnd()
@@ -181,11 +171,77 @@ doAgain:
 
     End Function
 
+    Private Function LoadXMLdoc() As Xml.XmlDocument
+
+        Try
+            Dim XMLtext As New Xml.XmlDocument
+            If EncodeXMLFile(InFilePath) Then
+                XMLtext.Load(InFilePath)
+            End If
+            Return XMLtext
+
+        Catch ex As Exception
+            'LogError(ex, "modGeneral LoadTextFile")
+            Return Nothing
+        End Try
+
+    End Function
+
+    Function EncodeXMLFile(ByVal file As String) As Boolean
+
+        Try
+            Dim s As String
+
+            s = LoadTextFile(file)
+            s = s.Replace("&", "&amp;")
+
+            EncodeXMLFile = SaveTextFile(file, s)
+
+        Catch ex As Exception
+            'LogError(ex, "modXML EncodeXMLFile")
+            EncodeXMLFile = False
+        End Try
+
+    End Function
+
+    Function LoadTreeView() As Boolean
+        Try
+            If xml_Indoc.HasChildNodes = True Then
+                For Each nd As XmlNode In xml_Indoc.ChildNodes
+                    '*** Process each Node, if it is an element
+                    '*** if it's not an element, ignore it
+                    If nd.NodeType = XmlNodeType.Element Then
+                        Dim tnode As New TreeNode(nd.Name)
+                        TVxml.Nodes.Add(tnode)
+                        ProcessTreeChild(nd, tnode)
+                    End If
+                Next 'next doc child
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error loading Treeview")
+        End Try
+    End Function
+
+    Sub ProcessTreeChild(nd As XmlNode, tnd As TreeNode)
+        Try
+            'add this node to tree
+            Dim tnode As New TreeNode(nd.Name)
+
+            'now process the node's children
+            If nd.HasChildNodes = True Then
+                For Each cn As XmlNode In nd.ChildNodes
+
+                Next
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error loading Treeview")
+        End Try
+    End Sub
 #End Region
 
 #Region "Change Data Values"
 
-    Private Sub BtnNewValue_Click(sender As Object, e As EventArgs) Handles BtnNewValue.Click
+    Private Sub BtnNewValue_Click(sender As Object, e As EventArgs)
         Try
             ArrAllElements.Clear()
             ArrParentNodes.Clear()
@@ -251,7 +307,7 @@ doAgain:
             sb = New System.Text.StringBuilder
             txtXMLout.Text = ""
 
-            'Start processing each node in the Message
+            'Start processing each node in the Message           
             If xml_Indoc.HasChildNodes = True Then
                 For Each nd As Xml.XmlNode In xml_Indoc.ChildNodes
                     '*** Process each Node, if it is an element
@@ -304,7 +360,7 @@ doAgain:
                     '*** Do Nothing except goto next sibling or parent
 
                 Case enumXMLActionType.Failed
-                    If MsgBox("Translation failed at Element: " & Node.Name & Chr(13) & _
+                    If MsgBox("Translation failed at Element: " & Node.Name & Chr(13) &
                            "Would you like to continue processing?", MsgBoxStyle.YesNo, "Translation Failed") = MsgBoxResult.No Then
                         '*** abort here
                         Exit Function
@@ -621,10 +677,6 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
         End Try
 
     End Function
-
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbElement.SelectedIndexChanged
-
-    End Sub
 
 #End Region
 
