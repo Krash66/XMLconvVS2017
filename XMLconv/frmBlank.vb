@@ -162,7 +162,6 @@ Public Class frmBlank
         Me.KeyPreview = True
         Me.Name = "frmBlank"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Design Studio V3"
         Me.Panel1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

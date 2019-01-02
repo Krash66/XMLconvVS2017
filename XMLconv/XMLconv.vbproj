@@ -60,7 +60,7 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsXMLelement.vb" />
+    <Compile Include="Classes\ClsXMLelement.vb" />
     <Compile Include="frmBlank.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +70,7 @@
     <Compile Include="frmXMLconv.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modules\ModCSV.vb" />
     <Compile Include="Modules\ModDTDCreate.vb" />
     <Compile Include="Modules\ModEditXML.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -117,7 +118,7 @@
     <None Include="Ball.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Classes\" />
+    <Content Include="EpdIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
