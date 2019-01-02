@@ -350,9 +350,9 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             For Each node As XmlNode In xml_Indoc.ChildNodes
                 node.Normalize()
             Next
-
+            Return True
         Catch ex As Exception
-
+            MessageBox.Show("Error formatting XML Document")
         End Try
     End Function
 End Module

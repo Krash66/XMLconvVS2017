@@ -30,14 +30,11 @@ Partial Class frmXMLconv
         Me.OFD1 = New System.Windows.Forms.OpenFileDialog()
         Me.SFD1 = New System.Windows.Forms.SaveFileDialog()
         Me.btnConv = New System.Windows.Forms.Button()
-        Me.BtnNewValue = New System.Windows.Forms.Button()
-        Me.cbElement = New System.Windows.Forms.ComboBox()
         Me.GbReplaceValue = New System.Windows.Forms.GroupBox()
         Me.RbAllElements = New System.Windows.Forms.RadioButton()
         Me.RbOnlyThisElement = New System.Windows.Forms.RadioButton()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.TbNewValue = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.TVxml = New System.Windows.Forms.TreeView()
         Me.Panel1.SuspendLayout()
         Me.gbIn.SuspendLayout()
         Me.gbXMLout.SuspendLayout()
@@ -99,7 +96,7 @@ Partial Class frmXMLconv
         Me.gbIn.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbIn.Location = New System.Drawing.Point(12, 49)
         Me.gbIn.Name = "gbIn"
-        Me.gbIn.Size = New System.Drawing.Size(1114, 198)
+        Me.gbIn.Size = New System.Drawing.Size(450, 460)
         Me.gbIn.TabIndex = 58
         Me.gbIn.TabStop = False
         Me.gbIn.Text = "XML File In"
@@ -107,9 +104,9 @@ Partial Class frmXMLconv
         'btnbrowseIn
         '
         Me.btnbrowseIn.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnbrowseIn.Location = New System.Drawing.Point(902, 17)
+        Me.btnbrowseIn.Location = New System.Drawing.Point(358, 17)
         Me.btnbrowseIn.Name = "btnbrowseIn"
-        Me.btnbrowseIn.Size = New System.Drawing.Size(206, 23)
+        Me.btnbrowseIn.Size = New System.Drawing.Size(86, 23)
         Me.btnbrowseIn.TabIndex = 2
         Me.btnbrowseIn.Text = "Input File"
         Me.btnbrowseIn.UseVisualStyleBackColor = True
@@ -127,7 +124,7 @@ Partial Class frmXMLconv
         Me.txtInMessage.ReadOnly = True
         Me.txtInMessage.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.txtInMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtInMessage.Size = New System.Drawing.Size(1102, 147)
+        Me.txtInMessage.Size = New System.Drawing.Size(438, 409)
         Me.txtInMessage.TabIndex = 1
         Me.txtInMessage.Text = " "
         Me.txtInMessage.WordWrap = False
@@ -138,7 +135,7 @@ Partial Class frmXMLconv
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtInPath.Location = New System.Drawing.Point(6, 19)
         Me.txtInPath.Name = "txtInPath"
-        Me.txtInPath.Size = New System.Drawing.Size(890, 20)
+        Me.txtInPath.Size = New System.Drawing.Size(346, 20)
         Me.txtInPath.TabIndex = 0
         '
         'gbXMLout
@@ -150,9 +147,9 @@ Partial Class frmXMLconv
         Me.gbXMLout.Controls.Add(Me.btnbrowseOut)
         Me.gbXMLout.Controls.Add(Me.txtOutPath)
         Me.gbXMLout.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.gbXMLout.Location = New System.Drawing.Point(12, 332)
+        Me.gbXMLout.Location = New System.Drawing.Point(678, 49)
         Me.gbXMLout.Name = "gbXMLout"
-        Me.gbXMLout.Size = New System.Drawing.Size(1114, 177)
+        Me.gbXMLout.Size = New System.Drawing.Size(448, 460)
         Me.gbXMLout.TabIndex = 59
         Me.gbXMLout.TabStop = False
         Me.gbXMLout.Text = "XML File output"
@@ -170,15 +167,15 @@ Partial Class frmXMLconv
         Me.txtXMLout.Name = "txtXMLout"
         Me.txtXMLout.ReadOnly = True
         Me.txtXMLout.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtXMLout.Size = New System.Drawing.Size(1102, 124)
+        Me.txtXMLout.Size = New System.Drawing.Size(436, 407)
         Me.txtXMLout.TabIndex = 3
         '
         'btnbrowseOut
         '
         Me.btnbrowseOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnbrowseOut.Location = New System.Drawing.Point(902, 149)
+        Me.btnbrowseOut.Location = New System.Drawing.Point(320, 432)
         Me.btnbrowseOut.Name = "btnbrowseOut"
-        Me.btnbrowseOut.Size = New System.Drawing.Size(206, 23)
+        Me.btnbrowseOut.Size = New System.Drawing.Size(122, 23)
         Me.btnbrowseOut.TabIndex = 2
         Me.btnbrowseOut.Text = "Save Output File"
         Me.btnbrowseOut.UseVisualStyleBackColor = True
@@ -187,9 +184,9 @@ Partial Class frmXMLconv
         '
         Me.txtOutPath.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtOutPath.Location = New System.Drawing.Point(6, 151)
+        Me.txtOutPath.Location = New System.Drawing.Point(6, 434)
         Me.txtOutPath.Name = "txtOutPath"
-        Me.txtOutPath.Size = New System.Drawing.Size(890, 20)
+        Me.txtOutPath.Size = New System.Drawing.Size(308, 20)
         Me.txtOutPath.TabIndex = 1
         '
         'OFD1
@@ -206,44 +203,24 @@ Partial Class frmXMLconv
         'btnConv
         '
         Me.btnConv.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnConv.Location = New System.Drawing.Point(12, 253)
+        Me.btnConv.Location = New System.Drawing.Point(468, 469)
         Me.btnConv.Name = "btnConv"
-        Me.btnConv.Size = New System.Drawing.Size(124, 67)
+        Me.btnConv.Size = New System.Drawing.Size(87, 40)
         Me.btnConv.TabIndex = 61
         Me.btnConv.Text = "Convert to Data List"
         Me.btnConv.UseVisualStyleBackColor = True
         '
-        'BtnNewValue
-        '
-        Me.BtnNewValue.Location = New System.Drawing.Point(790, 14)
-        Me.BtnNewValue.Name = "BtnNewValue"
-        Me.BtnNewValue.Size = New System.Drawing.Size(188, 28)
-        Me.BtnNewValue.TabIndex = 62
-        Me.BtnNewValue.Text = "Change Value"
-        Me.BtnNewValue.UseVisualStyleBackColor = True
-        '
-        'cbElement
-        '
-        Me.cbElement.FormattingEnabled = True
-        Me.cbElement.Location = New System.Drawing.Point(6, 48)
-        Me.cbElement.Name = "cbElement"
-        Me.cbElement.Size = New System.Drawing.Size(457, 24)
-        Me.cbElement.TabIndex = 63
-        '
         'GbReplaceValue
         '
+        Me.GbReplaceValue.Controls.Add(Me.TVxml)
         Me.GbReplaceValue.Controls.Add(Me.RbAllElements)
         Me.GbReplaceValue.Controls.Add(Me.RbOnlyThisElement)
-        Me.GbReplaceValue.Controls.Add(Me.Label4)
-        Me.GbReplaceValue.Controls.Add(Me.TbNewValue)
         Me.GbReplaceValue.Controls.Add(Me.Label3)
-        Me.GbReplaceValue.Controls.Add(Me.BtnNewValue)
-        Me.GbReplaceValue.Controls.Add(Me.cbElement)
         Me.GbReplaceValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GbReplaceValue.ForeColor = System.Drawing.SystemColors.Highlight
-        Me.GbReplaceValue.Location = New System.Drawing.Point(142, 247)
+        Me.GbReplaceValue.Location = New System.Drawing.Point(468, 46)
         Me.GbReplaceValue.Name = "GbReplaceValue"
-        Me.GbReplaceValue.Size = New System.Drawing.Size(986, 79)
+        Me.GbReplaceValue.Size = New System.Drawing.Size(204, 417)
         Me.GbReplaceValue.TabIndex = 64
         Me.GbReplaceValue.TabStop = False
         Me.GbReplaceValue.Text = "Replace Element Value"
@@ -251,7 +228,7 @@ Partial Class frmXMLconv
         'RbAllElements
         '
         Me.RbAllElements.AutoSize = True
-        Me.RbAllElements.Location = New System.Drawing.Point(469, 47)
+        Me.RbAllElements.Location = New System.Drawing.Point(9, 391)
         Me.RbAllElements.Name = "RbAllElements"
         Me.RbAllElements.Size = New System.Drawing.Size(169, 20)
         Me.RbAllElements.TabIndex = 68
@@ -262,7 +239,7 @@ Partial Class frmXMLconv
         '
         Me.RbOnlyThisElement.AutoSize = True
         Me.RbOnlyThisElement.Checked = True
-        Me.RbOnlyThisElement.Location = New System.Drawing.Point(469, 18)
+        Me.RbOnlyThisElement.Location = New System.Drawing.Point(9, 365)
         Me.RbOnlyThisElement.Name = "RbOnlyThisElement"
         Me.RbOnlyThisElement.Size = New System.Drawing.Size(151, 20)
         Me.RbOnlyThisElement.TabIndex = 67
@@ -270,30 +247,25 @@ Partial Class frmXMLconv
         Me.RbOnlyThisElement.Text = "Only This Element"
         Me.RbOnlyThisElement.UseVisualStyleBackColor = True
         '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(644, 20)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(122, 16)
-        Me.Label4.TabIndex = 66
-        Me.Label4.Text = "Enter New Value"
-        '
-        'TbNewValue
-        '
-        Me.TbNewValue.Location = New System.Drawing.Point(647, 48)
-        Me.TbNewValue.Name = "TbNewValue"
-        Me.TbNewValue.Size = New System.Drawing.Size(331, 22)
-        Me.TbNewValue.TabIndex = 65
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(6, 26)
+        Me.Label3.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label3.Location = New System.Drawing.Point(6, 18)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(121, 16)
         Me.Label3.TabIndex = 64
         Me.Label3.Text = "Choose Element"
+        '
+        'TVxml
+        '
+        Me.TVxml.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TVxml.Location = New System.Drawing.Point(9, 37)
+        Me.TVxml.Name = "TVxml"
+        Me.TVxml.Size = New System.Drawing.Size(189, 322)
+        Me.TVxml.TabIndex = 69
         '
         'frmXMLconv
         '
@@ -334,12 +306,9 @@ Partial Class frmXMLconv
     Friend WithEvents txtXMLout As System.Windows.Forms.TextBox
     Friend WithEvents btnbrowseOut As System.Windows.Forms.Button
     Friend WithEvents txtOutPath As System.Windows.Forms.TextBox
-    Friend WithEvents BtnNewValue As Button
-    Friend WithEvents cbElement As ComboBox
     Friend WithEvents GbReplaceValue As GroupBox
-    Friend WithEvents Label4 As Label
-    Friend WithEvents TbNewValue As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents RbAllElements As RadioButton
     Friend WithEvents RbOnlyThisElement As RadioButton
+    Friend WithEvents TVxml As TreeView
 End Class

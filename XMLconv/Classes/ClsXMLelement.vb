@@ -10,6 +10,7 @@ Public Class ClsXMLelement
     Private _Children As ArrayList
     Private _Parent As ClsXMLelement
     Private _ElementValue As XmlCharacterData
+    Private _Siblings As ArrayList
     Private ReadOnly _FamilyLine As String
 
     Public ReadOnly Property Name As String
@@ -42,6 +43,15 @@ Public Class ClsXMLelement
         End Get
         Set
             _Children = Value
+        End Set
+    End Property
+
+    Public Property Siblings As ArrayList
+        Get
+            Return _Siblings
+        End Get
+        Set
+            _Siblings = Value
         End Set
     End Property
 
