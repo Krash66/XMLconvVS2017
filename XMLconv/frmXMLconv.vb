@@ -36,7 +36,7 @@ Public Class frmXMLconv
         Try
             cmdOk.Enabled = False
             btnConv.Enabled = False
-            btnbrowseOut.Enabled = False
+            BtnSaveCSV.Enabled = False
             RbOnlyThisElement.Checked = True
             RbAllElements.Checked = False
 
@@ -331,7 +331,7 @@ Public Class frmXMLconv
 
             If printCData(ArrCDataNodes) = True Then
                 txtCSVout.Text = sb.ToString
-                btnbrowseOut.Enabled = True
+                BtnSaveCSV.Enabled = True
             End If
 
         Catch ex As Exception
@@ -598,7 +598,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
 #Region "Save Output DTD file"
 
-    Private Sub btnbrowseOut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnbrowseOut.Click
+    Private Sub btnbrowseOut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSaveCSV.Click
 
         Try
             SFD1.Title = "Output File"

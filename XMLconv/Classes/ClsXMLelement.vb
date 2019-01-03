@@ -1,8 +1,5 @@
 ﻿Option Strict On
 Option Explicit On
-
-Imports System
-Imports System.IO
 Imports System.Xml
 Public Class ClsXMLelement
     Private ReadOnly _Name As String
