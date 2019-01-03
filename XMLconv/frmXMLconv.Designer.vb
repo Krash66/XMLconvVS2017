@@ -25,7 +25,7 @@ Partial Class frmXMLconv
         Me.txtInPath = New System.Windows.Forms.TextBox()
         Me.gbXMLout = New System.Windows.Forms.GroupBox()
         Me.txtCSVout = New System.Windows.Forms.TextBox()
-        Me.btnbrowseOut = New System.Windows.Forms.Button()
+        Me.BtnSaveCSV = New System.Windows.Forms.Button()
         Me.txtOutPath = New System.Windows.Forms.TextBox()
         Me.OFD1 = New System.Windows.Forms.OpenFileDialog()
         Me.SFD1 = New System.Windows.Forms.SaveFileDialog()
@@ -38,11 +38,11 @@ Partial Class frmXMLconv
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.txtDTDout = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.BtnSaveDTD = New System.Windows.Forms.Button()
+        Me.TxtSaveDTDPath = New System.Windows.Forms.TextBox()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Panel1.SuspendLayout()
         Me.gbIn.SuspendLayout()
         Me.gbXMLout.SuspendLayout()
@@ -155,7 +155,7 @@ Partial Class frmXMLconv
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.gbXMLout.Controls.Add(Me.txtCSVout)
-        Me.gbXMLout.Controls.Add(Me.btnbrowseOut)
+        Me.gbXMLout.Controls.Add(Me.BtnSaveCSV)
         Me.gbXMLout.Controls.Add(Me.txtOutPath)
         Me.gbXMLout.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbXMLout.Location = New System.Drawing.Point(3, 3)
@@ -182,15 +182,15 @@ Partial Class frmXMLconv
         Me.txtCSVout.TabIndex = 3
         Me.txtCSVout.WordWrap = False
         '
-        'btnbrowseOut
+        'BtnSaveCSV
         '
-        Me.btnbrowseOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnbrowseOut.Location = New System.Drawing.Point(296, 400)
-        Me.btnbrowseOut.Name = "btnbrowseOut"
-        Me.btnbrowseOut.Size = New System.Drawing.Size(122, 23)
-        Me.btnbrowseOut.TabIndex = 2
-        Me.btnbrowseOut.Text = "Save Output File"
-        Me.btnbrowseOut.UseVisualStyleBackColor = True
+        Me.BtnSaveCSV.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnSaveCSV.Location = New System.Drawing.Point(296, 400)
+        Me.BtnSaveCSV.Name = "BtnSaveCSV"
+        Me.BtnSaveCSV.Size = New System.Drawing.Size(59, 23)
+        Me.BtnSaveCSV.TabIndex = 2
+        Me.BtnSaveCSV.Text = "Save CSV"
+        Me.BtnSaveCSV.UseVisualStyleBackColor = True
         '
         'txtOutPath
         '
@@ -319,24 +319,14 @@ Partial Class frmXMLconv
         Me.TabPage2.Text = "DTD"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
-        'TabPage3
-        '
-        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(430, 434)
-        Me.TabPage3.TabIndex = 2
-        Me.TabPage3.Text = "Elements"
-        Me.TabPage3.UseVisualStyleBackColor = True
-        '
         'GroupBox2
         '
         Me.GroupBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.txtDTDout)
-        Me.GroupBox2.Controls.Add(Me.Button1)
-        Me.GroupBox2.Controls.Add(Me.TextBox2)
+        Me.GroupBox2.Controls.Add(Me.BtnSaveDTD)
+        Me.GroupBox2.Controls.Add(Me.TxtSaveDTDPath)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox2.Name = "GroupBox2"
@@ -362,24 +352,34 @@ Partial Class frmXMLconv
         Me.txtDTDout.TabIndex = 3
         Me.txtDTDout.WordWrap = False
         '
-        'Button1
+        'BtnSaveDTD
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(296, 400)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(122, 23)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Save Output File"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.BtnSaveDTD.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnSaveDTD.Location = New System.Drawing.Point(296, 400)
+        Me.BtnSaveDTD.Name = "BtnSaveDTD"
+        Me.BtnSaveDTD.Size = New System.Drawing.Size(122, 23)
+        Me.BtnSaveDTD.TabIndex = 2
+        Me.BtnSaveDTD.Text = "Save Output File"
+        Me.BtnSaveDTD.UseVisualStyleBackColor = True
         '
-        'TextBox2
+        'TxtSaveDTDPath
         '
-        Me.TextBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.TxtSaveDTDPath.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox2.Location = New System.Drawing.Point(6, 402)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(284, 20)
-        Me.TextBox2.TabIndex = 1
+        Me.TxtSaveDTDPath.Location = New System.Drawing.Point(6, 402)
+        Me.TxtSaveDTDPath.Name = "TxtSaveDTDPath"
+        Me.TxtSaveDTDPath.Size = New System.Drawing.Size(284, 20)
+        Me.TxtSaveDTDPath.TabIndex = 1
+        '
+        'TabPage3
+        '
+        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage3.Size = New System.Drawing.Size(430, 434)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Elements"
+        Me.TabPage3.UseVisualStyleBackColor = True
         '
         'frmXMLconv
         '
@@ -423,7 +423,7 @@ Partial Class frmXMLconv
     Friend WithEvents btnbrowseIn As System.Windows.Forms.Button
     Friend WithEvents btnConv As System.Windows.Forms.Button
     Friend WithEvents txtCSVout As System.Windows.Forms.TextBox
-    Friend WithEvents btnbrowseOut As System.Windows.Forms.Button
+    Friend WithEvents BtnSaveCSV As System.Windows.Forms.Button
     Friend WithEvents txtOutPath As System.Windows.Forms.TextBox
     Friend WithEvents GbReplaceValue As GroupBox
     Friend WithEvents Label3 As Label
@@ -435,7 +435,7 @@ Partial Class frmXMLconv
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents txtDTDout As TextBox
-    Friend WithEvents Button1 As Button
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents BtnSaveDTD As Button
+    Friend WithEvents TxtSaveDTDPath As TextBox
     Friend WithEvents TabPage3 As TabPage
 End Class
