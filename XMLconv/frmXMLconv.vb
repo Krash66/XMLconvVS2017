@@ -22,7 +22,7 @@ Public Class frmXMLconv
 
     Private IsAll As Boolean = False
 
-    Private Enum enumXMLActionType
+    Private Enum EnumXMLActionType
         Failed = 0
         E_PrintwCldrn = 1
         E_PrintAsCdata = 2
@@ -39,11 +39,11 @@ Public Class frmXMLconv
             BtnSaveCSV.Enabled = False
             RbOnlyThisElement.Checked = True
             RbAllElements.Checked = False
-
+            LoadGlobalValues()
             Me.Show()
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv OpenForm")
+            LogError(ex, "frmXMLconv OpenForm")
             Return False
         End Try
 
@@ -70,14 +70,14 @@ Public Class frmXMLconv
 
     '    End Function
 
-    Private Sub cmdCancel_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
+    Private Sub CmdCancel_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
 
         Me.Close()
         Me.DialogResult = Windows.Forms.DialogResult.Abort
 
     End Sub
 
-    Private Sub cmdHelp_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdHelp.Click
+    Private Sub CmdHelp_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdHelp.Click
 
         'ShowHelp(HHId.H_XML_CONV)
 
@@ -87,9 +87,9 @@ Public Class frmXMLconv
 
         Select Case e.KeyCode
             Case Keys.Escape
-                cmdCancel_Click_1(sender, New EventArgs)
+                CmdCancel_Click_1(sender, New EventArgs)
             Case Keys.F1
-                cmdHelp_Click_1(sender, New EventArgs)
+                CmdHelp_Click_1(sender, New EventArgs)
         End Select
 
     End Sub
@@ -98,7 +98,7 @@ Public Class frmXMLconv
 
 #Region "Load Input XML Message"
 
-    Private Sub btnbrowseIn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnbrowseIn.Click
+    Private Sub BtnbrowseIn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnbrowseIn.Click
 
         Try
             OFD1.Title = "XML Message"
@@ -108,7 +108,7 @@ Public Class frmXMLconv
             OFD1.ShowDialog()
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv btnbrowseIn_Click")
+            LogError(ex, "frmXMLconv btnbrowseIn_Click")
         End Try
     End Sub
 
@@ -129,7 +129,7 @@ Public Class frmXMLconv
             End If
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv OFD1_FileOk")
+            LogError(ex, "frmXMLconv OFD1_FileOk")
         End Try
 
     End Sub
@@ -142,26 +142,12 @@ Public Class frmXMLconv
             txtInMessage.Text = LoadTextFile(InFilePath)
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv LoadInText")
+            LogError(ex, "frmXMLconv LoadInText")
         End Try
 
     End Sub
 
-    Function LoadTextFile(ByVal FilePath As String) As String
 
-        Dim sr As System.IO.StreamReader = Nothing
-        Try
-            sr = New System.IO.StreamReader(FilePath)
-            LoadTextFile = sr.ReadToEnd()
-
-        Catch ex As Exception
-            'LogError(ex, "modGeneral LoadTextFile")
-            Return ""
-        Finally
-            If Not sr Is Nothing Then sr.Close()
-        End Try
-
-    End Function
 
     Private Function LoadXMLdoc() As Xml.XmlDocument
 
@@ -173,7 +159,7 @@ Public Class frmXMLconv
             Return XMLtext
 
         Catch ex As Exception
-            'LogError(ex, "modGeneral LoadTextFile")
+            LogError(ex, "frmXMLconv LoadXMLdoc")
             Return Nothing
         End Try
 
@@ -190,7 +176,7 @@ Public Class frmXMLconv
             EncodeXMLFile = SaveTextFile(file, s)
 
         Catch ex As Exception
-            'LogError(ex, "modXML EncodeXMLFile")
+            LogError(ex, "frmXMLconv EncodeXMLFile")
             EncodeXMLFile = False
         End Try
 
@@ -203,8 +189,9 @@ Public Class frmXMLconv
                     '*** Process each Node, if it is an element
                     '*** if it's not an element, ignore it
                     If nd.NodeType = XmlNodeType.Element Then
-                        Dim tnode As New TreeNode(nd.Name)
-                        tnode.Tag = nd
+                        Dim tnode As New TreeNode(nd.Name) With {
+                            .Tag = nd
+                        }
                         TVxml.Nodes.Add(tnode)
                         TVxml.SelectedNode = tnode
                         ProcessTreeChild(nd, tnode)
@@ -215,7 +202,7 @@ Public Class frmXMLconv
                 TVxml.SelectedNode.EnsureVisible()
             End If
         Catch ex As Exception
-            MessageBox.Show("Error loading Treeview")
+            LogError(ex, "frmXMLconv LoadTreeView")
         End Try
     End Function
 
@@ -225,15 +212,16 @@ Public Class frmXMLconv
             If nd.HasChildNodes = True Then
                 For Each cn As XmlNode In nd.ChildNodes
                     If cn.NodeType = XmlNodeType.Element Then
-                        Dim tn As New TreeNode(cn.Name)  ' & " " & cn.InnerText
-                        tn.Tag = cn
+                        Dim tn As New TreeNode(cn.Name) With {
+                            .Tag = cn
+                        }  ' & " " & cn.InnerText
                         tnd.Nodes.Add(tn)
                         ProcessTreeChild(cn, tn)
                     End If
                 Next
             End If
         Catch ex As Exception
-            MessageBox.Show("Error loading Treeview")
+            LogError(ex, "frmXMLconv ProcessTreeChild")
         End Try
     End Sub
 
@@ -244,7 +232,7 @@ Public Class frmXMLconv
             Next
             Return True
         Catch ex As Exception
-            MessageBox.Show("Error formatting XML Document")
+            LogError(ex, "frmXMLconv FormatDoc")
         End Try
     End Function
 
@@ -305,7 +293,7 @@ Public Class frmXMLconv
 
 #Region "Convert to DTD"
 
-    Private Sub btnConv_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnConv.Click
+    Private Sub BtnConv_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnConv.Click
 
         Try
             ArrAllElements.Clear()
@@ -324,33 +312,33 @@ Public Class frmXMLconv
                     '*** Process each Node, if it is an element
                     '*** if it's not an element, ignore it
                     If nd.NodeType = Xml.XmlNodeType.Element Then
-                        processNode(nd)
+                        ProcessNode(nd)
                     End If
                 Next 'next doc child
             End If
 
-            If printCData(ArrCDataNodes) = True Then
+            If PrintCData(ArrCDataNodes) = True Then
                 txtCSVout.Text = sb.ToString
                 BtnSaveCSV.Enabled = True
             End If
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv btnConv_Click")
+            LogError(ex, "frmXMLconv btnConv_Click")
         End Try
 
     End Sub
 
-    Private Function processNode(ByVal Node As Xml.XmlNode) As Boolean
+    Private Function ProcessNode(ByVal Node As Xml.XmlNode) As Boolean
 
         Try
-            Dim Action As enumXMLActionType = GetNodeAction(Node)
+            Dim Action As EnumXMLActionType = GetNodeAction(Node)
             Dim ElementValue As String = Node.InnerText
 
             Select Case Action
-                Case enumXMLActionType.E_PrintwCldrn
+                Case EnumXMLActionType.E_PrintwCldrn
 
                     '*** Print the Element with it's children
-                    printNodeWithChildren(Node)
+                    PrintNodeWithChildren(Node)
                     '*** Now process the Children
                     For Each cld As Xml.XmlNode In Node.ChildNodes
                         'sb.AppendLine()
@@ -358,19 +346,19 @@ Public Class frmXMLconv
                         'sb.AppendLine("   ***Of Parent = " & Node.Name)
                         'sb.AppendLine("   ***Sent to processNode")
                         'sb.AppendLine()
-                        processNode(cld)
+                        ProcessNode(cld)
                     Next
 
-                Case enumXMLActionType.E_PrintAsCdata
+                Case EnumXMLActionType.E_PrintAsCdata
                     Dim QualName As String = GetCDataName(Node)
                     Dim ArrayName As String = String.Format("{0,-32}{1, -8}{2,-40}", QualName, ",  value:,", ElementValue)
                     ArrCDataNodes.Add(ArrayName)
                     'ArrAllElements.Add(QualName)
 
-                Case enumXMLActionType.E_Ignore
+                Case EnumXMLActionType.E_Ignore
                     '*** Do Nothing except goto next sibling or parent
 
-                Case enumXMLActionType.Failed
+                Case EnumXMLActionType.Failed
                     If MsgBox("Translation failed at Element: " & Node.Name & Chr(13) &
                            "Would you like to continue processing?", MsgBoxStyle.YesNo, "Translation Failed") = MsgBoxResult.No Then
                         '*** abort here
@@ -405,13 +393,13 @@ Public Class frmXMLconv
             Return True
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv processNode")
+            LogError(ex, "frmXMLconv processNode")
             Return False
         End Try
 
     End Function
 
-    Private Function GetNodeAction(ByVal nd As Xml.XmlNode) As enumXMLActionType
+    Private Function GetNodeAction(ByVal nd As Xml.XmlNode) As EnumXMLActionType
 
         Try
             Dim IsParentElement As Boolean = False
@@ -427,27 +415,27 @@ Public Class frmXMLconv
                         End If
                         NumEle += 1
                         If NumEle = 2 Then
-                            GetNodeAction = enumXMLActionType.E_PrintwCldrn
+                            GetNodeAction = EnumXMLActionType.E_PrintwCldrn
                             Exit Function
                         End If
                     End If
                 Next
                 If IsParentElement = True Then
-                    GetNodeAction = enumXMLActionType.E_PrintwCldrn
+                    GetNodeAction = EnumXMLActionType.E_PrintwCldrn
                 Else
-                    GetNodeAction = enumXMLActionType.E_PrintAsCdata
+                    GetNodeAction = EnumXMLActionType.E_PrintAsCdata
                 End If
             Else
                 If nd.NodeType = Xml.XmlNodeType.Element Then
-                    GetNodeAction = enumXMLActionType.E_PrintAsCdata
+                    GetNodeAction = EnumXMLActionType.E_PrintAsCdata
                 Else
-                    GetNodeAction = enumXMLActionType.E_Ignore
+                    GetNodeAction = EnumXMLActionType.E_Ignore
                 End If
             End If
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv GetNodeAction")
-            GetNodeAction = enumXMLActionType.Failed
+            LogError(ex, "frmXMLconv GetNodeAction")
+            GetNodeAction = EnumXMLActionType.Failed
             sb.AppendLine("   --- Node action Failed ::" & nd.Name)
             sb.AppendLine()
         End Try
@@ -470,7 +458,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             GetElementName = NewName
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv GetNameToAdd")
+            LogError(ex, "frmXMLconv GetNameToAdd")
             GetElementName = ""
         End Try
 
@@ -492,7 +480,7 @@ TryAgain:   If ArrAllElements.Contains(NewName) = True Then
             GetChildName = NewName
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv GetChildName")
+            LogError(ex, "frmXMLconv GetChildName")
             GetChildName = ""
         End Try
 
@@ -520,13 +508,13 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             End If
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv GetCDataNameToAdd")
+            LogError(ex, "frmXMLconv GetCDataNameToAdd")
             GetCDataName = ""
         End Try
 
     End Function
 
-    Private Function printNodeWithChildren(ByVal node As Xml.XmlNode) As Boolean
+    Private Function PrintNodeWithChildren(ByVal node As Xml.XmlNode) As Boolean
 
         Try
             Dim QualName As String = GetElementName(node)
@@ -568,13 +556,13 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv printNode")
+            LogError(ex, "frmXMLconv printNode")
             Return False
         End Try
 
     End Function
 
-    Private Function printCData(ByVal Arr As ArrayList) As Boolean
+    Private Function PrintCData(ByVal Arr As ArrayList) As Boolean
 
         Try
             Dim FORfld As String
@@ -588,7 +576,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             Return True
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv printCData")
+            LogError(ex, "frmXMLconv printCData")
             Return False
         End Try
 
@@ -598,7 +586,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
 #Region "Save Output DTD file"
 
-    Private Sub btnbrowseOut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSaveCSV.Click
+    Private Sub BtnbrowseOut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSaveCSV.Click
 
         Try
             SFD1.Title = "Output File"
@@ -609,7 +597,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             SFD1.ShowDialog()
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv btnbrowseOut_Click")
+            LogError(ex, "frmXMLconv btnbrowseOut_Click")
         End Try
 
     End Sub
@@ -628,12 +616,12 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             End If
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv SFD1_FileOk")
+            LogError(ex, "frmXMLconv SFD1_FileOk")
         End Try
 
     End Sub
 
-    Private Sub cmdOk_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOk.Click
+    Private Sub CmdOk_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOk.Click
 
         'Me.Close()
         'If Save() = True Then
@@ -648,7 +636,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             End If
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv cmdOk_Click_1")
+            LogError(ex, "frmXMLconv cmdOk_Click_1")
         End Try
 
     End Sub
@@ -665,7 +653,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             End If
 
         Catch ex As Exception
-            'LogError(ex, "frmXMLconv Save")
+            LogError(ex, "frmXMLconv Save")
             Save = False
         End Try
 
@@ -682,7 +670,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             Return True
 
         Catch ex As Exception
-            'LogError(ex, "modGeneral SaveTextFile")
+            LogError(ex, "FrmXMLconv SaveTextFile")
             Return False
         Finally
             If sw IsNot Nothing Then sw.Close()
@@ -717,13 +705,12 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             Next
 
         Catch ex As Exception
-            MessageBox.Show("Error occured during Building Attribute and Child Node Grids" + vbCrLf + ex.Message)
+            LogError(ex, "FrmXMLconv SaveTextFile")
         End Try
 
     End Sub
 
     Sub ClearElementTab()
-
         Try
             TxtElementName.Text = ""
             TxtElementValue.Text = ""
@@ -732,16 +719,50 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             DGVAttrib.Rows.Clear()
 
         Catch ex As Exception
-
+            LogError(ex, "FrmXMLconv ClearElementTab")
         End Try
     End Sub
-    'Private Sub TVxml_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVxml.AfterSelect
 
-    'End Sub
+    Private Sub LogFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LogFilesToolStripMenuItem.Click
+        Try
+            Dim frm As New frmLog
+            frm.ShowLog()
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv LogFilesToolStripMenuItem_Click")
+        End Try
+    End Sub
 
-    'Private Sub TVxml_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVxml.AfterSelect
+    Private Sub TxtElementValue_TextChanged(sender As Object, e As EventArgs) Handles TxtElementValue.TextChanged
+        Try
 
-    'End Sub
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv TxtElementValue_TextChanged")
+        End Try
+    End Sub
+
+    Private Sub TxtElementName_TextChanged(sender As Object, e As EventArgs) Handles TxtElementName.TextChanged
+        Try
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv TxtElementName_TextChanged")
+        End Try
+    End Sub
+
+    Private Sub DGVAttrib_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DGVAttrib.CellContentClick
+        Try
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv DGVAttrib_CellContentClick")
+        End Try
+    End Sub
+
+    Private Sub DGVElement_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DGVElement.CellContentClick
+        Try
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv DGVElement_CellContentClick")
+        End Try
+    End Sub
 
 #End Region
 
