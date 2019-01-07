@@ -36,7 +36,7 @@ Public Class frmXMLconv
         Try
             cmdOk.Enabled = False
             btnConv.Enabled = False
-            btnbrowseOut.Enabled = False
+            BtnSaveCSV.Enabled = False
             RbOnlyThisElement.Checked = True
             RbAllElements.Checked = False
 
@@ -331,7 +331,7 @@ Public Class frmXMLconv
 
             If printCData(ArrCDataNodes) = True Then
                 txtCSVout.Text = sb.ToString
-                btnbrowseOut.Enabled = True
+                BtnSaveCSV.Enabled = True
             End If
 
         Catch ex As Exception
@@ -598,7 +598,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
 #Region "Save Output DTD file"
 
-    Private Sub btnbrowseOut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnbrowseOut.Click
+    Private Sub btnbrowseOut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSaveCSV.Click
 
         Try
             SFD1.Title = "Output File"
@@ -689,6 +689,59 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
         End Try
 
     End Function
+
+    Private Sub TVxml_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVxml.AfterSelect
+
+        Try
+            Dim SelNode As XmlNode = TVxml.SelectedNode.Tag
+            'Clear TabPage
+            ClearElementTab()
+            'populate TabPage
+            TxtElementName.Text = SelNode.LocalName
+            If SelNode.NodeType = XmlNodeType.Element Then
+                TxtElementValue.Text = SelNode.InnerText
+            Else
+                TxtElementValue.Text = ""
+            End If
+
+            'Now set DataGridViews
+            For Each Attr As XmlAttribute In SelNode.Attributes
+                Dim NewRow() As String = {Attr.LocalName, Attr.Value}
+                DGVAttrib.Rows.Add(NewRow)
+            Next
+            For Each nd As XmlNode In SelNode.ChildNodes
+                If nd.NodeType = XmlNodeType.Element Then
+                    Dim NewRowEle() As String = {nd.LocalName, nd.InnerText}
+                    DGVElement.Rows.Add(NewRowEle)
+                End If
+            Next
+
+        Catch ex As Exception
+            MessageBox.Show("Error occured during Building Attribute and Child Node Grids" + vbCrLf + ex.Message)
+        End Try
+
+    End Sub
+
+    Sub ClearElementTab()
+
+        Try
+            TxtElementName.Text = ""
+            TxtElementValue.Text = ""
+
+            DGVElement.Rows.Clear()
+            DGVAttrib.Rows.Clear()
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    'Private Sub TVxml_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVxml.AfterSelect
+
+    'End Sub
+
+    'Private Sub TVxml_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVxml.AfterSelect
+
+    'End Sub
 
 #End Region
 
