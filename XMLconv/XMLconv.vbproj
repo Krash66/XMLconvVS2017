@@ -60,8 +60,12 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\clsLogging.vb" />
     <Compile Include="Classes\ClsXMLelement.vb" />
     <Compile Include="frmBlank.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmXMLconv.designer.vb">
@@ -70,6 +74,7 @@
     <Compile Include="frmXMLconv.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modules\ModLogging.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -90,6 +95,7 @@
     <EmbeddedResource Include="frmBlank.resx">
       <DependentUpon>frmBlank.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmLog.resx" />
     <EmbeddedResource Include="frmXMLconv.resx">
       <DependentUpon>frmXMLconv.vb</DependentUpon>
     </EmbeddedResource>
@@ -114,9 +120,7 @@
   <ItemGroup>
     <Content Include="EpdIcon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modules\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
