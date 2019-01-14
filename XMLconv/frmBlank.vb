@@ -1,4 +1,4 @@
-Public Class frmBlank
+Public Class FrmBlank
     Inherits System.Windows.Forms.Form
 
 #Region " Windows Form Designer generated code "
@@ -31,22 +31,22 @@ Public Class frmBlank
     'Do not modify it using the code editor.
     Public WithEvents Panel1 As System.Windows.Forms.Panel
     Public WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Public WithEvents cmdOk As System.Windows.Forms.Button
-    Public WithEvents cmdCancel As System.Windows.Forms.Button
-    Public WithEvents cmdHelp As System.Windows.Forms.Button
+    Public WithEvents CmdOk As System.Windows.Forms.Button
+    Public WithEvents CmdCancel As System.Windows.Forms.Button
+    Public WithEvents CmdHelp As System.Windows.Forms.Button
     Public WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Public WithEvents Label2 As System.Windows.Forms.Label
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmBlank))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmBlank))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.cmdOk = New System.Windows.Forms.Button()
-        Me.cmdCancel = New System.Windows.Forms.Button()
+        Me.CmdOk = New System.Windows.Forms.Button()
+        Me.CmdCancel = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.cmdHelp = New System.Windows.Forms.Button()
+        Me.CmdHelp = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -63,27 +63,27 @@ Public Class frmBlank
         '
         'cmdOk
         '
-        Me.cmdOk.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdOk.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.cmdOk.FlatAppearance.BorderColor = System.Drawing.Color.Silver
-        Me.cmdOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.cmdOk.Location = New System.Drawing.Point(232, 296)
-        Me.cmdOk.Name = "cmdOk"
-        Me.cmdOk.Size = New System.Drawing.Size(80, 24)
-        Me.cmdOk.TabIndex = 1
-        Me.cmdOk.Text = "&OK"
+        Me.CmdOk.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CmdOk.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.CmdOk.FlatAppearance.BorderColor = System.Drawing.Color.Silver
+        Me.CmdOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.CmdOk.Location = New System.Drawing.Point(232, 296)
+        Me.CmdOk.Name = "cmdOk"
+        Me.CmdOk.Size = New System.Drawing.Size(80, 24)
+        Me.CmdOk.TabIndex = 1
+        Me.CmdOk.Text = "&OK"
         '
         'cmdCancel
         '
-        Me.cmdCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Silver
-        Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.cmdCancel.Location = New System.Drawing.Point(328, 296)
-        Me.cmdCancel.Name = "cmdCancel"
-        Me.cmdCancel.Size = New System.Drawing.Size(80, 24)
-        Me.cmdCancel.TabIndex = 56
-        Me.cmdCancel.Text = "&Cancel"
+        Me.CmdCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.CmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Silver
+        Me.CmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.CmdCancel.Location = New System.Drawing.Point(328, 296)
+        Me.CmdCancel.Name = "cmdCancel"
+        Me.CmdCancel.Size = New System.Drawing.Size(80, 24)
+        Me.CmdCancel.TabIndex = 56
+        Me.CmdCancel.Text = "&Cancel"
         '
         'Label2
         '
@@ -135,26 +135,26 @@ Public Class frmBlank
         '
         'cmdHelp
         '
-        Me.cmdHelp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdHelp.CausesValidation = False
-        Me.cmdHelp.FlatAppearance.BorderColor = System.Drawing.Color.Silver
-        Me.cmdHelp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.cmdHelp.Location = New System.Drawing.Point(424, 296)
-        Me.cmdHelp.Name = "cmdHelp"
-        Me.cmdHelp.Size = New System.Drawing.Size(80, 24)
-        Me.cmdHelp.TabIndex = 57
-        Me.cmdHelp.Text = "&Help"
+        Me.CmdHelp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CmdHelp.CausesValidation = False
+        Me.CmdHelp.FlatAppearance.BorderColor = System.Drawing.Color.Silver
+        Me.CmdHelp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.CmdHelp.Location = New System.Drawing.Point(424, 296)
+        Me.CmdHelp.Name = "cmdHelp"
+        Me.CmdHelp.Size = New System.Drawing.Size(80, 24)
+        Me.CmdHelp.TabIndex = 57
+        Me.CmdHelp.Text = "&Help"
         '
         'frmBlank
         '
-        Me.AcceptButton = Me.cmdOk
+        Me.AcceptButton = Me.CmdOk
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.AutoScroll = True
-        Me.CancelButton = Me.cmdCancel
+        Me.CancelButton = Me.CmdCancel
         Me.ClientSize = New System.Drawing.Size(514, 335)
-        Me.Controls.Add(Me.cmdHelp)
-        Me.Controls.Add(Me.cmdCancel)
-        Me.Controls.Add(Me.cmdOk)
+        Me.Controls.Add(Me.CmdHelp)
+        Me.Controls.Add(Me.CmdCancel)
+        Me.Controls.Add(Me.CmdOk)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Panel1)
         Me.HelpButton = True
@@ -170,11 +170,11 @@ Public Class frmBlank
 
 #End Region
 
-    Public Overridable Sub cmdOk_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOk.Click
+    Public Overridable Sub CmdOk_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmdOk.Click
         'Me.Close()
     End Sub
 
-    Public Overridable Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
+    Public Overridable Sub CmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmdCancel.Click
 
     End Sub
 
@@ -190,11 +190,11 @@ Public Class frmBlank
         'End Select
     End Sub
 
-    Public Overridable Sub cmdHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdHelp.Click
+    Public Overridable Sub CmdHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmdHelp.Click
 
     End Sub
 
-    Private Sub frmBlank_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmBlank_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         '#If CONFIG = "ETI" Then
         '        Me.Text = "Design Studio" ' V3 " & Application.ProductVersion
@@ -207,5 +207,5 @@ Public Class frmBlank
 
     End Sub
 
-   
+
 End Class

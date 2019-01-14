@@ -1,5 +1,5 @@
 
-Public Class clsLogging
+Public Class ClsLogging
     Private m_Log As New System.Text.StringBuilder
     Private Shared m_EventCount As Integer
 
@@ -79,7 +79,7 @@ Public Class clsLogging
 
     Public Shared Sub LogError(ByVal ex As Exception, Optional ByVal p1 As String = "", Optional ByVal p2 As String = "", Optional ByVal ThrowError As Boolean = False, Optional ByVal displayMSG As Boolean = False)
 
-        errorLog("****************************")
+        ErrorLog("****************************")
         If p1 <> "" Then
             Debug.Write(p1)
             ErrorLog(p1)

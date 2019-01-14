@@ -1,7 +1,7 @@
 Public Class frmLog
-    Inherits frmBlank
+    Inherits FrmBlank
 
-    Dim objThis As clsLogging
+    Dim objThis As ClsLogging
 
 #Region " Windows Form Designer generated code "
 
@@ -66,24 +66,24 @@ Public Class frmLog
         '
         'cmdOk
         '
-        Me.cmdOk.FlatAppearance.BorderColor = System.Drawing.Color.Silver
-        Me.cmdOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.cmdOk.Location = New System.Drawing.Point(416, 536)
-        Me.cmdOk.TabIndex = 2
+        Me.CmdOk.FlatAppearance.BorderColor = System.Drawing.Color.Silver
+        Me.CmdOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.CmdOk.Location = New System.Drawing.Point(416, 536)
+        Me.CmdOk.TabIndex = 2
         '
         'cmdCancel
         '
-        Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Silver
-        Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.cmdCancel.Location = New System.Drawing.Point(512, 536)
-        Me.cmdCancel.TabIndex = 3
-        Me.cmdCancel.Visible = False
+        Me.CmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Silver
+        Me.CmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.CmdCancel.Location = New System.Drawing.Point(512, 536)
+        Me.CmdCancel.TabIndex = 3
+        Me.CmdCancel.Visible = False
         '
         'cmdHelp
         '
-        Me.cmdHelp.FlatAppearance.BorderColor = System.Drawing.Color.Silver
-        Me.cmdHelp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.cmdHelp.Location = New System.Drawing.Point(608, 536)
+        Me.CmdHelp.FlatAppearance.BorderColor = System.Drawing.Color.Silver
+        Me.CmdHelp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.CmdHelp.Location = New System.Drawing.Point(608, 536)
         '
         'Label1
         '
@@ -208,14 +208,14 @@ Public Class frmLog
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Log"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
-        Me.Controls.SetChildIndex(Me.cmdHelp, 0)
+        Me.Controls.SetChildIndex(Me.CmdHelp, 0)
         Me.Controls.SetChildIndex(Me.txtLog, 0)
         Me.Controls.SetChildIndex(Me.cmdClearLog, 0)
         Me.Controls.SetChildIndex(Me.chkWordWrap, 0)
         Me.Controls.SetChildIndex(Me.Panel1, 0)
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
-        Me.Controls.SetChildIndex(Me.cmdOk, 0)
-        Me.Controls.SetChildIndex(Me.cmdCancel, 0)
+        Me.Controls.SetChildIndex(Me.CmdOk, 0)
+        Me.Controls.SetChildIndex(Me.CmdCancel, 0)
         Me.Controls.SetChildIndex(Me.chkEnableLogging, 0)
         Me.Controls.SetChildIndex(Me.SqlLog, 0)
         Me.Controls.SetChildIndex(Me.Label3, 0)
@@ -279,7 +279,7 @@ Public Class frmLog
 
     End Sub
 
-    Public Overrides Sub cmdOk_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+    Public Overrides Sub CmdOk_Click(ByVal sender As Object, ByVal e As System.EventArgs)
 
         Me.Close()
 
