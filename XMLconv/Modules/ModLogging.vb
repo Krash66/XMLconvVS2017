@@ -6,7 +6,7 @@
     Public AppDataPath As String
     Public IsEventFromCode As Boolean
     Public dlgBrowseFolder As FolderBrowserDialog
-    Public objLog As clsLogging
+    Public objLog As ClsLogging
 
     Public Const MsgTitle As String = "XML Tool"
 
@@ -27,23 +27,23 @@
     End Function
 
     Public Function Log(ByVal sMsg As String, Optional ByVal AddNewLine As Boolean = True) As Boolean
-        clsLogging.LogEvent(sMsg, AddNewLine)
+        ClsLogging.LogEvent(sMsg, AddNewLine)
     End Function
 
     Public Function ErrorLog(ByVal sMsg As String, Optional ByVal AddNewLine As Boolean = True) As Boolean
-        clsLogging.ErrorEvent(sMsg, AddNewLine)
+        ClsLogging.ErrorEvent(sMsg, AddNewLine)
     End Function
 
     Public Function ODBCErrorLog(ByVal sMsg As String, Optional ByVal AddNewLine As Boolean = True) As Boolean
-        clsLogging.ODBCEvent(sMsg, AddNewLine)
+        ClsLogging.ODBCEvent(sMsg, AddNewLine)
     End Function
 
     Public Function LogError(ByVal ex As Exception, Optional ByVal p1 As String = "", Optional ByVal p2 As String = "", Optional ByVal ThrowError As Boolean = False, Optional ByVal displayMSG As Boolean = False) As Boolean
-        clsLogging.LogError(ex, p1, p2, ThrowError, displayMSG)
+        ClsLogging.LogError(ex, p1, p2, ThrowError, displayMSG)
     End Function
 
     Public Function LogODBCError(ByVal ex As Exception, Optional ByVal p1 As String = "", Optional ByVal p2 As String = "", Optional ByVal ThrowError As Boolean = False, Optional ByVal displayMSG As Boolean = False) As Boolean
-        clsLogging.LogODBCerror(ex, p1, p2, ThrowError, displayMSG)
+        ClsLogging.LogODBCerror(ex, p1, p2, ThrowError, displayMSG)
     End Function
 
     '//Creates a Logfolder in ..My Documents\Design Studio\Logs\
@@ -135,7 +135,7 @@ tryagain:   diares = MsgBox("The 'XML Tool' Data directory has been moved" & Chr
 
     Public Function LoadGlobalValues(Optional ByVal ClearLogOnStartUp As Boolean = True) As Boolean
 
-        objLog = New clsLogging
+        objLog = New ClsLogging
 
         Try
             If TraceFile Is Nothing Then
