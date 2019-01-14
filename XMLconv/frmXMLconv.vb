@@ -725,7 +725,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
     Private Sub LogFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LogFilesToolStripMenuItem.Click
         Try
-            Dim frm As New frmLog
+            Dim frm As New FrmLog
             frm.ShowLog()
         Catch ex As Exception
             LogError(ex, "FrmXMLconv LogFilesToolStripMenuItem_Click")
