@@ -1,7 +1,7 @@
 ﻿Imports System.Xml
 
-Public Class frmXMLconv
-    Inherits frmBlank
+Public Class FrmXMLconv
+    Inherits FrmBlank
     '/// Created by TK   November 2011
     '/// Creates XML DTD files from XML messages
     '/// Modified Dec. 2018 to add changing of values in specified elements
@@ -34,8 +34,8 @@ Public Class frmXMLconv
     Public Function OpenForm() As Boolean
 
         Try
-            cmdOk.Enabled = False
-            btnConv.Enabled = False
+            CmdOk.Enabled = False
+            BtnCreateDTD.Enabled = False
             BtnSaveCSV.Enabled = False
             RbOnlyThisElement.Checked = True
             RbAllElements.Checked = False
@@ -70,14 +70,14 @@ Public Class frmXMLconv
 
     '    End Function
 
-    Private Sub CmdCancel_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
+    Private Sub CmdCancel_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmdCancel.Click
 
         Me.Close()
         Me.DialogResult = Windows.Forms.DialogResult.Abort
 
     End Sub
 
-    Private Sub CmdHelp_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdHelp.Click
+    Private Sub CmdHelp_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmdHelp.Click
 
         'ShowHelp(HHId.H_XML_CONV)
 
@@ -123,7 +123,7 @@ Public Class frmXMLconv
                 'Format the XML Document
                 If FormatDoc() Then
                     LoadInText()
-                    btnConv.Enabled = True
+                    BtnCreateDTD.Enabled = True
                     LoadTreeView()
                 End If
             End If
@@ -138,7 +138,7 @@ Public Class frmXMLconv
 
         ' Load the XML document in to the Text Window
         Try
-            txtCSVout.Text = ""
+            TxtCSVout.Text = ""
             txtInMessage.Text = LoadTextFile(InFilePath)
 
         Catch ex As Exception
@@ -293,7 +293,7 @@ Public Class frmXMLconv
 
 #Region "Convert to DTD"
 
-    Private Sub BtnConv_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnConv.Click
+    Private Sub BtnConv_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateDTD.Click
 
         Try
             ArrAllElements.Clear()
@@ -304,7 +304,7 @@ Public Class frmXMLconv
             'EncodeXMLFile(InFilePath) '//encode some special characters like & to &amp;
             xml_Indoc.Load(InFilePath)
             sb = New System.Text.StringBuilder
-            txtCSVout.Text = ""
+            TxtCSVout.Text = ""
 
             'Start processing each node in the Message           
             If xml_Indoc.HasChildNodes = True Then
@@ -318,7 +318,7 @@ Public Class frmXMLconv
             End If
 
             If PrintCData(ArrCDataNodes) = True Then
-                txtCSVout.Text = sb.ToString
+                TxtCSVout.Text = sb.ToString
                 BtnSaveCSV.Enabled = True
             End If
 
@@ -610,7 +610,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             If OutFilePath <> "" Then
                 If Save() = True Then
                     'MsgBox("Save was successful", MsgBoxStyle.OkOnly)
-                    cmdOk.Enabled = True
+                    CmdOk.Enabled = True
                     'btnImportDTD.Enabled = True
                 End If
             End If
@@ -621,7 +621,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
     End Sub
 
-    Private Sub CmdOk_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOk.Click
+    Private Sub CmdOk_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmdOk.Click
 
         'Me.Close()
         'If Save() = True Then
@@ -646,7 +646,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
         Try
             If SFD1.FileName <> "" Then
-                Save = SaveTextFile(OutFilePath, txtCSVout.Text)
+                Save = SaveTextFile(OutFilePath, TxtCSVout.Text)
             Else
                 MsgBox("Please enter a valid Output File Path", MsgBoxStyle.Information, "No Valid Output Path")
                 Save = False
@@ -762,6 +762,34 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
         Catch ex As Exception
             LogError(ex, "FrmXMLconv DGVElement_CellContentClick")
         End Try
+    End Sub
+
+    Private Sub BtnOpneCSV_Click(sender As Object, e As EventArgs) Handles BtnOpenCSV.Click
+
+    End Sub
+
+    Private Sub BtnOpneDTD_Click(sender As Object, e As EventArgs) Handles BtnOpneDTD.Click
+
+    End Sub
+
+    Private Sub BtnSaveDTD_Click(sender As Object, e As EventArgs) Handles BtnSaveDTD.Click
+
+    End Sub
+
+    Private Sub BtnReplace_Click(sender As Object, e As EventArgs) Handles BtnReplace.Click
+
+    End Sub
+
+    Private Sub BtnCreateCSV_Click(sender As Object, e As EventArgs) Handles BtnCreateCSV.Click
+
+    End Sub
+
+    Private Sub BtnSaveXML_Click(sender As Object, e As EventArgs) Handles BtnSaveXML.Click
+
+    End Sub
+
+    Private Sub BtnOpenXML_Click(sender As Object, e As EventArgs) Handles BtnOpenXML.Click
+
     End Sub
 
 #End Region
