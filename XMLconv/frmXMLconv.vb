@@ -147,8 +147,6 @@ Public Class FrmXMLconv
 
     End Sub
 
-
-
     Private Function LoadXMLdoc() As Xml.XmlDocument
 
         Try
@@ -192,14 +190,61 @@ Public Class FrmXMLconv
                         Dim tnode As New TreeNode(nd.Name) With {
                             .Tag = nd
                         }
-                        TVxml.Nodes.Add(tnode)
-                        TVxml.SelectedNode = tnode
+                        TVelement.Nodes.Add(tnode)
+                        TVelement.SelectedNode = tnode
                         ProcessTreeChild(nd, tnode)
                     End If
                 Next 'next doc child
-                TVxml.ExpandAll()
-                TVxml.CheckBoxes = True
-                TVxml.SelectedNode.EnsureVisible()
+                TVelement.ExpandAll()
+                TVelement.CheckBoxes = True
+                TVelement.SelectedNode.EnsureVisible()
+                For Each nd As XmlNode In xml_Indoc.ChildNodes
+                    '*** Process each Node, if it is an element
+                    '*** if it's not an element, ignore it
+                    If nd.NodeType = XmlNodeType.Element Then
+                        Dim tnode As New TreeNode(nd.Name) With {
+                            .Tag = nd
+                        }
+                        TVcsv.Nodes.Add(tnode)
+                        TVcsv.SelectedNode = tnode
+                        ProcessTreeChild(nd, tnode)
+                    End If
+                Next 'next doc child                                                                         
+                TVcsv.ExpandAll()
+                TVcsv.CheckBoxes = True
+                TVcsv.SelectedNode.EnsureVisible()
+
+                For Each nd As XmlNode In xml_Indoc.ChildNodes
+                    '*** Process each Node, if it is an element
+                    '*** if it's not an element, ignore it
+                    If nd.NodeType = XmlNodeType.Element Then
+                        Dim tnode As New TreeNode(nd.Name) With {
+                            .Tag = nd
+                        }
+                        TVdtd.Nodes.Add(tnode)
+                        TVdtd.SelectedNode = tnode
+                        ProcessTreeChild(nd, tnode)
+                    End If
+                Next 'next doc child                                    
+                TVdtd.ExpandAll()
+                TVdtd.CheckBoxes = True
+                TVdtd.SelectedNode.EnsureVisible()
+
+                For Each nd As XmlNode In xml_Indoc.ChildNodes
+                    '*** Process each Node, if it is an element
+                    '*** if it's not an element, ignore it
+                    If nd.NodeType = XmlNodeType.Element Then
+                        Dim tnode As New TreeNode(nd.Name) With {
+                            .Tag = nd
+                        }
+                        TVxmlOut.Nodes.Add(tnode)
+                        TVxmlOut.SelectedNode = tnode
+                        ProcessTreeChild(nd, tnode)
+                    End If
+                Next 'next doc child                                   
+                TVxmlOut.ExpandAll()
+                TVxmlOut.CheckBoxes = True
+                TVxmlOut.SelectedNode.EnsureVisible()
             End If
         Catch ex As Exception
             LogError(ex, "frmXMLconv LoadTreeView")
@@ -293,7 +338,7 @@ Public Class FrmXMLconv
 
 #Region "Convert to DTD"
 
-    Private Sub BtnConv_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateDTD.Click
+    Private Sub BtnCreateDTD_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateDTD.Click
 
         Try
             ArrAllElements.Clear()
@@ -678,10 +723,10 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
     End Function
 
-    Private Sub TVxml_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVxml.AfterSelect
+    Private Sub TVelement_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVelement.AfterSelect
 
         Try
-            Dim SelNode As XmlNode = TVxml.SelectedNode.Tag
+            Dim SelNode As XmlNode = TVelement.SelectedNode.Tag
             'Clear TabPage
             ClearElementTab()
             'populate TabPage
@@ -723,7 +768,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
         End Try
     End Sub
 
-    Private Sub LogFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LogFilesToolStripMenuItem.Click
+    Private Sub LogFilesToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Try
             Dim frm As New FrmLog
             frm.ShowLog()
