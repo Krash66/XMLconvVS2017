@@ -1,7 +1,7 @@
-Public Class frmLog
+Public Class FrmLog
     Inherits FrmBlank
 
-    Dim objThis As ClsLogging
+    Private objThis As ClsLogging
 
 #Region " Windows Form Designer generated code "
 
@@ -31,27 +31,27 @@ Public Class frmLog
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    Friend WithEvents txtLog As System.Windows.Forms.TextBox
-    Friend WithEvents cmdClearLog As System.Windows.Forms.Button
-    Friend WithEvents chkWordWrap As System.Windows.Forms.CheckBox
+    Friend WithEvents TxtLog As System.Windows.Forms.TextBox
+    Friend WithEvents CmdClearLog As System.Windows.Forms.Button
+    Friend WithEvents ChkWordWrap As System.Windows.Forms.CheckBox
     Friend WithEvents SqlLog As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents ODBClog As System.Windows.Forms.TextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents chkEnableLogging As System.Windows.Forms.CheckBox
+    Friend WithEvents ChkEnableLogging As System.Windows.Forms.CheckBox
     Public Event OnEvent(Msg As String)
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.txtLog = New System.Windows.Forms.TextBox
-        Me.cmdClearLog = New System.Windows.Forms.Button
-        Me.chkWordWrap = New System.Windows.Forms.CheckBox
-        Me.chkEnableLogging = New System.Windows.Forms.CheckBox
-        Me.SqlLog = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.ODBClog = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
+        Me.TxtLog = New System.Windows.Forms.TextBox()
+        Me.CmdClearLog = New System.Windows.Forms.Button()
+        Me.ChkWordWrap = New System.Windows.Forms.CheckBox()
+        Me.ChkEnableLogging = New System.Windows.Forms.CheckBox()
+        Me.SqlLog = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.ODBClog = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -64,14 +64,14 @@ Public Class frmLog
         Me.GroupBox1.Location = New System.Drawing.Point(1, 511)
         Me.GroupBox1.Size = New System.Drawing.Size(698, 7)
         '
-        'cmdOk
+        'CmdOk
         '
         Me.CmdOk.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.CmdOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.CmdOk.Location = New System.Drawing.Point(416, 536)
         Me.CmdOk.TabIndex = 2
         '
-        'cmdCancel
+        'CmdCancel
         '
         Me.CmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.CmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
@@ -79,7 +79,7 @@ Public Class frmLog
         Me.CmdCancel.TabIndex = 3
         Me.CmdCancel.Visible = False
         '
-        'cmdHelp
+        'CmdHelp
         '
         Me.CmdHelp.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.CmdHelp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
@@ -91,56 +91,56 @@ Public Class frmLog
         '
         'Label2
         '
-        Me.Label2.Size = New System.Drawing.Size(620, 39)
-        Me.Label2.Text = "You can view detailed log of database activities and application errors. You can " & _
-            "also start/stop logging using this window."
+        Me.Label2.Size = New System.Drawing.Size(586, 39)
+        Me.Label2.Text = "You can view detailed log of database activities and application errors. You can " &
+    "also start/stop logging using this window."
         '
-        'txtLog
+        'TxtLog
         '
-        Me.txtLog.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLog.Location = New System.Drawing.Point(8, 96)
-        Me.txtLog.MaxLength = 100000
-        Me.txtLog.Multiline = True
-        Me.txtLog.Name = "txtLog"
-        Me.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtLog.Size = New System.Drawing.Size(678, 163)
-        Me.txtLog.TabIndex = 1
-        Me.txtLog.WordWrap = False
+        Me.TxtLog.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TxtLog.Location = New System.Drawing.Point(8, 96)
+        Me.TxtLog.MaxLength = 100000
+        Me.TxtLog.Multiline = True
+        Me.TxtLog.Name = "TxtLog"
+        Me.TxtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TxtLog.Size = New System.Drawing.Size(678, 163)
+        Me.TxtLog.TabIndex = 1
+        Me.TxtLog.WordWrap = False
         '
-        'cmdClearLog
+        'CmdClearLog
         '
-        Me.cmdClearLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.cmdClearLog.Location = New System.Drawing.Point(8, 534)
-        Me.cmdClearLog.Name = "cmdClearLog"
-        Me.cmdClearLog.Size = New System.Drawing.Size(120, 24)
-        Me.cmdClearLog.TabIndex = 4
-        Me.cmdClearLog.Text = "Clear Log"
+        Me.CmdClearLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.CmdClearLog.Location = New System.Drawing.Point(8, 534)
+        Me.CmdClearLog.Name = "CmdClearLog"
+        Me.CmdClearLog.Size = New System.Drawing.Size(120, 24)
+        Me.CmdClearLog.TabIndex = 4
+        Me.CmdClearLog.Text = "Clear Log"
         '
-        'chkWordWrap
+        'ChkWordWrap
         '
-        Me.chkWordWrap.Location = New System.Drawing.Point(8, 72)
-        Me.chkWordWrap.Name = "chkWordWrap"
-        Me.chkWordWrap.Size = New System.Drawing.Size(104, 24)
-        Me.chkWordWrap.TabIndex = 6
-        Me.chkWordWrap.Text = "Word Wrap"
+        Me.ChkWordWrap.Location = New System.Drawing.Point(8, 72)
+        Me.ChkWordWrap.Name = "ChkWordWrap"
+        Me.ChkWordWrap.Size = New System.Drawing.Size(104, 24)
+        Me.ChkWordWrap.TabIndex = 6
+        Me.ChkWordWrap.Text = "Word Wrap"
         '
-        'chkEnableLogging
+        'ChkEnableLogging
         '
-        Me.chkEnableLogging.Checked = True
-        Me.chkEnableLogging.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkEnableLogging.Location = New System.Drawing.Point(120, 72)
-        Me.chkEnableLogging.Name = "chkEnableLogging"
-        Me.chkEnableLogging.Size = New System.Drawing.Size(104, 24)
-        Me.chkEnableLogging.TabIndex = 7
-        Me.chkEnableLogging.Text = "Enable Logging"
+        Me.ChkEnableLogging.Checked = True
+        Me.ChkEnableLogging.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChkEnableLogging.Location = New System.Drawing.Point(120, 72)
+        Me.ChkEnableLogging.Name = "ChkEnableLogging"
+        Me.ChkEnableLogging.Size = New System.Drawing.Size(104, 24)
+        Me.ChkEnableLogging.TabIndex = 7
+        Me.ChkEnableLogging.Text = "Enable Logging"
         '
         'SqlLog
         '
         Me.SqlLog.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SqlLog.Location = New System.Drawing.Point(8, 278)
         Me.SqlLog.Multiline = True
         Me.SqlLog.Name = "SqlLog"
@@ -162,7 +162,7 @@ Public Class frmLog
         'ODBClog
         '
         Me.ODBClog.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ODBClog.Location = New System.Drawing.Point(8, 423)
         Me.ODBClog.Multiline = True
         Me.ODBClog.Name = "ODBClog"
@@ -190,33 +190,34 @@ Public Class frmLog
         Me.Label5.TabIndex = 62
         Me.Label5.Text = "ODBC Error Log"
         '
-        'frmLog
+        'FrmLog
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.ClientSize = New System.Drawing.Size(696, 573)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.ODBClog)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.SqlLog)
-        Me.Controls.Add(Me.chkEnableLogging)
-        Me.Controls.Add(Me.chkWordWrap)
-        Me.Controls.Add(Me.cmdClearLog)
-        Me.Controls.Add(Me.txtLog)
-        Me.Name = "frmLog"
+        Me.Controls.Add(Me.ChkEnableLogging)
+        Me.Controls.Add(Me.ChkWordWrap)
+        Me.Controls.Add(Me.CmdClearLog)
+        Me.Controls.Add(Me.TxtLog)
+        Me.Name = "FrmLog"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Log"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Controls.SetChildIndex(Me.CmdHelp, 0)
-        Me.Controls.SetChildIndex(Me.txtLog, 0)
-        Me.Controls.SetChildIndex(Me.cmdClearLog, 0)
-        Me.Controls.SetChildIndex(Me.chkWordWrap, 0)
+        Me.Controls.SetChildIndex(Me.TxtLog, 0)
+        Me.Controls.SetChildIndex(Me.CmdClearLog, 0)
+        Me.Controls.SetChildIndex(Me.ChkWordWrap, 0)
         Me.Controls.SetChildIndex(Me.Panel1, 0)
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.Controls.SetChildIndex(Me.CmdOk, 0)
         Me.Controls.SetChildIndex(Me.CmdCancel, 0)
-        Me.Controls.SetChildIndex(Me.chkEnableLogging, 0)
+        Me.Controls.SetChildIndex(Me.ChkEnableLogging, 0)
         Me.Controls.SetChildIndex(Me.SqlLog, 0)
         Me.Controls.SetChildIndex(Me.Label3, 0)
         Me.Controls.SetChildIndex(Me.ODBClog, 0)
@@ -230,9 +231,9 @@ Public Class frmLog
 
 #End Region
 
-    Private Sub frmLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        EnableLogging = chkEnableLogging.Checked
+        EnableLogging = ChkEnableLogging.Checked
         AddHandler OnEvent, AddressOf OnNewEvent
 
     End Sub
@@ -241,7 +242,7 @@ Public Class frmLog
 
         Try
             If IO.File.Exists(GetAppLog() & errorTrace) Then
-                txtLog.Text = LoadTextFile(GetAppLog() & errorTrace)
+                TxtLog.Text = LoadTextFile(GetAppLog() & errorTrace)
             End If
             If IO.File.Exists(GetAppLog() & TraceFile) Then
                 SqlLog.Text = LoadTextFile(GetAppLog() & TraceFile)
@@ -261,19 +262,19 @@ Public Class frmLog
 
     Private Sub OnNewEvent(ByVal Msg As String)
 
-        txtLog.Text = txtLog.Text & Msg
+        TxtLog.Text = TxtLog.Text & Msg
 
     End Sub
 
-    Private Sub cmdClearLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClearLog.Click
+    Private Sub CmdClearLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmdClearLog.Click
 
         Try
             IO.File.Delete(GetAppLog() & errorTrace)   '& "\"
-            txtLog.Text = ""
+            TxtLog.Text = ""
             IO.File.Delete(GetAppLog() & TraceFile)
             SqlLog.Text = ""
             IO.File.Delete(GetAppLog() & ODBCTrace)
-            ODBCLog.Text = ""
+            ODBClog.Text = ""
         Catch ex As Exception
         End Try
 
@@ -285,17 +286,17 @@ Public Class frmLog
 
     End Sub
 
-    Private Sub chkWordWrap_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkWordWrap.CheckedChanged
+    Private Sub ChkWordWrap_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkWordWrap.CheckedChanged
 
-        txtLog.WordWrap = chkWordWrap.Checked
-        SqlLog.WordWrap = chkWordWrap.Checked
-        ODBClog.WordWrap = chkWordWrap.Checked
+        TxtLog.WordWrap = ChkWordWrap.Checked
+        SqlLog.WordWrap = ChkWordWrap.Checked
+        ODBClog.WordWrap = ChkWordWrap.Checked
 
     End Sub
 
-    Private Sub chkEnableLogging_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkEnableLogging.CheckedChanged
+    Private Sub ChkEnableLogging_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkEnableLogging.CheckedChanged
 
-        EnableLogging = chkEnableLogging.Checked
+        EnableLogging = ChkEnableLogging.Checked
 
     End Sub
 
