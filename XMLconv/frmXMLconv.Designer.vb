@@ -19,7 +19,6 @@ Partial Class FrmXMLconv
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmXMLconv))
         Me.gbIn = New System.Windows.Forms.GroupBox()
         Me.btnbrowseIn = New System.Windows.Forms.Button()
         Me.txtInMessage = New System.Windows.Forms.TextBox()
@@ -33,7 +32,7 @@ Partial Class FrmXMLconv
         Me.SFD1 = New System.Windows.Forms.SaveFileDialog()
         Me.BtnCreateDTD = New System.Windows.Forms.Button()
         Me.GbChooseEleCSV = New System.Windows.Forms.GroupBox()
-        Me.TVxml = New System.Windows.Forms.TreeView()
+        Me.TVcsv = New System.Windows.Forms.TreeView()
         Me.RbAllElements = New System.Windows.Forms.RadioButton()
         Me.RbOnlyThisElement = New System.Windows.Forms.RadioButton()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -85,42 +84,11 @@ Partial Class FrmXMLconv
         Me.BtnSaveXML = New System.Windows.Forms.Button()
         Me.TxtOutXMLPath = New System.Windows.Forms.TextBox()
         Me.BtnOpenXML = New System.Windows.Forms.Button()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.NewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.toolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
-        Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SaveAsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.toolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.PrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PrintPreviewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.toolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.UndoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RedoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.toolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.CutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CopyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PasteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.toolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
-        Me.SelectAllToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CustomizeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LogFilesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ContentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.IndexToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.toolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
-        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BtnCreateCSV = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.GBframe1 = New System.Windows.Forms.GroupBox()
         Me.BtnReplace = New System.Windows.Forms.Button()
         Me.GBframe2 = New System.Windows.Forms.GroupBox()
-        Me.GBframe1 = New System.Windows.Forms.GroupBox()
         Me.Panel1.SuspendLayout()
         Me.gbIn.SuspendLayout()
         Me.gbXMLout.SuspendLayout()
@@ -155,12 +123,11 @@ Partial Class FrmXMLconv
         Me.SplitContainer5.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GBOutXML.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
-        Me.GBframe2.SuspendLayout()
         Me.GBframe1.SuspendLayout()
+        Me.GBframe2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -220,7 +187,7 @@ Partial Class FrmXMLconv
         Me.gbIn.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.gbIn.Location = New System.Drawing.Point(3, 16)
         Me.gbIn.Name = "gbIn"
-        Me.gbIn.Size = New System.Drawing.Size(368, 369)
+        Me.gbIn.Size = New System.Drawing.Size(368, 394)
         Me.gbIn.TabIndex = 58
         Me.gbIn.TabStop = False
         Me.gbIn.Text = "XML File In"
@@ -248,7 +215,7 @@ Partial Class FrmXMLconv
         Me.txtInMessage.ReadOnly = True
         Me.txtInMessage.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.txtInMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtInMessage.Size = New System.Drawing.Size(356, 314)
+        Me.txtInMessage.Size = New System.Drawing.Size(356, 339)
         Me.txtInMessage.TabIndex = 1
         Me.txtInMessage.Text = " "
         Me.txtInMessage.WordWrap = False
@@ -273,7 +240,7 @@ Partial Class FrmXMLconv
         Me.gbXMLout.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.gbXMLout.Location = New System.Drawing.Point(0, 0)
         Me.gbXMLout.Name = "gbXMLout"
-        Me.gbXMLout.Size = New System.Drawing.Size(480, 384)
+        Me.gbXMLout.Size = New System.Drawing.Size(480, 409)
         Me.gbXMLout.TabIndex = 59
         Me.gbXMLout.TabStop = False
         Me.gbXMLout.Text = "CSV File output"
@@ -281,7 +248,7 @@ Partial Class FrmXMLconv
         'BtnOpenCSV
         '
         Me.BtnOpenCSV.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnOpenCSV.Location = New System.Drawing.Point(417, 356)
+        Me.BtnOpenCSV.Location = New System.Drawing.Point(417, 381)
         Me.BtnOpenCSV.Name = "BtnOpenCSV"
         Me.BtnOpenCSV.Size = New System.Drawing.Size(56, 23)
         Me.BtnOpenCSV.TabIndex = 4
@@ -301,14 +268,14 @@ Partial Class FrmXMLconv
         Me.TxtCSVout.Name = "TxtCSVout"
         Me.TxtCSVout.ReadOnly = True
         Me.TxtCSVout.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TxtCSVout.Size = New System.Drawing.Size(468, 331)
+        Me.TxtCSVout.Size = New System.Drawing.Size(468, 356)
         Me.TxtCSVout.TabIndex = 3
         Me.TxtCSVout.WordWrap = False
         '
         'BtnSaveCSV
         '
         Me.BtnSaveCSV.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnSaveCSV.Location = New System.Drawing.Point(352, 356)
+        Me.BtnSaveCSV.Location = New System.Drawing.Point(352, 381)
         Me.BtnSaveCSV.Name = "BtnSaveCSV"
         Me.BtnSaveCSV.Size = New System.Drawing.Size(59, 23)
         Me.BtnSaveCSV.TabIndex = 2
@@ -319,7 +286,7 @@ Partial Class FrmXMLconv
         '
         Me.txtOutPath.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtOutPath.Location = New System.Drawing.Point(6, 358)
+        Me.txtOutPath.Location = New System.Drawing.Point(6, 383)
         Me.txtOutPath.Name = "txtOutPath"
         Me.txtOutPath.Size = New System.Drawing.Size(340, 20)
         Me.txtOutPath.TabIndex = 1
@@ -338,7 +305,7 @@ Partial Class FrmXMLconv
         '
         Me.BtnCreateDTD.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnCreateDTD.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnCreateDTD.Location = New System.Drawing.Point(80, 391)
+        Me.BtnCreateDTD.Location = New System.Drawing.Point(80, 416)
         Me.BtnCreateDTD.Name = "BtnCreateDTD"
         Me.BtnCreateDTD.Size = New System.Drawing.Size(68, 40)
         Me.BtnCreateDTD.TabIndex = 61
@@ -347,7 +314,7 @@ Partial Class FrmXMLconv
         '
         'GbChooseEleCSV
         '
-        Me.GbChooseEleCSV.Controls.Add(Me.TVxml)
+        Me.GbChooseEleCSV.Controls.Add(Me.TVcsv)
         Me.GbChooseEleCSV.Controls.Add(Me.RbAllElements)
         Me.GbChooseEleCSV.Controls.Add(Me.RbOnlyThisElement)
         Me.GbChooseEleCSV.Controls.Add(Me.Label3)
@@ -356,26 +323,26 @@ Partial Class FrmXMLconv
         Me.GbChooseEleCSV.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.GbChooseEleCSV.Location = New System.Drawing.Point(0, 0)
         Me.GbChooseEleCSV.Name = "GbChooseEleCSV"
-        Me.GbChooseEleCSV.Size = New System.Drawing.Size(242, 384)
+        Me.GbChooseEleCSV.Size = New System.Drawing.Size(242, 409)
         Me.GbChooseEleCSV.TabIndex = 64
         Me.GbChooseEleCSV.TabStop = False
         Me.GbChooseEleCSV.Text = "Choose Output Values"
         '
-        'TVxml
+        'TVcsv
         '
-        Me.TVxml.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.TVcsv.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TVxml.Location = New System.Drawing.Point(9, 36)
-        Me.TVxml.Name = "TVxml"
-        Me.TVxml.Size = New System.Drawing.Size(227, 289)
-        Me.TVxml.TabIndex = 69
+        Me.TVcsv.Location = New System.Drawing.Point(9, 36)
+        Me.TVcsv.Name = "TVcsv"
+        Me.TVcsv.Size = New System.Drawing.Size(227, 314)
+        Me.TVcsv.TabIndex = 69
         '
         'RbAllElements
         '
         Me.RbAllElements.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RbAllElements.AutoSize = True
-        Me.RbAllElements.Location = New System.Drawing.Point(9, 358)
+        Me.RbAllElements.Location = New System.Drawing.Point(9, 383)
         Me.RbAllElements.Name = "RbAllElements"
         Me.RbAllElements.Size = New System.Drawing.Size(159, 19)
         Me.RbAllElements.TabIndex = 68
@@ -387,7 +354,7 @@ Partial Class FrmXMLconv
         Me.RbOnlyThisElement.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RbOnlyThisElement.AutoSize = True
         Me.RbOnlyThisElement.Checked = True
-        Me.RbOnlyThisElement.Location = New System.Drawing.Point(9, 332)
+        Me.RbOnlyThisElement.Location = New System.Drawing.Point(9, 357)
         Me.RbOnlyThisElement.Name = "RbOnlyThisElement"
         Me.RbOnlyThisElement.Size = New System.Drawing.Size(141, 19)
         Me.RbOnlyThisElement.TabIndex = 67
@@ -417,7 +384,7 @@ Partial Class FrmXMLconv
         Me.TabControl1.Location = New System.Drawing.Point(3, 16)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(740, 419)
+        Me.TabControl1.Size = New System.Drawing.Size(740, 444)
         Me.TabControl1.TabIndex = 65
         '
         'TabPage3
@@ -428,7 +395,7 @@ Partial Class FrmXMLconv
         Me.TabPage3.Location = New System.Drawing.Point(4, 25)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(732, 390)
+        Me.TabPage3.Size = New System.Drawing.Size(732, 415)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Elements"
         '
@@ -445,7 +412,7 @@ Partial Class FrmXMLconv
         'SplitContainer4.Panel2
         '
         Me.SplitContainer4.Panel2.Controls.Add(Me.gbEditElement)
-        Me.SplitContainer4.Size = New System.Drawing.Size(726, 384)
+        Me.SplitContainer4.Size = New System.Drawing.Size(726, 409)
         Me.SplitContainer4.SplitterDistance = 242
         Me.SplitContainer4.TabIndex = 1
         '
@@ -460,7 +427,7 @@ Partial Class FrmXMLconv
         Me.GroupBox4.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.GroupBox4.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(242, 384)
+        Me.GroupBox4.Size = New System.Drawing.Size(242, 409)
         Me.GroupBox4.TabIndex = 71
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Replace Element Value"
@@ -472,14 +439,14 @@ Partial Class FrmXMLconv
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TVelement.Location = New System.Drawing.Point(9, 36)
         Me.TVelement.Name = "TVelement"
-        Me.TVelement.Size = New System.Drawing.Size(227, 289)
+        Me.TVelement.Size = New System.Drawing.Size(227, 314)
         Me.TVelement.TabIndex = 69
         '
         'RadioButton3
         '
         Me.RadioButton3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Location = New System.Drawing.Point(9, 358)
+        Me.RadioButton3.Location = New System.Drawing.Point(9, 383)
         Me.RadioButton3.Name = "RadioButton3"
         Me.RadioButton3.Size = New System.Drawing.Size(159, 19)
         Me.RadioButton3.TabIndex = 68
@@ -491,7 +458,7 @@ Partial Class FrmXMLconv
         Me.RadioButton4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RadioButton4.AutoSize = True
         Me.RadioButton4.Checked = True
-        Me.RadioButton4.Location = New System.Drawing.Point(9, 332)
+        Me.RadioButton4.Location = New System.Drawing.Point(9, 357)
         Me.RadioButton4.Name = "RadioButton4"
         Me.RadioButton4.Size = New System.Drawing.Size(141, 19)
         Me.RadioButton4.TabIndex = 67
@@ -520,7 +487,7 @@ Partial Class FrmXMLconv
         Me.gbEditElement.ForeColor = System.Drawing.SystemColors.Highlight
         Me.gbEditElement.Location = New System.Drawing.Point(0, 0)
         Me.gbEditElement.Name = "gbEditElement"
-        Me.gbEditElement.Size = New System.Drawing.Size(480, 384)
+        Me.gbEditElement.Size = New System.Drawing.Size(480, 409)
         Me.gbEditElement.TabIndex = 0
         Me.gbEditElement.TabStop = False
         Me.gbEditElement.Text = "Edit XML Element"
@@ -559,7 +526,7 @@ Partial Class FrmXMLconv
         'SCElement.Panel2
         '
         Me.SCElement.Panel2.Controls.Add(Me.GBChildren)
-        Me.SCElement.Size = New System.Drawing.Size(477, 308)
+        Me.SCElement.Size = New System.Drawing.Size(477, 333)
         Me.SCElement.SplitterDistance = 235
         Me.SCElement.TabIndex = 4
         '
@@ -570,7 +537,7 @@ Partial Class FrmXMLconv
         Me.GBAttribute.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.GBAttribute.Location = New System.Drawing.Point(0, 0)
         Me.GBAttribute.Name = "GBAttribute"
-        Me.GBAttribute.Size = New System.Drawing.Size(235, 308)
+        Me.GBAttribute.Size = New System.Drawing.Size(235, 333)
         Me.GBAttribute.TabIndex = 0
         Me.GBAttribute.TabStop = False
         Me.GBAttribute.Text = "Attributes"
@@ -590,7 +557,7 @@ Partial Class FrmXMLconv
         Me.DGVAttrib.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.DGVAttrib.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Blue
         Me.DGVAttrib.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DGVAttrib.Size = New System.Drawing.Size(229, 289)
+        Me.DGVAttrib.Size = New System.Drawing.Size(229, 314)
         Me.DGVAttrib.TabIndex = 0
         '
         'AttrName
@@ -611,7 +578,7 @@ Partial Class FrmXMLconv
         Me.GBChildren.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.GBChildren.Location = New System.Drawing.Point(0, 0)
         Me.GBChildren.Name = "GBChildren"
-        Me.GBChildren.Size = New System.Drawing.Size(238, 308)
+        Me.GBChildren.Size = New System.Drawing.Size(238, 333)
         Me.GBChildren.TabIndex = 3
         Me.GBChildren.TabStop = False
         Me.GBChildren.Text = "Child Elements"
@@ -630,7 +597,7 @@ Partial Class FrmXMLconv
         Me.DGVElement.RowHeadersVisible = False
         Me.DGVElement.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.DGVElement.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.Highlight
-        Me.DGVElement.Size = New System.Drawing.Size(232, 289)
+        Me.DGVElement.Size = New System.Drawing.Size(232, 314)
         Me.DGVElement.TabIndex = 0
         '
         'CldName
@@ -670,7 +637,7 @@ Partial Class FrmXMLconv
         Me.TabPage1.Location = New System.Drawing.Point(4, 25)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(732, 390)
+        Me.TabPage1.Size = New System.Drawing.Size(732, 415)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "CSV"
         '
@@ -687,7 +654,7 @@ Partial Class FrmXMLconv
         'SplitContainer2.Panel2
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.gbXMLout)
-        Me.SplitContainer2.Size = New System.Drawing.Size(726, 384)
+        Me.SplitContainer2.Size = New System.Drawing.Size(726, 409)
         Me.SplitContainer2.SplitterDistance = 242
         Me.SplitContainer2.TabIndex = 65
         '
@@ -698,7 +665,7 @@ Partial Class FrmXMLconv
         Me.TabPage2.Location = New System.Drawing.Point(4, 25)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(732, 390)
+        Me.TabPage2.Size = New System.Drawing.Size(732, 415)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "DTD"
         '
@@ -715,7 +682,7 @@ Partial Class FrmXMLconv
         'SplitContainer3.Panel2
         '
         Me.SplitContainer3.Panel2.Controls.Add(Me.GroupBox2)
-        Me.SplitContainer3.Size = New System.Drawing.Size(726, 384)
+        Me.SplitContainer3.Size = New System.Drawing.Size(726, 409)
         Me.SplitContainer3.SplitterDistance = 242
         Me.SplitContainer3.TabIndex = 61
         '
@@ -730,7 +697,7 @@ Partial Class FrmXMLconv
         Me.GroupBox3.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.GroupBox3.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(242, 384)
+        Me.GroupBox3.Size = New System.Drawing.Size(242, 409)
         Me.GroupBox3.TabIndex = 70
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Replace Element Value"
@@ -742,14 +709,14 @@ Partial Class FrmXMLconv
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TVdtd.Location = New System.Drawing.Point(9, 36)
         Me.TVdtd.Name = "TVdtd"
-        Me.TVdtd.Size = New System.Drawing.Size(227, 289)
+        Me.TVdtd.Size = New System.Drawing.Size(227, 314)
         Me.TVdtd.TabIndex = 69
         '
         'RadioButton1
         '
         Me.RadioButton1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(9, 358)
+        Me.RadioButton1.Location = New System.Drawing.Point(9, 383)
         Me.RadioButton1.Name = "RadioButton1"
         Me.RadioButton1.Size = New System.Drawing.Size(159, 19)
         Me.RadioButton1.TabIndex = 68
@@ -761,7 +728,7 @@ Partial Class FrmXMLconv
         Me.RadioButton2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RadioButton2.AutoSize = True
         Me.RadioButton2.Checked = True
-        Me.RadioButton2.Location = New System.Drawing.Point(9, 332)
+        Me.RadioButton2.Location = New System.Drawing.Point(9, 357)
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.Size = New System.Drawing.Size(141, 19)
         Me.RadioButton2.TabIndex = 67
@@ -790,7 +757,7 @@ Partial Class FrmXMLconv
         Me.GroupBox2.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(480, 384)
+        Me.GroupBox2.Size = New System.Drawing.Size(480, 409)
         Me.GroupBox2.TabIndex = 60
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "DTD File output"
@@ -798,7 +765,7 @@ Partial Class FrmXMLconv
         'BtnOpneDTD
         '
         Me.BtnOpneDTD.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnOpneDTD.Location = New System.Drawing.Point(412, 356)
+        Me.BtnOpneDTD.Location = New System.Drawing.Point(412, 381)
         Me.BtnOpneDTD.Name = "BtnOpneDTD"
         Me.BtnOpneDTD.Size = New System.Drawing.Size(61, 23)
         Me.BtnOpneDTD.TabIndex = 4
@@ -818,14 +785,14 @@ Partial Class FrmXMLconv
         Me.txtDTDout.Name = "txtDTDout"
         Me.txtDTDout.ReadOnly = True
         Me.txtDTDout.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtDTDout.Size = New System.Drawing.Size(468, 331)
+        Me.txtDTDout.Size = New System.Drawing.Size(468, 356)
         Me.txtDTDout.TabIndex = 3
         Me.txtDTDout.WordWrap = False
         '
         'BtnSaveDTD
         '
         Me.BtnSaveDTD.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnSaveDTD.Location = New System.Drawing.Point(352, 356)
+        Me.BtnSaveDTD.Location = New System.Drawing.Point(352, 381)
         Me.BtnSaveDTD.Name = "BtnSaveDTD"
         Me.BtnSaveDTD.Size = New System.Drawing.Size(54, 23)
         Me.BtnSaveDTD.TabIndex = 2
@@ -836,7 +803,7 @@ Partial Class FrmXMLconv
         '
         Me.TxtSaveDTDPath.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TxtSaveDTDPath.Location = New System.Drawing.Point(6, 358)
+        Me.TxtSaveDTDPath.Location = New System.Drawing.Point(6, 383)
         Me.TxtSaveDTDPath.Name = "TxtSaveDTDPath"
         Me.TxtSaveDTDPath.Size = New System.Drawing.Size(340, 20)
         Me.TxtSaveDTDPath.TabIndex = 1
@@ -848,7 +815,7 @@ Partial Class FrmXMLconv
         Me.TabPage4.Location = New System.Drawing.Point(4, 25)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage4.Size = New System.Drawing.Size(732, 390)
+        Me.TabPage4.Size = New System.Drawing.Size(732, 415)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "XML"
         '
@@ -865,7 +832,7 @@ Partial Class FrmXMLconv
         'SplitContainer5.Panel2
         '
         Me.SplitContainer5.Panel2.Controls.Add(Me.GBOutXML)
-        Me.SplitContainer5.Size = New System.Drawing.Size(726, 384)
+        Me.SplitContainer5.Size = New System.Drawing.Size(726, 409)
         Me.SplitContainer5.SplitterDistance = 241
         Me.SplitContainer5.TabIndex = 5
         '
@@ -880,7 +847,7 @@ Partial Class FrmXMLconv
         Me.GroupBox5.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.GroupBox5.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(241, 384)
+        Me.GroupBox5.Size = New System.Drawing.Size(241, 409)
         Me.GroupBox5.TabIndex = 71
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Replace Element Value"
@@ -892,14 +859,14 @@ Partial Class FrmXMLconv
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TVxmlOut.Location = New System.Drawing.Point(9, 36)
         Me.TVxmlOut.Name = "TVxmlOut"
-        Me.TVxmlOut.Size = New System.Drawing.Size(226, 289)
+        Me.TVxmlOut.Size = New System.Drawing.Size(226, 314)
         Me.TVxmlOut.TabIndex = 69
         '
         'RadioButton5
         '
         Me.RadioButton5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RadioButton5.AutoSize = True
-        Me.RadioButton5.Location = New System.Drawing.Point(9, 358)
+        Me.RadioButton5.Location = New System.Drawing.Point(9, 383)
         Me.RadioButton5.Name = "RadioButton5"
         Me.RadioButton5.Size = New System.Drawing.Size(159, 19)
         Me.RadioButton5.TabIndex = 68
@@ -911,7 +878,7 @@ Partial Class FrmXMLconv
         Me.RadioButton6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RadioButton6.AutoSize = True
         Me.RadioButton6.Checked = True
-        Me.RadioButton6.Location = New System.Drawing.Point(9, 332)
+        Me.RadioButton6.Location = New System.Drawing.Point(9, 357)
         Me.RadioButton6.Name = "RadioButton6"
         Me.RadioButton6.Size = New System.Drawing.Size(141, 19)
         Me.RadioButton6.TabIndex = 67
@@ -939,7 +906,7 @@ Partial Class FrmXMLconv
         Me.GBOutXML.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.GBOutXML.Location = New System.Drawing.Point(0, 0)
         Me.GBOutXML.Name = "GBOutXML"
-        Me.GBOutXML.Size = New System.Drawing.Size(481, 384)
+        Me.GBOutXML.Size = New System.Drawing.Size(481, 409)
         Me.GBOutXML.TabIndex = 4
         Me.GBOutXML.TabStop = False
         Me.GBOutXML.Text = "XML Output File"
@@ -953,14 +920,14 @@ Partial Class FrmXMLconv
         Me.TxtXMLOut.Multiline = True
         Me.TxtXMLOut.Name = "TxtXMLOut"
         Me.TxtXMLOut.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TxtXMLOut.Size = New System.Drawing.Size(469, 331)
+        Me.TxtXMLOut.Size = New System.Drawing.Size(469, 356)
         Me.TxtXMLOut.TabIndex = 0
         Me.TxtXMLOut.WordWrap = False
         '
         'BtnSaveXML
         '
         Me.BtnSaveXML.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnSaveXML.Location = New System.Drawing.Point(319, 355)
+        Me.BtnSaveXML.Location = New System.Drawing.Point(319, 380)
         Me.BtnSaveXML.Name = "BtnSaveXML"
         Me.BtnSaveXML.Size = New System.Drawing.Size(75, 23)
         Me.BtnSaveXML.TabIndex = 3
@@ -971,7 +938,7 @@ Partial Class FrmXMLconv
         '
         Me.TxtOutXMLPath.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TxtOutXMLPath.Location = New System.Drawing.Point(6, 357)
+        Me.TxtOutXMLPath.Location = New System.Drawing.Point(6, 382)
         Me.TxtOutXMLPath.Name = "TxtOutXMLPath"
         Me.TxtOutXMLPath.Size = New System.Drawing.Size(307, 20)
         Me.TxtOutXMLPath.TabIndex = 1
@@ -979,242 +946,18 @@ Partial Class FrmXMLconv
         'BtnOpenXML
         '
         Me.BtnOpenXML.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnOpenXML.Location = New System.Drawing.Point(400, 355)
+        Me.BtnOpenXML.Location = New System.Drawing.Point(400, 380)
         Me.BtnOpenXML.Name = "BtnOpenXML"
         Me.BtnOpenXML.Size = New System.Drawing.Size(75, 23)
         Me.BtnOpenXML.TabIndex = 2
         Me.BtnOpenXML.Text = "Open"
         Me.BtnOpenXML.UseVisualStyleBackColor = True
         '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.MenuStrip1.Dock = System.Windows.Forms.DockStyle.None
-        Me.MenuStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.ToolsToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(1, 43)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuStrip1.Size = New System.Drawing.Size(179, 24)
-        Me.MenuStrip1.TabIndex = 66
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripMenuItem, Me.OpenToolStripMenuItem, Me.toolStripSeparator, Me.SaveToolStripMenuItem, Me.SaveAsToolStripMenuItem, Me.toolStripSeparator1, Me.PrintToolStripMenuItem, Me.PrintPreviewToolStripMenuItem, Me.toolStripSeparator2, Me.ExitToolStripMenuItem})
-        Me.FileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "&File"
-        '
-        'NewToolStripMenuItem
-        '
-        Me.NewToolStripMenuItem.Enabled = False
-        Me.NewToolStripMenuItem.Image = CType(resources.GetObject("NewToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.NewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.NewToolStripMenuItem.Name = "NewToolStripMenuItem"
-        Me.NewToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
-        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.NewToolStripMenuItem.Text = "&New"
-        '
-        'OpenToolStripMenuItem
-        '
-        Me.OpenToolStripMenuItem.Image = CType(resources.GetObject("OpenToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.OpenToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.OpenToolStripMenuItem.Text = "&Open"
-        '
-        'toolStripSeparator
-        '
-        Me.toolStripSeparator.Name = "toolStripSeparator"
-        Me.toolStripSeparator.Size = New System.Drawing.Size(177, 6)
-        '
-        'SaveToolStripMenuItem
-        '
-        Me.SaveToolStripMenuItem.Image = CType(resources.GetObject("SaveToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.SaveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.SaveToolStripMenuItem.Text = "&Save"
-        '
-        'SaveAsToolStripMenuItem
-        '
-        Me.SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem"
-        Me.SaveAsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.SaveAsToolStripMenuItem.Text = "Save &As"
-        '
-        'toolStripSeparator1
-        '
-        Me.toolStripSeparator1.Name = "toolStripSeparator1"
-        Me.toolStripSeparator1.Size = New System.Drawing.Size(177, 6)
-        '
-        'PrintToolStripMenuItem
-        '
-        Me.PrintToolStripMenuItem.Image = CType(resources.GetObject("PrintToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.PrintToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
-        Me.PrintToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.PrintToolStripMenuItem.Text = "&Print"
-        '
-        'PrintPreviewToolStripMenuItem
-        '
-        Me.PrintPreviewToolStripMenuItem.Image = CType(resources.GetObject("PrintPreviewToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.PrintPreviewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.PrintPreviewToolStripMenuItem.Name = "PrintPreviewToolStripMenuItem"
-        Me.PrintPreviewToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.PrintPreviewToolStripMenuItem.Text = "Print Pre&view"
-        '
-        'toolStripSeparator2
-        '
-        Me.toolStripSeparator2.Name = "toolStripSeparator2"
-        Me.toolStripSeparator2.Size = New System.Drawing.Size(177, 6)
-        '
-        'ExitToolStripMenuItem
-        '
-        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ExitToolStripMenuItem.Text = "E&xit"
-        '
-        'EditToolStripMenuItem
-        '
-        Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UndoToolStripMenuItem, Me.RedoToolStripMenuItem, Me.toolStripSeparator3, Me.CutToolStripMenuItem, Me.CopyToolStripMenuItem, Me.PasteToolStripMenuItem, Me.toolStripSeparator4, Me.SelectAllToolStripMenuItem})
-        Me.EditToolStripMenuItem.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
-        Me.EditToolStripMenuItem.Text = "&Edit"
-        '
-        'UndoToolStripMenuItem
-        '
-        Me.UndoToolStripMenuItem.Name = "UndoToolStripMenuItem"
-        Me.UndoToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Z), System.Windows.Forms.Keys)
-        Me.UndoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.UndoToolStripMenuItem.Text = "&Undo"
-        '
-        'RedoToolStripMenuItem
-        '
-        Me.RedoToolStripMenuItem.Name = "RedoToolStripMenuItem"
-        Me.RedoToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Y), System.Windows.Forms.Keys)
-        Me.RedoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.RedoToolStripMenuItem.Text = "&Redo"
-        '
-        'toolStripSeparator3
-        '
-        Me.toolStripSeparator3.Name = "toolStripSeparator3"
-        Me.toolStripSeparator3.Size = New System.Drawing.Size(177, 6)
-        '
-        'CutToolStripMenuItem
-        '
-        Me.CutToolStripMenuItem.Image = CType(resources.GetObject("CutToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.CutToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CutToolStripMenuItem.Name = "CutToolStripMenuItem"
-        Me.CutToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.CutToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.CutToolStripMenuItem.Text = "Cu&t"
-        '
-        'CopyToolStripMenuItem
-        '
-        Me.CopyToolStripMenuItem.Image = CType(resources.GetObject("CopyToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.CopyToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CopyToolStripMenuItem.Name = "CopyToolStripMenuItem"
-        Me.CopyToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
-        Me.CopyToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.CopyToolStripMenuItem.Text = "&Copy"
-        '
-        'PasteToolStripMenuItem
-        '
-        Me.PasteToolStripMenuItem.Image = CType(resources.GetObject("PasteToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.PasteToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.PasteToolStripMenuItem.Name = "PasteToolStripMenuItem"
-        Me.PasteToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.V), System.Windows.Forms.Keys)
-        Me.PasteToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.PasteToolStripMenuItem.Text = "&Paste"
-        '
-        'toolStripSeparator4
-        '
-        Me.toolStripSeparator4.Name = "toolStripSeparator4"
-        Me.toolStripSeparator4.Size = New System.Drawing.Size(177, 6)
-        '
-        'SelectAllToolStripMenuItem
-        '
-        Me.SelectAllToolStripMenuItem.Name = "SelectAllToolStripMenuItem"
-        Me.SelectAllToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.SelectAllToolStripMenuItem.Text = "Select &All"
-        '
-        'ToolsToolStripMenuItem
-        '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CustomizeToolStripMenuItem, Me.OptionsToolStripMenuItem, Me.LogFilesToolStripMenuItem})
-        Me.ToolsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
-        Me.ToolsToolStripMenuItem.Text = "&Tools"
-        '
-        'CustomizeToolStripMenuItem
-        '
-        Me.CustomizeToolStripMenuItem.Name = "CustomizeToolStripMenuItem"
-        Me.CustomizeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.CustomizeToolStripMenuItem.Text = "&Customize"
-        '
-        'OptionsToolStripMenuItem
-        '
-        Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
-        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.OptionsToolStripMenuItem.Text = "&Options"
-        '
-        'LogFilesToolStripMenuItem
-        '
-        Me.LogFilesToolStripMenuItem.Name = "LogFilesToolStripMenuItem"
-        Me.LogFilesToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.LogFilesToolStripMenuItem.Text = "Log Files"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContentsToolStripMenuItem, Me.IndexToolStripMenuItem, Me.SearchToolStripMenuItem, Me.toolStripSeparator5, Me.AboutToolStripMenuItem})
-        Me.HelpToolStripMenuItem.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "&Help"
-        '
-        'ContentsToolStripMenuItem
-        '
-        Me.ContentsToolStripMenuItem.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.ContentsToolStripMenuItem.Name = "ContentsToolStripMenuItem"
-        Me.ContentsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ContentsToolStripMenuItem.Text = "&Contents"
-        '
-        'IndexToolStripMenuItem
-        '
-        Me.IndexToolStripMenuItem.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.IndexToolStripMenuItem.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.IndexToolStripMenuItem.Name = "IndexToolStripMenuItem"
-        Me.IndexToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.IndexToolStripMenuItem.Text = "&Index"
-        '
-        'SearchToolStripMenuItem
-        '
-        Me.SearchToolStripMenuItem.Name = "SearchToolStripMenuItem"
-        Me.SearchToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.SearchToolStripMenuItem.Text = "&Search"
-        '
-        'toolStripSeparator5
-        '
-        Me.toolStripSeparator5.Name = "toolStripSeparator5"
-        Me.toolStripSeparator5.Size = New System.Drawing.Size(177, 6)
-        '
-        'AboutToolStripMenuItem
-        '
-        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.AboutToolStripMenuItem.Text = "&About..."
-        '
         'BtnCreateCSV
         '
         Me.BtnCreateCSV.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnCreateCSV.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnCreateCSV.Location = New System.Drawing.Point(6, 391)
+        Me.BtnCreateCSV.Location = New System.Drawing.Point(6, 416)
         Me.BtnCreateCSV.Name = "BtnCreateCSV"
         Me.BtnCreateCSV.Size = New System.Drawing.Size(68, 40)
         Me.BtnCreateCSV.TabIndex = 68
@@ -1227,7 +970,7 @@ Partial Class FrmXMLconv
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitContainer1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.SplitContainer1.Location = New System.Drawing.Point(3, 71)
+        Me.SplitContainer1.Location = New System.Drawing.Point(3, 46)
         Me.SplitContainer1.Name = "SplitContainer1"
         '
         'SplitContainer1.Panel1
@@ -1237,16 +980,32 @@ Partial Class FrmXMLconv
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.GBframe2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1131, 438)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1131, 463)
         Me.SplitContainer1.SplitterDistance = 377
         Me.SplitContainer1.SplitterWidth = 8
         Me.SplitContainer1.TabIndex = 69
+        '
+        'GBframe1
+        '
+        Me.GBframe1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.GBframe1.Controls.Add(Me.gbIn)
+        Me.GBframe1.Controls.Add(Me.BtnReplace)
+        Me.GBframe1.Controls.Add(Me.BtnCreateCSV)
+        Me.GBframe1.Controls.Add(Me.BtnCreateDTD)
+        Me.GBframe1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GBframe1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.GBframe1.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.GBframe1.Location = New System.Drawing.Point(0, 0)
+        Me.GBframe1.Name = "GBframe1"
+        Me.GBframe1.Size = New System.Drawing.Size(377, 463)
+        Me.GBframe1.TabIndex = 70
+        Me.GBframe1.TabStop = False
         '
         'BtnReplace
         '
         Me.BtnReplace.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnReplace.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnReplace.Location = New System.Drawing.Point(154, 391)
+        Me.BtnReplace.Location = New System.Drawing.Point(154, 416)
         Me.BtnReplace.Name = "BtnReplace"
         Me.BtnReplace.Size = New System.Drawing.Size(89, 40)
         Me.BtnReplace.TabIndex = 69
@@ -1262,37 +1021,18 @@ Partial Class FrmXMLconv
         Me.GBframe2.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.GBframe2.Location = New System.Drawing.Point(0, 0)
         Me.GBframe2.Name = "GBframe2"
-        Me.GBframe2.Size = New System.Drawing.Size(746, 438)
+        Me.GBframe2.Size = New System.Drawing.Size(746, 463)
         Me.GBframe2.TabIndex = 66
         Me.GBframe2.TabStop = False
-        '
-        'GBframe1
-        '
-        Me.GBframe1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.GBframe1.Controls.Add(Me.gbIn)
-        Me.GBframe1.Controls.Add(Me.BtnReplace)
-        Me.GBframe1.Controls.Add(Me.BtnCreateCSV)
-        Me.GBframe1.Controls.Add(Me.BtnCreateDTD)
-        Me.GBframe1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GBframe1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.GBframe1.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.GBframe1.Location = New System.Drawing.Point(0, 0)
-        Me.GBframe1.Name = "GBframe1"
-        Me.GBframe1.Size = New System.Drawing.Size(377, 438)
-        Me.GBframe1.TabIndex = 70
-        Me.GBframe1.TabStop = False
         '
         'FrmXMLconv
         '
         Me.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.ClientSize = New System.Drawing.Size(1134, 577)
         Me.Controls.Add(Me.SplitContainer1)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "FrmXMLconv"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show
         Me.Text = "XML Message Tool"
-        Me.Controls.SetChildIndex(Me.MenuStrip1, 0)
         Me.Controls.SetChildIndex(Me.SplitContainer1, 0)
         Me.Controls.SetChildIndex(Me.Panel1, 0)
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
@@ -1342,15 +1082,12 @@ Partial Class FrmXMLconv
         Me.GroupBox5.PerformLayout()
         Me.GBOutXML.ResumeLayout(False)
         Me.GBOutXML.PerformLayout()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         Me.SplitContainer1.ResumeLayout(False)
-        Me.GBframe2.ResumeLayout(False)
         Me.GBframe1.ResumeLayout(False)
+        Me.GBframe2.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents gbIn As System.Windows.Forms.GroupBox
@@ -1368,7 +1105,7 @@ Partial Class FrmXMLconv
     Friend WithEvents Label3 As Label
     Friend WithEvents RbAllElements As RadioButton
     Friend WithEvents RbOnlyThisElement As RadioButton
-    Friend WithEvents TVxml As TreeView
+    Friend WithEvents TVcsv As TreeView
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
@@ -1391,37 +1128,6 @@ Partial Class FrmXMLconv
     Friend WithEvents AttrValue As DataGridViewTextBoxColumn
     Friend WithEvents CldName As DataGridViewTextBoxColumn
     Friend WithEvents CldValue As DataGridViewTextBoxColumn
-    Friend WithEvents MenuStrip1 As MenuStrip
-    Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents NewToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents toolStripSeparator As ToolStripSeparator
-    Friend WithEvents SaveToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents SaveAsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents toolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents PrintToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents PrintPreviewToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents toolStripSeparator2 As ToolStripSeparator
-    Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents EditToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents UndoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents RedoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents toolStripSeparator3 As ToolStripSeparator
-    Friend WithEvents CutToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CopyToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents PasteToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents toolStripSeparator4 As ToolStripSeparator
-    Friend WithEvents SelectAllToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ToolsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CustomizeToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents OptionsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ContentsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents IndexToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents SearchToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents toolStripSeparator5 As ToolStripSeparator
-    Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents LogFilesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BtnCreateCSV As Button
     Friend WithEvents BtnOpenCSV As Button
     Friend WithEvents SplitContainer2 As SplitContainer
