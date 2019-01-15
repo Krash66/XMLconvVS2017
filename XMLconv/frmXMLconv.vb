@@ -35,7 +35,7 @@ Public Class FrmXMLconv
 
         Try
             CmdOk.Enabled = False
-            BtnCreateDTD.Enabled = False
+            BtnCreateCSV.Enabled = False
             BtnSaveCSV.Enabled = False
             RbOnlyThisElement.Checked = True
             RbAllElements.Checked = False
@@ -123,7 +123,7 @@ Public Class FrmXMLconv
                 'Format the XML Document
                 If FormatDoc() Then
                     LoadInText()
-                    BtnCreateDTD.Enabled = True
+                    BtnCreateCSV.Enabled = True
                     LoadTreeView()
                 End If
             End If
@@ -245,6 +245,22 @@ Public Class FrmXMLconv
                 TVxmlOut.ExpandAll()
                 TVxmlOut.CheckBoxes = True
                 TVxmlOut.SelectedNode.EnsureVisible()
+
+                For Each nd As XmlNode In xml_Indoc.ChildNodes
+                    '*** Process each Node, if it is an element
+                    '*** if it's not an element, ignore it
+                    If nd.NodeType = XmlNodeType.Element Then
+                        Dim tnode As New TreeNode(nd.Name) With {
+                            .Tag = nd
+                        }
+                        TVsql.Nodes.Add(tnode)
+                        TVsql.SelectedNode = tnode
+                        ProcessTreeChild(nd, tnode)
+                    End If
+                Next 'next doc child                                   
+                TVsql.ExpandAll()
+                TVsql.CheckBoxes = True
+                TVsql.SelectedNode.EnsureVisible()
             End If
         Catch ex As Exception
             LogError(ex, "frmXMLconv LoadTreeView")
@@ -338,7 +354,7 @@ Public Class FrmXMLconv
 
 #Region "Convert to DTD"
 
-    Private Sub BtnCreateDTD_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateDTD.Click
+    Private Sub BtnCreateDTD_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateCSV.Click
 
         Try
             ArrAllElements.Clear()
@@ -825,7 +841,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
     End Sub
 
-    Private Sub BtnCreateCSV_Click(sender As Object, e As EventArgs) Handles BtnCreateCSV.Click
+    Private Sub BtnCreateCSV_Click(sender As Object, e As EventArgs) Handles BtnCreateDTD.Click
 
     End Sub
 
@@ -834,6 +850,10 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
     End Sub
 
     Private Sub BtnOpenXML_Click(sender As Object, e As EventArgs) Handles BtnOpenXML.Click
+
+    End Sub
+
+    Private Sub BtnCreateXML_Click(sender As Object, e As EventArgs) Handles BtnCreateXML.Click
 
     End Sub
 
