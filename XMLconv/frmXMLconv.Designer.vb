@@ -41,6 +41,7 @@ Partial Class FrmXMLconv
         Me.SplitContainer4 = New System.Windows.Forms.SplitContainer()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.TVelement = New System.Windows.Forms.TreeView()
+        Me.BtnReplace = New System.Windows.Forms.Button()
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.RadioButton4 = New System.Windows.Forms.RadioButton()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -65,6 +66,7 @@ Partial Class FrmXMLconv
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.TVdtd = New System.Windows.Forms.TreeView()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.BtnCreateDTD = New System.Windows.Forms.Button()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -75,6 +77,7 @@ Partial Class FrmXMLconv
         Me.TabPage4 = New System.Windows.Forms.TabPage()
         Me.SplitContainer5 = New System.Windows.Forms.SplitContainer()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.BtnCreateXML = New System.Windows.Forms.Button()
         Me.TVxmlOut = New System.Windows.Forms.TreeView()
         Me.RadioButton5 = New System.Windows.Forms.RadioButton()
         Me.RadioButton6 = New System.Windows.Forms.RadioButton()
@@ -85,11 +88,6 @@ Partial Class FrmXMLconv
         Me.TxtOutXMLPath = New System.Windows.Forms.TextBox()
         Me.BtnOpenXML = New System.Windows.Forms.Button()
         Me.TabPage5 = New System.Windows.Forms.TabPage()
-        Me.BtnCreateDTD = New System.Windows.Forms.Button()
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.GBframe1 = New System.Windows.Forms.GroupBox()
-        Me.BtnReplace = New System.Windows.Forms.Button()
-        Me.GBframe2 = New System.Windows.Forms.GroupBox()
         Me.SplitContainer6 = New System.Windows.Forms.SplitContainer()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.TVsql = New System.Windows.Forms.TreeView()
@@ -101,7 +99,10 @@ Partial Class FrmXMLconv
         Me.TxTSQLout = New System.Windows.Forms.TextBox()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.BtnCreateXML = New System.Windows.Forms.Button()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.GBframe1 = New System.Windows.Forms.GroupBox()
+        Me.GBframe2 = New System.Windows.Forms.GroupBox()
+        Me.TabPage6 = New System.Windows.Forms.TabPage()
         Me.Panel1.SuspendLayout()
         Me.gbIn.SuspendLayout()
         Me.gbXMLout.SuspendLayout()
@@ -137,16 +138,16 @@ Partial Class FrmXMLconv
         Me.GroupBox5.SuspendLayout()
         Me.GBOutXML.SuspendLayout()
         Me.TabPage5.SuspendLayout()
-        Me.SplitContainer1.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel2.SuspendLayout()
-        Me.SplitContainer1.SuspendLayout()
-        Me.GBframe1.SuspendLayout()
-        Me.GBframe2.SuspendLayout()
         Me.SplitContainer6.Panel1.SuspendLayout()
         Me.SplitContainer6.Panel2.SuspendLayout()
         Me.SplitContainer6.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         Me.GBsqlOut.SuspendLayout()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
+        Me.GBframe1.SuspendLayout()
+        Me.GBframe2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -404,6 +405,7 @@ Partial Class FrmXMLconv
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage4)
+        Me.TabControl1.Controls.Add(Me.TabPage6)
         Me.TabControl1.Controls.Add(Me.TabPage5)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -470,6 +472,18 @@ Partial Class FrmXMLconv
         Me.TVelement.Name = "TVelement"
         Me.TVelement.Size = New System.Drawing.Size(227, 271)
         Me.TVelement.TabIndex = 69
+        '
+        'BtnReplace
+        '
+        Me.BtnReplace.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnReplace.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnReplace.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.BtnReplace.Location = New System.Drawing.Point(6, 369)
+        Me.BtnReplace.Name = "BtnReplace"
+        Me.BtnReplace.Size = New System.Drawing.Size(227, 31)
+        Me.BtnReplace.TabIndex = 69
+        Me.BtnReplace.Text = "Save Changes to Elements"
+        Me.BtnReplace.UseVisualStyleBackColor = True
         '
         'RadioButton3
         '
@@ -758,6 +772,18 @@ Partial Class FrmXMLconv
         Me.RadioButton1.Text = "All Elements like this"
         Me.RadioButton1.UseVisualStyleBackColor = True
         '
+        'BtnCreateDTD
+        '
+        Me.BtnCreateDTD.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnCreateDTD.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnCreateDTD.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.BtnCreateDTD.Location = New System.Drawing.Point(129, 374)
+        Me.BtnCreateDTD.Name = "BtnCreateDTD"
+        Me.BtnCreateDTD.Size = New System.Drawing.Size(107, 28)
+        Me.BtnCreateDTD.TabIndex = 68
+        Me.BtnCreateDTD.Text = "Create DTD"
+        Me.BtnCreateDTD.UseVisualStyleBackColor = True
+        '
         'RadioButton2
         '
         Me.RadioButton2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -892,6 +918,16 @@ Partial Class FrmXMLconv
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Replace Element Value"
         '
+        'BtnCreateXML
+        '
+        Me.BtnCreateXML.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnCreateXML.Location = New System.Drawing.Point(127, 374)
+        Me.BtnCreateXML.Name = "BtnCreateXML"
+        Me.BtnCreateXML.Size = New System.Drawing.Size(108, 26)
+        Me.BtnCreateXML.TabIndex = 70
+        Me.BtnCreateXML.Text = "Create XML"
+        Me.BtnCreateXML.UseVisualStyleBackColor = True
+        '
         'TVxmlOut
         '
         Me.TVxmlOut.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -1004,77 +1040,6 @@ Partial Class FrmXMLconv
         Me.TabPage5.TabIndex = 4
         Me.TabPage5.Text = "SQL"
         Me.TabPage5.UseVisualStyleBackColor = True
-        '
-        'BtnCreateDTD
-        '
-        Me.BtnCreateDTD.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnCreateDTD.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnCreateDTD.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.BtnCreateDTD.Location = New System.Drawing.Point(129, 374)
-        Me.BtnCreateDTD.Name = "BtnCreateDTD"
-        Me.BtnCreateDTD.Size = New System.Drawing.Size(107, 28)
-        Me.BtnCreateDTD.TabIndex = 68
-        Me.BtnCreateDTD.Text = "Create DTD"
-        Me.BtnCreateDTD.UseVisualStyleBackColor = True
-        '
-        'SplitContainer1
-        '
-        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SplitContainer1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.SplitContainer1.Location = New System.Drawing.Point(3, 46)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.GBframe1)
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.GBframe2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1131, 463)
-        Me.SplitContainer1.SplitterDistance = 377
-        Me.SplitContainer1.SplitterWidth = 8
-        Me.SplitContainer1.TabIndex = 69
-        '
-        'GBframe1
-        '
-        Me.GBframe1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.GBframe1.Controls.Add(Me.gbIn)
-        Me.GBframe1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GBframe1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.GBframe1.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.GBframe1.Location = New System.Drawing.Point(0, 0)
-        Me.GBframe1.Name = "GBframe1"
-        Me.GBframe1.Size = New System.Drawing.Size(377, 463)
-        Me.GBframe1.TabIndex = 70
-        Me.GBframe1.TabStop = False
-        '
-        'BtnReplace
-        '
-        Me.BtnReplace.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.BtnReplace.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnReplace.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.BtnReplace.Location = New System.Drawing.Point(6, 369)
-        Me.BtnReplace.Name = "BtnReplace"
-        Me.BtnReplace.Size = New System.Drawing.Size(227, 31)
-        Me.BtnReplace.TabIndex = 69
-        Me.BtnReplace.Text = "Save Changes to Elements"
-        Me.BtnReplace.UseVisualStyleBackColor = True
-        '
-        'GBframe2
-        '
-        Me.GBframe2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.GBframe2.Controls.Add(Me.TabControl1)
-        Me.GBframe2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GBframe2.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.GBframe2.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.GBframe2.Location = New System.Drawing.Point(0, 0)
-        Me.GBframe2.Name = "GBframe2"
-        Me.GBframe2.Size = New System.Drawing.Size(746, 463)
-        Me.GBframe2.TabIndex = 66
-        Me.GBframe2.TabStop = False
         '
         'SplitContainer6
         '
@@ -1217,15 +1182,61 @@ Partial Class FrmXMLconv
         Me.TextBox2.Size = New System.Drawing.Size(344, 23)
         Me.TextBox2.TabIndex = 1
         '
-        'BtnCreateXML
+        'SplitContainer1
         '
-        Me.BtnCreateXML.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnCreateXML.Location = New System.Drawing.Point(127, 374)
-        Me.BtnCreateXML.Name = "BtnCreateXML"
-        Me.BtnCreateXML.Size = New System.Drawing.Size(108, 26)
-        Me.BtnCreateXML.TabIndex = 70
-        Me.BtnCreateXML.Text = "Create XML"
-        Me.BtnCreateXML.UseVisualStyleBackColor = True
+        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.SplitContainer1.Location = New System.Drawing.Point(3, 46)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.GBframe1)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.GBframe2)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1131, 463)
+        Me.SplitContainer1.SplitterDistance = 377
+        Me.SplitContainer1.SplitterWidth = 8
+        Me.SplitContainer1.TabIndex = 69
+        '
+        'GBframe1
+        '
+        Me.GBframe1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.GBframe1.Controls.Add(Me.gbIn)
+        Me.GBframe1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GBframe1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.GBframe1.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.GBframe1.Location = New System.Drawing.Point(0, 0)
+        Me.GBframe1.Name = "GBframe1"
+        Me.GBframe1.Size = New System.Drawing.Size(377, 463)
+        Me.GBframe1.TabIndex = 70
+        Me.GBframe1.TabStop = False
+        '
+        'GBframe2
+        '
+        Me.GBframe2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.GBframe2.Controls.Add(Me.TabControl1)
+        Me.GBframe2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GBframe2.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.GBframe2.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.GBframe2.Location = New System.Drawing.Point(0, 0)
+        Me.GBframe2.Name = "GBframe2"
+        Me.GBframe2.Size = New System.Drawing.Size(746, 463)
+        Me.GBframe2.TabIndex = 66
+        Me.GBframe2.TabStop = False
+        '
+        'TabPage6
+        '
+        Me.TabPage6.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage6.Name = "TabPage6"
+        Me.TabPage6.Size = New System.Drawing.Size(732, 409)
+        Me.TabPage6.TabIndex = 5
+        Me.TabPage6.Text = "JSON"
+        Me.TabPage6.UseVisualStyleBackColor = True
         '
         'FrmXMLconv
         '
@@ -1285,11 +1296,6 @@ Partial Class FrmXMLconv
         Me.GBOutXML.ResumeLayout(False)
         Me.GBOutXML.PerformLayout()
         Me.TabPage5.ResumeLayout(False)
-        Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel2.ResumeLayout(False)
-        Me.SplitContainer1.ResumeLayout(False)
-        Me.GBframe1.ResumeLayout(False)
-        Me.GBframe2.ResumeLayout(False)
         Me.SplitContainer6.Panel1.ResumeLayout(False)
         Me.SplitContainer6.Panel2.ResumeLayout(False)
         Me.SplitContainer6.ResumeLayout(False)
@@ -1297,6 +1303,11 @@ Partial Class FrmXMLconv
         Me.GroupBox6.PerformLayout()
         Me.GBsqlOut.ResumeLayout(False)
         Me.GBsqlOut.PerformLayout()
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        Me.SplitContainer1.ResumeLayout(False)
+        Me.GBframe1.ResumeLayout(False)
+        Me.GBframe2.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1383,4 +1394,5 @@ Partial Class FrmXMLconv
     Friend WithEvents Button2 As Button
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents BtnCreateXML As Button
+    Friend WithEvents TabPage6 As TabPage
 End Class
