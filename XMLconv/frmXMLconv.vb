@@ -1,5 +1,6 @@
 ﻿Imports System.Xml
-
+Imports System.Data
+Imports System.Xml.XPath
 Public Class FrmXMLconv
     Inherits FrmBlank
     '/// Created by TK   November 2011
@@ -39,13 +40,21 @@ Public Class FrmXMLconv
             'BtnSaveCSV.Enabled = False
             RbOnlyThisElement.Checked = True
             RbAllElements.Checked = False
+            RetrieveStudioFromXML()
             LoadGlobalValues()
+
             Me.Show()
             'Log("Trace Enabled")
 
         Catch ex As Exception
             LogError(ex, "frmXMLconv OpenForm")
         End Try
+
+    End Sub
+
+    Private Sub Main_Form_Close(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closing
+
+        SaveStudioToXML()
 
     End Sub
 
@@ -876,6 +885,110 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
     End Sub
 
+
+#End Region
+
+#Region "Main Program XML Settings Storage and retrieval"
+
+    Function SaveStudioToXML(Optional ByVal Newpath As Boolean = False) As Boolean
+
+        Try
+            '*** Path to Studio XML file
+            If Newpath = True Then
+                AppDataPath = My.Computer.FileSystem.SpecialDirectories.MyDocuments()
+                If Strings.Right(AppDataPath, 1) <> "\" Then
+                    AppDataPath = AppDataPath & "\"
+                End If
+                AppDataPath = AppDataPath & "XML Tool\"
+                If System.IO.Directory.Exists(AppDataPath) = False Then
+                    System.IO.Directory.CreateDirectory(AppDataPath)
+                End If
+            End If
+
+            Dim StudioXMLFullPath As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments() &
+            "\XML Tool\XMLtool.settings.xml"
+
+            '*** New XML writer for XML file
+            Dim XMLwrite As New Xml.XmlTextWriter(StudioXMLFullPath, System.Text.Encoding.UTF8)
+
+            '*** define doctype and formatting and Open XML file
+            XMLwrite.Formatting = Formatting.Indented
+            XMLwrite.WriteStartDocument()
+            XMLwrite.WriteStartElement("XMLtool", "XMLtool", StudioXMLFullPath)
+
+            '*** write Data
+            'XMLwrite.WriteElementString("Winstate", WinState.ToString())
+            XMLwrite.WriteElementString("AppDataPath", AppDataPath)
+            'XMLwrite.WriteElementString("CCurl", CCurl)
+
+            '*** write closing element and close file
+            XMLwrite.WriteEndElement()
+            XMLwrite.WriteEndDocument()
+            XMLwrite.Close()
+
+            Return True
+
+        Catch ex As Exception
+            LogError(ex, "modXML SaveStudioToXML")
+            Return False
+        End Try
+
+    End Function
+
+    '// New 11/2011 to get rid of Project saving to Registry
+    Function RetrieveStudioFromXML() As Boolean
+
+        Try
+            Dim curNode As XmlNode
+            '*** Path to Project XML file
+            Dim StudioXMLFullPath As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments() &
+            "\XML Tool\XMLtool.settings.xml"
+
+            If System.IO.File.Exists(StudioXMLFullPath) = False Then
+                'AppDataPath = System.Windows.Forms.Application.LocalUserAppDataPath()
+                RetrieveStudioFromXML = SaveStudioToXML(True)
+            End If
+
+            '*** New XML Doc for XML file
+            Dim XMLDoc As New Xml.XmlDocument
+            XMLDoc.Load(StudioXMLFullPath)
+
+            If XMLDoc.HasChildNodes = True Then
+                curNode = XMLDoc.LastChild
+                Dim TempStr As String = ""
+                For Each nd As XmlNode In curNode.ChildNodes
+                    If nd.InnerText <> "" Then
+                        TempStr = nd.InnerText
+                    Else
+                        TempStr = ""
+                    End If
+                    Select Case nd.Name
+                        'Case "Winstate"
+                        '    Select Case TempStr
+                        '        Case "Maximized"
+                        '            WinState = FormWindowState.Maximized
+                        '        Case "Normal"
+                        '            WinState = FormWindowState.Normal
+                        '        Case Else
+                        '            WinState = FormWindowState.Normal
+                        '    End Select
+                        Case "AppDataPath"
+                            AppDataPath = TempStr
+                            'Case "CCurl"
+                            '    CCurl = TempStr
+
+                    End Select
+                Next
+            End If
+
+            Return True
+
+        Catch ex As Exception
+            LogError(ex, "modXML RetrieveStudioFromXML")
+            Return False
+        End Try
+
+    End Function
 
 #End Region
 

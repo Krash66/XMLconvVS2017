@@ -51,8 +51,6 @@ Partial Class FrmXMLconv
         Me.AttrValue = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GBChildren = New System.Windows.Forms.GroupBox()
         Me.DGVElement = New System.Windows.Forms.DataGridView()
-        Me.CldName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CldValue = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TxtElementName = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
@@ -99,6 +97,8 @@ Partial Class FrmXMLconv
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.GBframe1 = New System.Windows.Forms.GroupBox()
         Me.GBframe2 = New System.Windows.Forms.GroupBox()
+        Me.CldName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CldValue = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel1.SuspendLayout()
         Me.gbIn.SuspendLayout()
         Me.gbXMLout.SuspendLayout()
@@ -597,16 +597,6 @@ Partial Class FrmXMLconv
         Me.DGVElement.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.Highlight
         Me.DGVElement.Size = New System.Drawing.Size(232, 314)
         Me.DGVElement.TabIndex = 0
-        '
-        'CldName
-        '
-        Me.CldName.HeaderText = "Name"
-        Me.CldName.Name = "CldName"
-        '
-        'CldValue
-        '
-        Me.CldValue.HeaderText = "Value"
-        Me.CldValue.Name = "CldValue"
         '
         'TxtElementName
         '
@@ -1198,6 +1188,16 @@ Partial Class FrmXMLconv
         Me.GBframe2.TabIndex = 66
         Me.GBframe2.TabStop = False
         '
+        'CldName
+        '
+        Me.CldName.HeaderText = "Name"
+        Me.CldName.Name = "CldName"
+        '
+        'CldValue
+        '
+        Me.CldValue.HeaderText = "Value"
+        Me.CldValue.Name = "CldValue"
+        '
         'FrmXMLconv
         '
         Me.BackColor = System.Drawing.SystemColors.Control
@@ -1307,8 +1307,6 @@ Partial Class FrmXMLconv
     Friend WithEvents Label4 As Label
     Friend WithEvents AttrName As DataGridViewTextBoxColumn
     Friend WithEvents AttrValue As DataGridViewTextBoxColumn
-    Friend WithEvents CldName As DataGridViewTextBoxColumn
-    Friend WithEvents CldValue As DataGridViewTextBoxColumn
     Friend WithEvents BtnCreateDTD As Button
     Friend WithEvents BtnOpenCSV As Button
     Friend WithEvents SplitContainer2 As SplitContainer
@@ -1354,4 +1352,6 @@ Partial Class FrmXMLconv
     Friend WithEvents TxtJSONout As TextBox
     Friend WithEvents Button5 As Button
     Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents CldName As DataGridViewTextBoxColumn
+    Friend WithEvents CldValue As DataGridViewTextBoxColumn
 End Class
