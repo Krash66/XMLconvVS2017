@@ -31,44 +31,23 @@ Public Class FrmXMLconv
 
 #Region "Form actions"
 
-    Public Function OpenForm() As Boolean
+    Private Sub Main_Form_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
-            CmdOk.Enabled = False
-            BtnCreateCSV.Enabled = False
-            BtnSaveCSV.Enabled = False
+            'CmdOk.Enabled = False
+            'BtnCreateCSV.Enabled = False
+            'BtnSaveCSV.Enabled = False
             RbOnlyThisElement.Checked = True
             RbAllElements.Checked = False
             LoadGlobalValues()
             Me.Show()
+            'Log("Trace Enabled")
 
         Catch ex As Exception
             LogError(ex, "frmXMLconv OpenForm")
-            Return False
         End Try
 
-    End Function
-
-    '    Public Function GetDTD(Optional ByVal InDir As String = "") As String
-
-    '        cmdOk.Enabled = False
-    '        btnConv.Enabled = False
-    '        btnbrowseOut.Enabled = False
-    '        'btnImportDTD.Visible = True
-    '        'btnImportDTD.Enabled = False
-    '        InputDir = InDir
-
-    'doAgain:
-    '        Select Case Me.ShowDialog
-    '            Case Windows.Forms.DialogResult.OK
-    '                GetDTD = txtOutPath.Text
-    '            Case Windows.Forms.DialogResult.Retry
-    '                GoTo doAgain
-    '            Case Else
-    '                GetDTD = ""
-    '        End Select
-
-    '    End Function
+    End Sub
 
     Private Sub CmdCancel_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmdCancel.Click
 
@@ -237,14 +216,30 @@ Public Class FrmXMLconv
                         Dim tnode As New TreeNode(nd.Name) With {
                             .Tag = nd
                         }
-                        TVxmlOut.Nodes.Add(tnode)
-                        TVxmlOut.SelectedNode = tnode
+                        TVxml.Nodes.Add(tnode)
+                        TVxml.SelectedNode = tnode
                         ProcessTreeChild(nd, tnode)
                     End If
                 Next 'next doc child                                   
-                TVxmlOut.ExpandAll()
-                TVxmlOut.CheckBoxes = True
-                TVxmlOut.SelectedNode.EnsureVisible()
+                TVxml.ExpandAll()
+                TVxml.CheckBoxes = True
+                TVxml.SelectedNode.EnsureVisible()
+
+                For Each nd As XmlNode In xml_Indoc.ChildNodes
+                    '*** Process each Node, if it is an element
+                    '*** if it's not an element, ignore it
+                    If nd.NodeType = XmlNodeType.Element Then
+                        Dim tnode As New TreeNode(nd.Name) With {
+                            .Tag = nd
+                        }
+                        TVjson.Nodes.Add(tnode)
+                        TVjson.SelectedNode = tnode
+                        ProcessTreeChild(nd, tnode)
+                    End If
+                Next 'next doc child                                   
+                TVjson.ExpandAll()
+                TVjson.CheckBoxes = True
+                TVjson.SelectedNode.EnsureVisible()
 
                 For Each nd As XmlNode In xml_Indoc.ChildNodes
                     '*** Process each Node, if it is an element
@@ -335,14 +330,14 @@ Public Class FrmXMLconv
 
     'End Sub
 
-    Private Sub RbOnlyThisElement_CheckedChanged(sender As Object, e As EventArgs) Handles RbOnlyThisElement.CheckedChanged
+    Private Sub RbOnlyThisElement_CheckedChanged(sender As Object, e As EventArgs)
         If RbOnlyThisElement.Checked = True Then
             IsAll = False
             RbAllElements.Checked = False
         End If
     End Sub
 
-    Private Sub RbAllElements_CheckedChanged(sender As Object, e As EventArgs) Handles RbAllElements.CheckedChanged
+    Private Sub RbAllElements_CheckedChanged(sender As Object, e As EventArgs)
         If RbAllElements.Checked = True Then
             IsAll = True
             RbOnlyThisElement.Checked = False
@@ -682,7 +677,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
     End Sub
 
-    Private Sub CmdOk_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmdOk.Click
+    Private Sub CmdOk_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) ' Handles CmdOk.Click
 
         'Me.Close()
         'If Save() = True Then
@@ -701,7 +696,31 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
         End Try
 
     End Sub
+    Private Sub CmdOk_Click_(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmdOk.Click
 
+        'Me.Close()
+        'If Save() = True Then
+        '    MsgBox("Save was successful", MsgBoxStyle.OkOnly)
+        'End If
+        'Try
+        '    If OutFilePath <> "" Then
+        '        Dim OpenProcess As New System.Diagnostics.Process
+        '        Process.Start(OutFilePath)
+
+        '        'Shell("notepad.exe " & RetCode.SQDPath, AppWinStyle.NormalFocus)
+        '    End If
+
+        'Catch ex As Exception
+        '    LogError(ex, "frmXMLconv cmdOk_Click_1")
+        'End Try
+
+        ShowLog()
+
+    End Sub
+    Sub ShowLog()
+        Dim frm As New FrmLog ': 8/15/05
+        frm.ShowLog()
+    End Sub
     '*** Save XML DTD to File
     Private Function Save() As Boolean
 
@@ -856,6 +875,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
     Private Sub BtnCreateXML_Click(sender As Object, e As EventArgs) Handles BtnCreateXML.Click
 
     End Sub
+
 
 #End Region
 
