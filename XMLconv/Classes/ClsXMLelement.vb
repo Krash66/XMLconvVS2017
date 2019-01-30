@@ -1,14 +1,28 @@
 ﻿Option Strict On
 Option Explicit On
 Imports System.Xml
-Public Class ClsXMLelement
+Public Class ClsXMLNode
     Private ReadOnly _Name As String
     Private _Node As XmlNode
     Private _Children As ArrayList
-    Private _Parent As ClsXMLelement
+    Private _NodeParent As XmlNode
+    Private _Parent As ClsXMLNode
     Private _ElementValue As XmlCharacterData
     Private _Siblings As ArrayList
+    Private _GUID As Guid
+    Private _TVnode As TreeNode
     Private ReadOnly _FamilyLine As String
+
+#Region "Properties"
+
+    Public Property GUID As Guid
+        Get
+            Return _GUID
+        End Get
+        Set(value As Guid)
+            _GUID = value
+        End Set
+    End Property
 
     Public ReadOnly Property Name As String
         Get
@@ -25,12 +39,21 @@ Public Class ClsXMLelement
         End Set
     End Property
 
-    Property Parent As ClsXMLelement
+    Property NodeParent As XmlNode
+        Get
+            Return _NodeParent
+        End Get
+        Set
+            _NodeParent = Value
+        End Set
+    End Property
+
+    Public Property Parent As ClsXMLNode
         Get
             Return _Parent
         End Get
-        Set
-            _Parent = Value
+        Set(value As ClsXMLNode)
+            _Parent = value
         End Set
     End Property
 
@@ -67,8 +90,48 @@ Public Class ClsXMLelement
         End Get
     End Property
 
+    Public Property TVnode As TreeNode
+        Get
+            Return _TVnode
+        End Get
+        Set(value As TreeNode)
+            _TVnode = value
+        End Set
+    End Property
+
+#End Region
+
+#Region "Methods"
+
     Friend Function GetFamilyTree() As String
-        Return Me.Parent.FamilyLine & "." & Me.Name
+        If Me.Parent IsNot Nothing Then
+            Return Me.Parent.FamilyLine & "." & Me.Name
+        Else
+            Return Me.Name
+        End If
     End Function
+
+#End Region
+
+#Region "New"
+
+    Sub New()
+        Me.GUID = New Guid
+    End Sub
+
+    Sub New(ByRef Xnode As XmlNode)
+        GUID = New Guid
+        Node = Xnode
+        NodeParent = Node.ParentNode
+    End Sub
+
+    Sub New(ByRef Xnode As XmlNode, ByRef Tnode As TreeNode)
+        GUID = New Guid
+        Node = Xnode
+        NodeParent = Node.ParentNode
+        TVnode = Tnode
+    End Sub
+
+#End Region
 
 End Class

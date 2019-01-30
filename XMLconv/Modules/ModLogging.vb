@@ -73,7 +73,11 @@
 
         'set Appdata to global variable AppDataPath
         'Dim AppData As String = AppDataPath  'System.Windows.Forms.Application.LocalUserAppDataPath()
+        'Dim AppDataPath As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments() & "\XML Tool\"
         Try
+            If AppDataPath = "" Then
+                AppDataPath = My.Computer.FileSystem.SpecialDirectories.MyDocuments() & "\XML Tool\"
+            End If
             'see if AppData Exists
             If System.IO.Directory.Exists(AppDataPath) = True Then
                 GetAppData = AppDataPath
@@ -100,7 +104,8 @@ tryagain:   diares = MsgBox("The 'XML Tool' Data directory has been moved" & Chr
                 AppTemp = AppTemp & "XML Tool\"
                 GetAppData = AppTemp
             Else
-                dlgBrowseFolder.RootFolder = Environment.SpecialFolder.MyDocuments
+                dlgBrowseFolder = New FolderBrowserDialog
+                dlgBrowseFolder.RootFolder = Environment.SpecialFolder.MyComputer
                 dlgBrowseFolder.ShowNewFolderButton = False
                 dlgBrowseFolder.Description = "Browse to 'XML Tool' Folder location"
                 If dlgBrowseFolder.ShowDialog() = DialogResult.OK Then
@@ -154,8 +159,17 @@ tryagain:   diares = MsgBox("The 'XML Tool' Data directory has been moved" & Chr
                 'System.IO.File.Delete(GetAppPath() & "*.log")
             End If
             EnableLogging = True
+            If Not System.IO.File.Exists(GetAppLog() & TraceFile) Then
+                System.IO.File.Create(GetAppLog() & TraceFile)
+            End If
+            If Not System.IO.File.Exists(GetAppLog() & errorTrace) Then
+                System.IO.File.Create(GetAppLog() & errorTrace)
+            End If
+            If Not System.IO.File.Exists(GetAppLog() & ODBCTrace) Then
+                System.IO.File.Create(GetAppLog() & ODBCTrace)
+            End If
 
-            Log("Trace Enabled")
+            'Log("Trace Enabled")
             Return True
 
         Catch ex As Exception

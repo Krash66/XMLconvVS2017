@@ -1,8 +1,6 @@
 Public Class FrmLog
     Inherits FrmBlank
 
-    Private objThis As ClsLogging
-
 #Region " Windows Form Designer generated code "
 
     Public Sub New()
