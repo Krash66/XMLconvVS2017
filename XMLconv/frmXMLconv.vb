@@ -1,34 +1,30 @@
 ﻿Imports System.Xml
-Imports System.Data
-Imports System.Xml.XPath
 Public Class FrmXMLconv
     Inherits FrmBlank
     '/// Created by TK   November 2011
     '/// Creates XML DTD files from XML messages
     '/// Modified Dec. 2018 to add changing of values in specified elements
 
-    Private InFilePath As String                      '** Input XML Message File Path
-    Private OutFilePath As String                     '** Output DTD XML Description File
-    Private FileName As String                        '** Name of the file without path and extension
-    Private xml_Indoc As New Xml.XmlDocument          '** Windows XML doc that XML message is read into
+    Public InFilePath As String                      '** Input XML Message File Path
 
-    Private ArrAllElements As New ArrayList           '** Array of all elements in Document
-    Private ArrParentNodes As New ArrayList           '** Array of all elements that are parents of other elements
-    Private ArrPrintedChildren As New ArrayList       '** Array of child elements that have children
-    Private ArrCDataNodes As New ArrayList            '** Array of child elements that have NO children
-    Private ddlOfElements As New ArrayList            '** Array of All Elements with parent objects for Drop Down List
-    Private InputDir As String = ""                   '** Input Directory of the XML Message
+    Public CSVOutFilePath As String                     '** Output DTD XML Description File
+    Public CSVFileName As String                        '** Name of the file without path and extension
+    Public DTDOutFilePath As String                     '** Output DTD XML Description File
+    Public DTDFileName As String                        '** Name of the file without path and extension
+    Public JSONOutFilePath As String                     '** Output DTD XML Description File
+    Public JSONFileName As String                        '** Name of the file without path and extension
+    Public XMLOutFilePath As String                     '** Output DTD XML Description File
+    Public XMLFileName As String                        '** Name of the file without path and extension
+    Public SQLOutFilePath As String                     '** Output DTD XML Description File
+    Public SQLFileName As String                        '** Name of the file without path and extension
 
-    Private sb As System.Text.StringBuilder           '** String Builder Object that is built to create DTD message
+    Public xml_Indoc As New Xml.XmlDocument          '** Windows XML doc that XML message is read into
 
-    Private IsAll As Boolean = False
+    Public InputDir As String = ""                   '** Input Directory of the XML Message
 
-    Private Enum EnumXMLActionType
-        Failed = 0
-        E_PrintwCldrn = 1
-        E_PrintAsCdata = 2
-        E_Ignore = 3
-    End Enum
+    Public sb As System.Text.StringBuilder           '** String Builder Object that is built to create DTD message
+
+    Public IsAll As Boolean = False
 
 #Region "Form actions"
 
@@ -40,7 +36,7 @@ Public Class FrmXMLconv
             'BtnSaveCSV.Enabled = False
             RbOnlyThisElement.Checked = True
             RbAllElements.Checked = False
-            RetrieveStudioFromXML()
+            RetrieveSettingsFromXML()
             LoadGlobalValues()
 
             Me.Show()
@@ -54,7 +50,7 @@ Public Class FrmXMLconv
 
     Private Sub Main_Form_Close(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closing
 
-        SaveStudioToXML()
+        SaveSettingsToXML()
 
     End Sub
 
@@ -82,9 +78,136 @@ Public Class FrmXMLconv
 
     End Sub
 
+    Private Sub CmdOk_Click_OpenLog(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmdOk.Click
+        Dim frm As New FrmLog ': 8/15/05
+        frm.ShowLog()
+    End Sub
+
+    Public Function SaveTextFile(ByVal FilePath As String, ByVal FileContent As String, Optional ByVal Append As Boolean = False) As Boolean
+
+        Dim sw As System.IO.StreamWriter = Nothing
+        'Dim sw2 As System.IO.StreamWriter = Nothing
+        Try
+            sw = New System.IO.StreamWriter(FilePath, Append)
+
+            sw.Write(FileContent)
+            Return True
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv SaveTextFile")
+            Return False
+        Finally
+            If sw IsNot Nothing Then sw.Close()
+        End Try
+
+    End Function
+
 #End Region
 
-#Region "Load Input XML Message"
+#Region "Main Program XML Settings Storage and retrieval"
+
+    Function SaveSettingsToXML(Optional ByVal Newpath As Boolean = False) As Boolean
+
+        Try
+            '*** Path to Studio XML file
+            If Newpath = True Then
+                AppDataPath = My.Computer.FileSystem.SpecialDirectories.MyDocuments()
+                If Strings.Right(AppDataPath, 1) <> "\" Then
+                    AppDataPath = AppDataPath & "\"
+                End If
+                AppDataPath = AppDataPath & "XML Tool\"
+                If System.IO.Directory.Exists(AppDataPath) = False Then
+                    System.IO.Directory.CreateDirectory(AppDataPath)
+                End If
+            End If
+
+            Dim StudioXMLFullPath As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments() &
+            "\XML Tool\XMLtool.settings.xml"
+
+            '*** New XML writer for XML file
+            Dim XMLwrite As New XmlTextWriter(StudioXMLFullPath, System.Text.Encoding.UTF8)
+
+            '*** define doctype and formatting and Open XML file
+            XMLwrite.Formatting = Formatting.Indented
+            XMLwrite.WriteStartDocument()
+            XMLwrite.WriteStartElement("XMLtool", "XMLtool", StudioXMLFullPath)
+
+            '*** write Data
+            'XMLwrite.WriteElementString("Winstate", WinState.ToString())
+            XMLwrite.WriteElementString("AppDataPath", AppDataPath)
+            'XMLwrite.WriteElementString("CCurl", CCurl)
+
+            '*** write closing element and close file
+            XMLwrite.WriteEndElement()
+            XMLwrite.WriteEndDocument()
+            XMLwrite.Close()
+
+            Return True
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv SaveSettingsToXML")
+            Return False
+        End Try
+
+    End Function
+
+    Function RetrieveSettingsFromXML() As Boolean
+
+        Try
+            Dim curNode As XmlNode
+            '*** Path to Project XML file
+            Dim StudioXMLFullPath As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments() &
+            "\XML Tool\XMLtool.settings.xml"
+
+            If System.IO.File.Exists(StudioXMLFullPath) = False Then
+                'AppDataPath = System.Windows.Forms.Application.LocalUserAppDataPath()
+                RetrieveSettingsFromXML = SaveSettingsToXML(True)
+            End If
+
+            '*** New XML Doc for XML file
+            Dim XMLDoc As New Xml.XmlDocument
+            XMLDoc.Load(StudioXMLFullPath)
+
+            If XMLDoc.HasChildNodes = True Then
+                curNode = XMLDoc.LastChild
+                Dim TempStr As String = ""
+                For Each nd As XmlNode In curNode.ChildNodes
+                    If nd.InnerText <> "" Then
+                        TempStr = nd.InnerText
+                    Else
+                        TempStr = ""
+                    End If
+                    Select Case nd.Name
+                        'Case "Winstate"
+                        '    Select Case TempStr
+                        '        Case "Maximized"
+                        '            WinState = FormWindowState.Maximized
+                        '        Case "Normal"
+                        '            WinState = FormWindowState.Normal
+                        '        Case Else
+                        '            WinState = FormWindowState.Normal
+                        '    End Select
+                        Case "AppDataPath"
+                            AppDataPath = TempStr
+                            'Case "CCurl"
+                            '    CCurl = TempStr
+
+                    End Select
+                Next
+            End If
+
+            Return True
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv RetrieveSettingsFromXML")
+            Return False
+        End Try
+
+    End Function
+
+#End Region
+
+#Region "Load Input XML Message and save Output Files"
 
     Private Sub BtnbrowseIn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnbrowseIn.Click
 
@@ -104,7 +227,12 @@ Public Class FrmXMLconv
 
         Try
             InFilePath = OFD1.FileName
-            FileName = OFD1.SafeFileName.Remove(OFD1.SafeFileName.LastIndexOf("."))
+
+            CSVFileName = OFD1.SafeFileName.Remove(OFD1.SafeFileName.LastIndexOf("."))
+            '******************* add other file types here
+            '**********************************************************************
+
+
             If InFilePath <> "" Then
                 txtInPath.Text = InFilePath
                 xml_Indoc = LoadXMLdoc()
@@ -123,11 +251,10 @@ Public Class FrmXMLconv
     End Sub
 
     Private Sub LoadInText()
-
         ' Load the XML document in to the Text Window
         Try
-            TxtCSVout.Text = ""
             txtInMessage.Text = LoadTextFile(InFilePath)
+            TxtCSVout.Text = ""
 
         Catch ex As Exception
             LogError(ex, "frmXMLconv LoadInText")
@@ -301,6 +428,39 @@ Public Class FrmXMLconv
         End Try
     End Function
 
+    Private Sub SFD1_FileOk(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles SFD1.FileOk
+
+        Try
+            Select Case SFD1.Title
+                Case "CSV File"
+                    CSVOutFilePath = SFD1.FileName
+                    TxtCSVSavePath.Text = CSVOutFilePath
+                    If CSVOutFilePath <> "" Then
+                        If SaveCSV() = True Then
+                            'MsgBox("Save was successful", MsgBoxStyle.OkOnly)
+                            'CmdOk.Enabled = True
+                            'btnImportDTD.Enabled = True
+                        End If
+                    End If
+                Case "DTD File"
+
+                Case "JSON File"
+
+                Case "XML File"
+
+                Case "SQL File"
+
+                Case "Update XML File"
+
+
+            End Select
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv SFD1_FileOk")
+        End Try
+
+    End Sub
+
 #End Region
 
 #Region "Change Data Values"
@@ -356,416 +516,89 @@ Public Class FrmXMLconv
 
 #End Region
 
-#Region "Convert to DTD"
+#Region "CSV Events"
 
-    Private Sub BtnCreateDTD_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateCSV.Click
+    Private Sub BtnCreateCSV_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateCSV.Click
 
         Try
-            ArrAllElements.Clear()
-            ArrParentNodes.Clear()
-            ArrPrintedChildren.Clear()
-            ArrCDataNodes.Clear()
             'Convert xml_doc to new string builder text
             'EncodeXMLFile(InFilePath) '//encode some special characters like & to &amp;
             xml_Indoc.Load(InFilePath)
             sb = New System.Text.StringBuilder
             TxtCSVout.Text = ""
 
-            'Start processing each node in the Message           
-            If xml_Indoc.HasChildNodes = True Then
-                For Each nd As Xml.XmlNode In xml_Indoc.ChildNodes
-                    '*** Process each Node, if it is an element
-                    '*** if it's not an element, ignore it
-                    If nd.NodeType = Xml.XmlNodeType.Element Then
-                        ProcessNode(nd)
-                    End If
-                Next 'next doc child
-            End If
-
-            If PrintCData(ArrCDataNodes) = True Then
+            If CreateCSV(sb, xml_Indoc) = True Then
                 TxtCSVout.Text = sb.ToString
                 BtnSaveCSV.Enabled = True
             End If
 
         Catch ex As Exception
-            LogError(ex, "frmXMLconv btnConv_Click")
+            LogError(ex, "frmXMLconv BtnCreateCSV_Click")
         End Try
 
     End Sub
 
-    Private Function ProcessNode(ByVal Node As Xml.XmlNode) As Boolean
+    Private Sub BtnSaveCSV_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSaveCSV.Click
 
         Try
-            Dim Action As EnumXMLActionType = GetNodeAction(Node)
-            Dim ElementValue As String = Node.InnerText
-
-            Select Case Action
-                Case EnumXMLActionType.E_PrintwCldrn
-
-                    '*** Print the Element with it's children
-                    PrintNodeWithChildren(Node)
-                    '*** Now process the Children
-                    For Each cld As Xml.XmlNode In Node.ChildNodes
-                        'sb.AppendLine()
-                        'sb.AppendLine("   ***Child = " & cld.Name)
-                        'sb.AppendLine("   ***Of Parent = " & Node.Name)
-                        'sb.AppendLine("   ***Sent to processNode")
-                        'sb.AppendLine()
-                        ProcessNode(cld)
-                    Next
-
-                Case EnumXMLActionType.E_PrintAsCdata
-                    Dim QualName As String = GetCDataName(Node)
-                    Dim ArrayName As String = String.Format("{0,-32}{1, -8}{2,-40}", QualName, ",  value:,", ElementValue)
-                    ArrCDataNodes.Add(ArrayName)
-                    'ArrAllElements.Add(QualName)
-
-                Case EnumXMLActionType.E_Ignore
-                    '*** Do Nothing except goto next sibling or parent
-
-                Case EnumXMLActionType.Failed
-                    If MsgBox("Translation failed at Element: " & Node.Name & Chr(13) &
-                           "Would you like to continue processing?", MsgBoxStyle.YesNo, "Translation Failed") = MsgBoxResult.No Then
-                        '*** abort here
-                        Exit Function
-                    End If
-
-            End Select
-
-            'If Node.NextSibling IsNot Nothing Then
-            '    Node = Node.NextSibling
-            '    sb.AppendLine()
-            '    sb.AppendLine("   ***Next Sibling = " & Node.Name)
-            '    sb.AppendLine()
-            '    processNode(Node)
-            '    'Else
-            '    '    If Node.ParentNode IsNot Nothing Then
-            '    '        Node = Node.ParentNode
-            '    '        sb.AppendLine()
-            '    '        sb.AppendLine("   ***Parent Node = " & Node.Name)
-            '    '        sb.AppendLine()
-            '    '    End If
-
-            '    '    If Node.NextSibling IsNot Nothing Then
-            '    '        Node = Node.NextSibling
-            '    '        sb.AppendLine()
-            '    '        sb.AppendLine("   ***Next Parent Sibling = " & Node.Name)
-            '    '        sb.AppendLine()
-            '    '        processNode(Node)
-            '    '    End If
-            'End If
-
-            Return True
-
-        Catch ex As Exception
-            LogError(ex, "frmXMLconv processNode")
-            Return False
-        End Try
-
-    End Function
-
-    Private Function GetNodeAction(ByVal nd As Xml.XmlNode) As EnumXMLActionType
-
-        Try
-            Dim IsParentElement As Boolean = False
-
-            If nd.HasChildNodes = True Then
-                Dim NumEle As Integer = 0
-                For Each node As Xml.XmlNode In nd.ChildNodes
-                    If node.NodeType = Xml.XmlNodeType.Element Then
-                        If node.HasChildNodes Then
-                            If node.FirstChild.NodeType = Xml.XmlNodeType.Element Then
-                                IsParentElement = True
-                            End If
-                        End If
-                        NumEle += 1
-                        If NumEle = 2 Then
-                            GetNodeAction = EnumXMLActionType.E_PrintwCldrn
-                            Exit Function
-                        End If
-                    End If
-                Next
-                If IsParentElement = True Then
-                    GetNodeAction = EnumXMLActionType.E_PrintwCldrn
-                Else
-                    GetNodeAction = EnumXMLActionType.E_PrintAsCdata
-                End If
-            Else
-                If nd.NodeType = Xml.XmlNodeType.Element Then
-                    GetNodeAction = EnumXMLActionType.E_PrintAsCdata
-                Else
-                    GetNodeAction = EnumXMLActionType.E_Ignore
-                End If
-            End If
-
-        Catch ex As Exception
-            LogError(ex, "frmXMLconv GetNodeAction")
-            GetNodeAction = EnumXMLActionType.Failed
-            sb.AppendLine("   --- Node action Failed ::" & nd.Name)
-            sb.AppendLine()
-        End Try
-
-    End Function
-
-    Private Function GetElementName(ByVal nd As Xml.XmlNode) As String
-
-        Try
-            Dim NewName As String = nd.LocalName
-            Dim origName As String = NewName
-            Dim count As Integer = 0
-
-TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
-                count += 1
-                NewName = origName & count.ToString
-                GoTo TryAgain
-            End If
-
-            GetElementName = NewName
-
-        Catch ex As Exception
-            LogError(ex, "frmXMLconv GetNameToAdd")
-            GetElementName = ""
-        End Try
-
-    End Function
-
-    Private Function GetChildName(ByVal nd As Xml.XmlNode) As String
-
-        Try
-            Dim NewName As String = nd.LocalName
-            Dim origName As String = NewName
-            Dim count As Integer = 0
-
-TryAgain:   If ArrAllElements.Contains(NewName) = True Then
-                count += 1
-                NewName = origName & count.ToString
-                GoTo TryAgain
-            End If
-
-            GetChildName = NewName
-
-        Catch ex As Exception
-            LogError(ex, "frmXMLconv GetChildName")
-            GetChildName = ""
-        End Try
-
-    End Function
-
-    Private Function GetCDataName(ByVal nd As Xml.XmlNode) As String
-
-        Try
-            Dim NewName As String = nd.LocalName
-            Dim origName As String = NewName
-            Dim count As Integer = 0
-
-TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
-                count += 1
-                NewName = origName & count.ToString
-                GoTo TryAgain
-            End If
-            If ArrPrintedChildren.Contains(NewName) = True Then
-                ArrPrintedChildren.Remove(NewName)
-                GetCDataName = NewName
-            Else
-                count += 1
-                NewName = origName & count.ToString
-                GoTo TryAgain
-            End If
-
-        Catch ex As Exception
-            LogError(ex, "frmXMLconv GetCDataNameToAdd")
-            GetCDataName = ""
-        End Try
-
-    End Function
-
-    Private Function PrintNodeWithChildren(ByVal node As Xml.XmlNode) As Boolean
-
-        Try
-            Dim QualName As String = GetElementName(node)
-
-
-            If QualName <> "" Then
-                Dim ChildElementName As String = ""
-                Dim Prefix As String = "     "
-                Dim Line1 As String = String.Format("{0}{1}", "<!ELEMENT ", QualName)
-                Dim Line2 As String = String.Format("{0}", "(")
-                Dim LastLine As String = String.Format("{0}", ")>")
-
-                '*** Add to the all elements list for comparison BEFORE printing
-                '*** So child can't have parent's name
-                ArrAllElements.Add(QualName)
-                ArrParentNodes.Add(QualName)
-
-                '*** Print element and it's children
-                'sb.AppendLine(Line1)                                        Uncomment for DTD convert
-                'sb.AppendLine(Line2)                                        Uncomment for DTD convert
-                For Each cld As Xml.XmlNode In node.ChildNodes
-                    If cld.NodeType = Xml.XmlNodeType.Element Then
-                        ChildElementName = GetChildName(cld)
-                        Dim LineChild As String = String.Format("{0}{1}", Prefix, ChildElementName)
-                        'sb.AppendLine(LineChild)                                        Uncomment for DTD convert
-                        'Prefix = "    ,"                                        Uncomment for DTD convert
-                        '*** Add children to the child array
-                        ArrAllElements.Add(ChildElementName)
-                        ArrPrintedChildren.Add(ChildElementName)
-                    End If
-                Next
-                'sb.AppendLine(LastLine)                                        Uncomment for DTD convert
-                'sb.AppendLine()                                        Uncomment for DTD convert
-
-                Return True
-            Else
-                Return False
-            End If
-
-
-        Catch ex As Exception
-            LogError(ex, "frmXMLconv printNode")
-            Return False
-        End Try
-
-    End Function
-
-    Private Function PrintCData(ByVal Arr As ArrayList) As Boolean
-
-        Try
-            Dim FORfld As String
-
-            For Each name As String In Arr
-                'FORfld = String.Format("{0}{1,30}{2,-100}", "<!ELEMENT ", name, " (#PCDATA)>")
-                FORfld = String.Format("{0}{1,30}", "Name:, ", name)
-                sb.AppendLine(FORfld)
-            Next
-
-            Return True
-
-        Catch ex As Exception
-            LogError(ex, "frmXMLconv printCData")
-            Return False
-        End Try
-
-    End Function
-
-#End Region
-
-#Region "Save Output DTD file"
-
-    Private Sub BtnbrowseOut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSaveCSV.Click
-
-        Try
-            SFD1.Title = "Output File"
+            SFD1.Title = "CSV File"
             If InputDir <> "" Then
                 SFD1.InitialDirectory = InputDir
-                SFD1.FileName = FileName
+                SFD1.FileName = CSVFileName
             End If
             SFD1.ShowDialog()
 
         Catch ex As Exception
-            LogError(ex, "frmXMLconv btnbrowseOut_Click")
+            LogError(ex, "frmXMLconv BtnSaveCSV_Click")
         End Try
 
     End Sub
 
-    Private Sub SFD1_FileOk(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles SFD1.FileOk
-
-        Try
-            OutFilePath = SFD1.FileName
-            txtOutPath.Text = OutFilePath
-            If OutFilePath <> "" Then
-                If Save() = True Then
-                    'MsgBox("Save was successful", MsgBoxStyle.OkOnly)
-                    CmdOk.Enabled = True
-                    'btnImportDTD.Enabled = True
-                End If
-            End If
-
-        Catch ex As Exception
-            LogError(ex, "frmXMLconv SFD1_FileOk")
-        End Try
-
-    End Sub
-
-    Private Sub CmdOk_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) ' Handles CmdOk.Click
-
-        'Me.Close()
-        'If Save() = True Then
-        '    MsgBox("Save was successful", MsgBoxStyle.OkOnly)
-        'End If
-        Try
-            If OutFilePath <> "" Then
-                Dim OpenProcess As New System.Diagnostics.Process
-                Process.Start(OutFilePath)
-
-                'Shell("notepad.exe " & RetCode.SQDPath, AppWinStyle.NormalFocus)
-            End If
-
-        Catch ex As Exception
-            LogError(ex, "frmXMLconv cmdOk_Click_1")
-        End Try
-
-    End Sub
-    Private Sub CmdOk_Click_(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmdOk.Click
-
-        'Me.Close()
-        'If Save() = True Then
-        '    MsgBox("Save was successful", MsgBoxStyle.OkOnly)
-        'End If
-        'Try
-        '    If OutFilePath <> "" Then
-        '        Dim OpenProcess As New System.Diagnostics.Process
-        '        Process.Start(OutFilePath)
-
-        '        'Shell("notepad.exe " & RetCode.SQDPath, AppWinStyle.NormalFocus)
-        '    End If
-
-        'Catch ex As Exception
-        '    LogError(ex, "frmXMLconv cmdOk_Click_1")
-        'End Try
-
-        ShowLog()
-
-    End Sub
-    Sub ShowLog()
-        Dim frm As New FrmLog ': 8/15/05
-        frm.ShowLog()
-    End Sub
     '*** Save XML DTD to File
-    Private Function Save() As Boolean
+    Private Function SaveCSV() As Boolean
 
         Try
             If SFD1.FileName <> "" Then
-                Save = SaveTextFile(OutFilePath, TxtCSVout.Text)
+                SaveCSV = SaveTextFile(CSVOutFilePath, TxtCSVout.Text)
             Else
                 MsgBox("Please enter a valid Output File Path", MsgBoxStyle.Information, "No Valid Output Path")
-                Save = False
+                SaveCSV = False
             End If
 
         Catch ex As Exception
             LogError(ex, "frmXMLconv Save")
-            Save = False
+            SaveCSV = False
         End Try
 
     End Function
 
-    Public Function SaveTextFile(ByVal FilePath As String, ByVal FileContent As String, Optional ByVal Append As Boolean = False) As Boolean
 
-        Dim sw As System.IO.StreamWriter = Nothing
-        'Dim sw2 As System.IO.StreamWriter = Nothing
-        Try
-            sw = New System.IO.StreamWriter(FilePath, Append)
+#End Region
 
-            sw.Write(FileContent)
-            Return True
+#Region "Old"
 
-        Catch ex As Exception
-            LogError(ex, "FrmXMLconv SaveTextFile")
-            Return False
-        Finally
-            If sw IsNot Nothing Then sw.Close()
-        End Try
 
-    End Function
+    'Private Sub CmdOk_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) ' Handles CmdOk.Click
+
+    '    'Me.Close()
+    '    'If Save() = True Then
+    '    '    MsgBox("Save was successful", MsgBoxStyle.OkOnly)
+    '    'End If
+    '    Try
+    '        If CSVOutFilePath <> "" Then
+    '            Dim OpenProcess As New System.Diagnostics.Process
+    '            Process.Start(CSVOutFilePath)
+
+    '            'Shell("notepad.exe " & RetCode.SQDPath, AppWinStyle.NormalFocus)
+    '        End If
+
+    '    Catch ex As Exception
+    '        LogError(ex, "frmXMLconv cmdOk_Click_1")
+    '    End Try
+
+    'End Sub
+
+
 
     Private Sub TVelement_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVelement.AfterSelect
 
@@ -812,15 +645,6 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
         End Try
     End Sub
 
-    Private Sub LogFilesToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        Try
-            Dim frm As New FrmLog
-            frm.ShowLog()
-        Catch ex As Exception
-            LogError(ex, "FrmXMLconv LogFilesToolStripMenuItem_Click")
-        End Try
-    End Sub
-
     Private Sub TxtElementValue_TextChanged(sender As Object, e As EventArgs) Handles TxtElementValue.TextChanged
         Try
 
@@ -853,11 +677,9 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
         End Try
     End Sub
 
-    Private Sub BtnOpneCSV_Click(sender As Object, e As EventArgs) Handles BtnOpenCSV.Click
 
-    End Sub
 
-    Private Sub BtnOpneDTD_Click(sender As Object, e As EventArgs) Handles BtnOpneDTD.Click
+    Private Sub BtnOpenDTD_Click(sender As Object, e As EventArgs) Handles BtnOpneDTD.Click
 
     End Sub
 
@@ -865,11 +687,11 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
     End Sub
 
-    Private Sub BtnReplace_Click(sender As Object, e As EventArgs) Handles BtnReplace.Click
+    Private Sub BtnReplace_Click(sender As Object, e As EventArgs) Handles BtnReplaceXMLvalue.Click
 
     End Sub
 
-    Private Sub BtnCreateCSV_Click(sender As Object, e As EventArgs) Handles BtnCreateDTD.Click
+    Private Sub BtnCreateDTD_Click(sender As Object, e As EventArgs) Handles BtnCreateDTD.Click
 
     End Sub
 
@@ -888,108 +710,48 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
 #End Region
 
-#Region "Main Program XML Settings Storage and retrieval"
 
-    Function SaveStudioToXML(Optional ByVal Newpath As Boolean = False) As Boolean
 
-        Try
-            '*** Path to Studio XML file
-            If Newpath = True Then
-                AppDataPath = My.Computer.FileSystem.SpecialDirectories.MyDocuments()
-                If Strings.Right(AppDataPath, 1) <> "\" Then
-                    AppDataPath = AppDataPath & "\"
-                End If
-                AppDataPath = AppDataPath & "XML Tool\"
-                If System.IO.Directory.Exists(AppDataPath) = False Then
-                    System.IO.Directory.CreateDirectory(AppDataPath)
-                End If
-            End If
+    Private Sub TVcsv_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVcsv.AfterSelect
 
-            Dim StudioXMLFullPath As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments() &
-            "\XML Tool\XMLtool.settings.xml"
+    End Sub
 
-            '*** New XML writer for XML file
-            Dim XMLwrite As New Xml.XmlTextWriter(StudioXMLFullPath, System.Text.Encoding.UTF8)
+    Private Sub TVdtd_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVdtd.AfterSelect
 
-            '*** define doctype and formatting and Open XML file
-            XMLwrite.Formatting = Formatting.Indented
-            XMLwrite.WriteStartDocument()
-            XMLwrite.WriteStartElement("XMLtool", "XMLtool", StudioXMLFullPath)
+    End Sub
 
-            '*** write Data
-            'XMLwrite.WriteElementString("Winstate", WinState.ToString())
-            XMLwrite.WriteElementString("AppDataPath", AppDataPath)
-            'XMLwrite.WriteElementString("CCurl", CCurl)
+    Private Sub TVxml_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVxml.AfterSelect
 
-            '*** write closing element and close file
-            XMLwrite.WriteEndElement()
-            XMLwrite.WriteEndDocument()
-            XMLwrite.Close()
+    End Sub
 
-            Return True
+    Private Sub TVjson_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVjson.AfterSelect
 
-        Catch ex As Exception
-            LogError(ex, "modXML SaveStudioToXML")
-            Return False
-        End Try
+    End Sub
 
-    End Function
+    Private Sub TVsql_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVsql.AfterSelect
 
-    '// New 11/2011 to get rid of Project saving to Registry
-    Function RetrieveStudioFromXML() As Boolean
+    End Sub
 
-        Try
-            Dim curNode As XmlNode
-            '*** Path to Project XML file
-            Dim StudioXMLFullPath As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments() &
-            "\XML Tool\XMLtool.settings.xml"
+    Private Sub BtnCreateJSON_Click(sender As Object, e As EventArgs) Handles BtnCreateJSON.Click
 
-            If System.IO.File.Exists(StudioXMLFullPath) = False Then
-                'AppDataPath = System.Windows.Forms.Application.LocalUserAppDataPath()
-                RetrieveStudioFromXML = SaveStudioToXML(True)
-            End If
+    End Sub
 
-            '*** New XML Doc for XML file
-            Dim XMLDoc As New Xml.XmlDocument
-            XMLDoc.Load(StudioXMLFullPath)
+    Private Sub BtnSaveJSON_Click(sender As Object, e As EventArgs) Handles BtnSaveJSON.Click
 
-            If XMLDoc.HasChildNodes = True Then
-                curNode = XMLDoc.LastChild
-                Dim TempStr As String = ""
-                For Each nd As XmlNode In curNode.ChildNodes
-                    If nd.InnerText <> "" Then
-                        TempStr = nd.InnerText
-                    Else
-                        TempStr = ""
-                    End If
-                    Select Case nd.Name
-                        'Case "Winstate"
-                        '    Select Case TempStr
-                        '        Case "Maximized"
-                        '            WinState = FormWindowState.Maximized
-                        '        Case "Normal"
-                        '            WinState = FormWindowState.Normal
-                        '        Case Else
-                        '            WinState = FormWindowState.Normal
-                        '    End Select
-                        Case "AppDataPath"
-                            AppDataPath = TempStr
-                            'Case "CCurl"
-                            '    CCurl = TempStr
+    End Sub
 
-                    End Select
-                Next
-            End If
+    Private Sub BtnOpenJSON_Click(sender As Object, e As EventArgs) Handles BtnOpenJSON.Click
 
-            Return True
+    End Sub
 
-        Catch ex As Exception
-            LogError(ex, "modXML RetrieveStudioFromXML")
-            Return False
-        End Try
+    Private Sub BtnSaveSQL_Click(sender As Object, e As EventArgs) Handles BtnSaveSQL.Click
 
-    End Function
+    End Sub
 
-#End Region
+    Private Sub BtnOpenSQL_Click(sender As Object, e As EventArgs) Handles BtnOpenSQL.Click
+
+    End Sub
+
+
 
 End Class

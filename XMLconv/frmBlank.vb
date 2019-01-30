@@ -55,9 +55,9 @@ Public Class FrmBlank
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Location = New System.Drawing.Point(1, 263)
+        Me.GroupBox1.Location = New System.Drawing.Point(1, 273)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(516, 8)
+        Me.GroupBox1.Size = New System.Drawing.Size(516, 7)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         '
@@ -67,9 +67,9 @@ Public Class FrmBlank
         Me.CmdOk.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.CmdOk.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.CmdOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.CmdOk.Location = New System.Drawing.Point(175, 290)
+        Me.CmdOk.Location = New System.Drawing.Point(232, 296)
         Me.CmdOk.Name = "CmdOk"
-        Me.CmdOk.Size = New System.Drawing.Size(96, 27)
+        Me.CmdOk.Size = New System.Drawing.Size(80, 24)
         Me.CmdOk.TabIndex = 1
         Me.CmdOk.Text = "&OK"
         '
@@ -79,9 +79,9 @@ Public Class FrmBlank
         Me.CmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.CmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.CmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.CmdCancel.Location = New System.Drawing.Point(291, 290)
+        Me.CmdCancel.Location = New System.Drawing.Point(328, 296)
         Me.CmdCancel.Name = "CmdCancel"
-        Me.CmdCancel.Size = New System.Drawing.Size(96, 27)
+        Me.CmdCancel.Size = New System.Drawing.Size(80, 24)
         Me.CmdCancel.TabIndex = 56
         Me.CmdCancel.Text = "&Cancel"
         '
@@ -91,9 +91,9 @@ Public Class FrmBlank
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.Label2.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(120, 28)
+        Me.Label2.Location = New System.Drawing.Point(100, 24)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(389, 23)
+        Me.Label2.Size = New System.Drawing.Size(410, 20)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "<Enter your long description here>"
         '
@@ -102,9 +102,9 @@ Public Class FrmBlank
         Me.Label1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.Label1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Blue
-        Me.Label1.Location = New System.Drawing.Point(116, 6)
+        Me.Label1.Location = New System.Drawing.Point(97, 5)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(417, 18)
+        Me.Label1.Size = New System.Drawing.Size(347, 16)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "<Short Description>"
         '
@@ -118,7 +118,7 @@ Public Class FrmBlank
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(514, 51)
+        Me.Panel1.Size = New System.Drawing.Size(514, 44)
         Me.Panel1.TabIndex = 0
         '
         'PictureBox1
@@ -126,9 +126,9 @@ Public Class FrmBlank
         Me.PictureBox1.ErrorImage = Global.XMLconv.My.Resources.Resources.Ball
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
         Me.PictureBox1.InitialImage = Global.XMLconv.My.Resources.Resources.Ball
-        Me.PictureBox1.Location = New System.Drawing.Point(4, 3)
+        Me.PictureBox1.Location = New System.Drawing.Point(3, 3)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(105, 47)
+        Me.PictureBox1.Size = New System.Drawing.Size(88, 40)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox1.TabIndex = 2
         Me.PictureBox1.TabStop = False
@@ -139,16 +139,16 @@ Public Class FrmBlank
         Me.CmdHelp.CausesValidation = False
         Me.CmdHelp.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.CmdHelp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.CmdHelp.Location = New System.Drawing.Point(406, 290)
+        Me.CmdHelp.Location = New System.Drawing.Point(424, 296)
         Me.CmdHelp.Name = "CmdHelp"
-        Me.CmdHelp.Size = New System.Drawing.Size(96, 27)
+        Me.CmdHelp.Size = New System.Drawing.Size(80, 24)
         Me.CmdHelp.TabIndex = 57
         Me.CmdHelp.Text = "&Help"
         '
         'FrmBlank
         '
         Me.AcceptButton = Me.CmdOk
-        Me.AutoScaleBaseSize = New System.Drawing.Size(6, 15)
+        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.AutoScroll = True
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.CancelButton = Me.CmdCancel
