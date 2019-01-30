@@ -27,7 +27,7 @@ Partial Class FrmXMLconv
         Me.BtnOpenCSV = New System.Windows.Forms.Button()
         Me.TxtCSVout = New System.Windows.Forms.TextBox()
         Me.BtnSaveCSV = New System.Windows.Forms.Button()
-        Me.txtOutPath = New System.Windows.Forms.TextBox()
+        Me.TxtCSVSavePath = New System.Windows.Forms.TextBox()
         Me.OFD1 = New System.Windows.Forms.OpenFileDialog()
         Me.SFD1 = New System.Windows.Forms.SaveFileDialog()
         Me.BtnCreateCSV = New System.Windows.Forms.Button()
@@ -38,7 +38,7 @@ Partial Class FrmXMLconv
         Me.SplitContainer4 = New System.Windows.Forms.SplitContainer()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.TVelement = New System.Windows.Forms.TreeView()
-        Me.BtnReplace = New System.Windows.Forms.Button()
+        Me.BtnReplaceXMLvalue = New System.Windows.Forms.Button()
         Me.RbAllElements = New System.Windows.Forms.RadioButton()
         Me.RbOnlyThisElement = New System.Windows.Forms.RadioButton()
         Me.gbEditElement = New System.Windows.Forms.GroupBox()
@@ -51,6 +51,8 @@ Partial Class FrmXMLconv
         Me.AttrValue = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GBChildren = New System.Windows.Forms.GroupBox()
         Me.DGVElement = New System.Windows.Forms.DataGridView()
+        Me.CldName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CldValue = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TxtElementName = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
@@ -81,24 +83,22 @@ Partial Class FrmXMLconv
         Me.TVjson = New System.Windows.Forms.TreeView()
         Me.BtnCreateJSON = New System.Windows.Forms.Button()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.BtnOpenJSON = New System.Windows.Forms.Button()
         Me.TxtJSONout = New System.Windows.Forms.TextBox()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.BtnSaveJSON = New System.Windows.Forms.Button()
+        Me.TxtOutJSONpath = New System.Windows.Forms.TextBox()
         Me.TabPage5 = New System.Windows.Forms.TabPage()
         Me.SplitContainer6 = New System.Windows.Forms.SplitContainer()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.TVsql = New System.Windows.Forms.TreeView()
         Me.GBsqlOut = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.BtnOpenSQL = New System.Windows.Forms.Button()
         Me.TxTSQLout = New System.Windows.Forms.TextBox()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.BtnSaveSQL = New System.Windows.Forms.Button()
+        Me.TxtOutSQLpath = New System.Windows.Forms.TextBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.GBframe1 = New System.Windows.Forms.GroupBox()
         Me.GBframe2 = New System.Windows.Forms.GroupBox()
-        Me.CldName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CldValue = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel1.SuspendLayout()
         Me.gbIn.SuspendLayout()
         Me.gbXMLout.SuspendLayout()
@@ -259,7 +259,7 @@ Partial Class FrmXMLconv
         Me.gbXMLout.Controls.Add(Me.BtnOpenCSV)
         Me.gbXMLout.Controls.Add(Me.TxtCSVout)
         Me.gbXMLout.Controls.Add(Me.BtnSaveCSV)
-        Me.gbXMLout.Controls.Add(Me.txtOutPath)
+        Me.gbXMLout.Controls.Add(Me.TxtCSVSavePath)
         Me.gbXMLout.Dock = System.Windows.Forms.DockStyle.Fill
         Me.gbXMLout.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.gbXMLout.ForeColor = System.Drawing.SystemColors.ControlText
@@ -307,14 +307,14 @@ Partial Class FrmXMLconv
         Me.BtnSaveCSV.Text = "Save CSV"
         Me.BtnSaveCSV.UseVisualStyleBackColor = True
         '
-        'txtOutPath
+        'TxtCSVSavePath
         '
-        Me.txtOutPath.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.TxtCSVSavePath.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtOutPath.Location = New System.Drawing.Point(6, 383)
-        Me.txtOutPath.Name = "txtOutPath"
-        Me.txtOutPath.Size = New System.Drawing.Size(340, 20)
-        Me.txtOutPath.TabIndex = 1
+        Me.TxtCSVSavePath.Location = New System.Drawing.Point(6, 383)
+        Me.TxtCSVSavePath.Name = "TxtCSVSavePath"
+        Me.TxtCSVSavePath.Size = New System.Drawing.Size(340, 20)
+        Me.TxtCSVSavePath.TabIndex = 1
         '
         'OFD1
         '
@@ -414,7 +414,7 @@ Partial Class FrmXMLconv
         '
         Me.GroupBox4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.GroupBox4.Controls.Add(Me.TVelement)
-        Me.GroupBox4.Controls.Add(Me.BtnReplace)
+        Me.GroupBox4.Controls.Add(Me.BtnReplaceXMLvalue)
         Me.GroupBox4.Controls.Add(Me.RbAllElements)
         Me.GroupBox4.Controls.Add(Me.RbOnlyThisElement)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
@@ -437,17 +437,17 @@ Partial Class FrmXMLconv
         Me.TVelement.Size = New System.Drawing.Size(227, 293)
         Me.TVelement.TabIndex = 69
         '
-        'BtnReplace
+        'BtnReplaceXMLvalue
         '
-        Me.BtnReplace.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.BtnReplace.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnReplace.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.BtnReplace.Location = New System.Drawing.Point(6, 375)
-        Me.BtnReplace.Name = "BtnReplace"
-        Me.BtnReplace.Size = New System.Drawing.Size(227, 28)
-        Me.BtnReplace.TabIndex = 69
-        Me.BtnReplace.Text = "Save Changes to Elements"
-        Me.BtnReplace.UseVisualStyleBackColor = True
+        Me.BtnReplaceXMLvalue.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnReplaceXMLvalue.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnReplaceXMLvalue.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.BtnReplaceXMLvalue.Location = New System.Drawing.Point(6, 375)
+        Me.BtnReplaceXMLvalue.Name = "BtnReplaceXMLvalue"
+        Me.BtnReplaceXMLvalue.Size = New System.Drawing.Size(227, 28)
+        Me.BtnReplaceXMLvalue.TabIndex = 69
+        Me.BtnReplaceXMLvalue.Text = "Save Changes to Elements"
+        Me.BtnReplaceXMLvalue.UseVisualStyleBackColor = True
         '
         'RbAllElements
         '
@@ -597,6 +597,16 @@ Partial Class FrmXMLconv
         Me.DGVElement.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.Highlight
         Me.DGVElement.Size = New System.Drawing.Size(232, 314)
         Me.DGVElement.TabIndex = 0
+        '
+        'CldName
+        '
+        Me.CldName.HeaderText = "Name"
+        Me.CldName.Name = "CldName"
+        '
+        'CldValue
+        '
+        Me.CldValue.HeaderText = "Value"
+        Me.CldValue.Name = "CldValue"
         '
         'TxtElementName
         '
@@ -966,10 +976,10 @@ Partial Class FrmXMLconv
         'GroupBox8
         '
         Me.GroupBox8.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.GroupBox8.Controls.Add(Me.Button4)
+        Me.GroupBox8.Controls.Add(Me.BtnOpenJSON)
         Me.GroupBox8.Controls.Add(Me.TxtJSONout)
-        Me.GroupBox8.Controls.Add(Me.Button5)
-        Me.GroupBox8.Controls.Add(Me.TextBox3)
+        Me.GroupBox8.Controls.Add(Me.BtnSaveJSON)
+        Me.GroupBox8.Controls.Add(Me.TxtOutJSONpath)
         Me.GroupBox8.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox8.ForeColor = System.Drawing.SystemColors.ControlText
@@ -980,15 +990,15 @@ Partial Class FrmXMLconv
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "JSON File output"
         '
-        'Button4
+        'BtnOpenJSON
         '
-        Me.Button4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button4.Location = New System.Drawing.Point(419, 387)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(61, 23)
-        Me.Button4.TabIndex = 4
-        Me.Button4.Text = "Open"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.BtnOpenJSON.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnOpenJSON.Location = New System.Drawing.Point(419, 387)
+        Me.BtnOpenJSON.Name = "BtnOpenJSON"
+        Me.BtnOpenJSON.Size = New System.Drawing.Size(61, 23)
+        Me.BtnOpenJSON.TabIndex = 4
+        Me.BtnOpenJSON.Text = "Open"
+        Me.BtnOpenJSON.UseVisualStyleBackColor = True
         '
         'TxtJSONout
         '
@@ -1007,24 +1017,24 @@ Partial Class FrmXMLconv
         Me.TxtJSONout.TabIndex = 3
         Me.TxtJSONout.WordWrap = False
         '
-        'Button5
+        'BtnSaveJSON
         '
-        Me.Button5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button5.Location = New System.Drawing.Point(359, 387)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(54, 23)
-        Me.Button5.TabIndex = 2
-        Me.Button5.Text = "Save"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.BtnSaveJSON.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnSaveJSON.Location = New System.Drawing.Point(359, 387)
+        Me.BtnSaveJSON.Name = "BtnSaveJSON"
+        Me.BtnSaveJSON.Size = New System.Drawing.Size(54, 23)
+        Me.BtnSaveJSON.TabIndex = 2
+        Me.BtnSaveJSON.Text = "Save"
+        Me.BtnSaveJSON.UseVisualStyleBackColor = True
         '
-        'TextBox3
+        'TxtOutJSONpath
         '
-        Me.TextBox3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.TxtOutJSONpath.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox3.Location = New System.Drawing.Point(6, 389)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(346, 20)
-        Me.TextBox3.TabIndex = 1
+        Me.TxtOutJSONpath.Location = New System.Drawing.Point(6, 389)
+        Me.TxtOutJSONpath.Name = "TxtOutJSONpath"
+        Me.TxtOutJSONpath.Size = New System.Drawing.Size(346, 20)
+        Me.TxtOutJSONpath.TabIndex = 1
         '
         'TabPage5
         '
@@ -1081,10 +1091,10 @@ Partial Class FrmXMLconv
         'GBsqlOut
         '
         Me.GBsqlOut.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.GBsqlOut.Controls.Add(Me.Button1)
+        Me.GBsqlOut.Controls.Add(Me.BtnOpenSQL)
         Me.GBsqlOut.Controls.Add(Me.TxTSQLout)
-        Me.GBsqlOut.Controls.Add(Me.Button2)
-        Me.GBsqlOut.Controls.Add(Me.TextBox2)
+        Me.GBsqlOut.Controls.Add(Me.BtnSaveSQL)
+        Me.GBsqlOut.Controls.Add(Me.TxtOutSQLpath)
         Me.GBsqlOut.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBsqlOut.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GBsqlOut.ForeColor = System.Drawing.SystemColors.ControlText
@@ -1095,15 +1105,15 @@ Partial Class FrmXMLconv
         Me.GBsqlOut.TabStop = False
         Me.GBsqlOut.Text = "SQL File output"
         '
-        'Button1
+        'BtnOpenSQL
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(421, 387)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(56, 23)
-        Me.Button1.TabIndex = 4
-        Me.Button1.Text = "Open"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.BtnOpenSQL.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnOpenSQL.Location = New System.Drawing.Point(421, 387)
+        Me.BtnOpenSQL.Name = "BtnOpenSQL"
+        Me.BtnOpenSQL.Size = New System.Drawing.Size(56, 23)
+        Me.BtnOpenSQL.TabIndex = 4
+        Me.BtnOpenSQL.Text = "Open"
+        Me.BtnOpenSQL.UseVisualStyleBackColor = True
         '
         'TxTSQLout
         '
@@ -1122,24 +1132,24 @@ Partial Class FrmXMLconv
         Me.TxTSQLout.TabIndex = 3
         Me.TxTSQLout.WordWrap = False
         '
-        'Button2
+        'BtnSaveSQL
         '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(356, 387)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(59, 23)
-        Me.Button2.TabIndex = 2
-        Me.Button2.Text = "Save CSV"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.BtnSaveSQL.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnSaveSQL.Location = New System.Drawing.Point(356, 387)
+        Me.BtnSaveSQL.Name = "BtnSaveSQL"
+        Me.BtnSaveSQL.Size = New System.Drawing.Size(59, 23)
+        Me.BtnSaveSQL.TabIndex = 2
+        Me.BtnSaveSQL.Text = "Save"
+        Me.BtnSaveSQL.UseVisualStyleBackColor = True
         '
-        'TextBox2
+        'TxtOutSQLpath
         '
-        Me.TextBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.TxtOutSQLpath.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox2.Location = New System.Drawing.Point(6, 389)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(344, 20)
-        Me.TextBox2.TabIndex = 1
+        Me.TxtOutSQLpath.Location = New System.Drawing.Point(6, 389)
+        Me.TxtOutSQLpath.Name = "TxtOutSQLpath"
+        Me.TxtOutSQLpath.Size = New System.Drawing.Size(344, 20)
+        Me.TxtOutSQLpath.TabIndex = 1
         '
         'SplitContainer1
         '
@@ -1187,16 +1197,6 @@ Partial Class FrmXMLconv
         Me.GBframe2.Size = New System.Drawing.Size(746, 463)
         Me.GBframe2.TabIndex = 66
         Me.GBframe2.TabStop = False
-        '
-        'CldName
-        '
-        Me.CldName.HeaderText = "Name"
-        Me.CldName.Name = "CldName"
-        '
-        'CldValue
-        '
-        Me.CldValue.HeaderText = "Value"
-        Me.CldValue.Name = "CldValue"
         '
         'FrmXMLconv
         '
@@ -1284,7 +1284,7 @@ Partial Class FrmXMLconv
     Friend WithEvents BtnCreateCSV As System.Windows.Forms.Button
     Friend WithEvents TxtCSVout As System.Windows.Forms.TextBox
     Friend WithEvents BtnSaveCSV As System.Windows.Forms.Button
-    Friend WithEvents txtOutPath As System.Windows.Forms.TextBox
+    Friend WithEvents TxtCSVSavePath As System.Windows.Forms.TextBox
     Friend WithEvents GbChooseEleCSV As GroupBox
     Friend WithEvents TVcsv As TreeView
     Friend WithEvents TabControl1 As TabControl
@@ -1319,7 +1319,7 @@ Partial Class FrmXMLconv
     Friend WithEvents RbAllElements As RadioButton
     Friend WithEvents RbOnlyThisElement As RadioButton
     Friend WithEvents SplitContainer1 As SplitContainer
-    Friend WithEvents BtnReplace As Button
+    Friend WithEvents BtnReplaceXMLvalue As Button
     Friend WithEvents BtnOpneDTD As Button
     Friend WithEvents TabPage4 As TabPage
     Friend WithEvents GBOutXML As GroupBox
@@ -1337,10 +1337,10 @@ Partial Class FrmXMLconv
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents TVsql As TreeView
     Friend WithEvents GBsqlOut As GroupBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents BtnOpenSQL As Button
     Friend WithEvents TxTSQLout As TextBox
-    Friend WithEvents Button2 As Button
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents BtnSaveSQL As Button
+    Friend WithEvents TxtOutSQLpath As TextBox
     Friend WithEvents BtnCreateXML As Button
     Friend WithEvents TabPage6 As TabPage
     Friend WithEvents SplitContainer7 As SplitContainer
@@ -1348,10 +1348,10 @@ Partial Class FrmXMLconv
     Friend WithEvents TVjson As TreeView
     Friend WithEvents BtnCreateJSON As Button
     Friend WithEvents GroupBox8 As GroupBox
-    Friend WithEvents Button4 As Button
+    Friend WithEvents BtnOpenJSON As Button
     Friend WithEvents TxtJSONout As TextBox
-    Friend WithEvents Button5 As Button
-    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents BtnSaveJSON As Button
+    Friend WithEvents TxtOutJSONpath As TextBox
     Friend WithEvents CldName As DataGridViewTextBoxColumn
     Friend WithEvents CldValue As DataGridViewTextBoxColumn
 End Class

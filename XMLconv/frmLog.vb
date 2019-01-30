@@ -55,7 +55,7 @@ Public Class FrmLog
         '
         'Panel1
         '
-        Me.Panel1.Size = New System.Drawing.Size(696, 68)
+        Me.Panel1.Size = New System.Drawing.Size(696, 53)
         '
         'GroupBox1
         '
@@ -88,14 +88,14 @@ Public Class FrmLog
         '
         'Label1
         '
-        Me.Label1.Location = New System.Drawing.Point(97, 5)
+        Me.Label1.Location = New System.Drawing.Point(115, 5)
         Me.Label1.Size = New System.Drawing.Size(347, 16)
         Me.Label1.Text = "Log Window"
         '
         'Label2
         '
-        Me.Label2.Location = New System.Drawing.Point(100, 24)
-        Me.Label2.Size = New System.Drawing.Size(586, 39)
+        Me.Label2.Location = New System.Drawing.Point(115, 21)
+        Me.Label2.Size = New System.Drawing.Size(552, 29)
         Me.Label2.Text = "You can view detailed log of database activities and application errors. You can " &
     "also start/stop logging using this window."
         '
@@ -104,12 +104,12 @@ Public Class FrmLog
         Me.TxtLog.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtLog.Location = New System.Drawing.Point(8, 96)
+        Me.TxtLog.Location = New System.Drawing.Point(8, 80)
         Me.TxtLog.MaxLength = 100000
         Me.TxtLog.Multiline = True
         Me.TxtLog.Name = "TxtLog"
         Me.TxtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TxtLog.Size = New System.Drawing.Size(678, 163)
+        Me.TxtLog.Size = New System.Drawing.Size(678, 179)
         Me.TxtLog.TabIndex = 1
         Me.TxtLog.WordWrap = False
         '
@@ -124,7 +124,7 @@ Public Class FrmLog
         '
         'ChkWordWrap
         '
-        Me.ChkWordWrap.Location = New System.Drawing.Point(8, 72)
+        Me.ChkWordWrap.Location = New System.Drawing.Point(8, 56)
         Me.ChkWordWrap.Name = "ChkWordWrap"
         Me.ChkWordWrap.Size = New System.Drawing.Size(104, 24)
         Me.ChkWordWrap.TabIndex = 6
@@ -134,7 +134,7 @@ Public Class FrmLog
         '
         Me.ChkEnableLogging.Checked = True
         Me.ChkEnableLogging.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChkEnableLogging.Location = New System.Drawing.Point(120, 72)
+        Me.ChkEnableLogging.Location = New System.Drawing.Point(120, 56)
         Me.ChkEnableLogging.Name = "ChkEnableLogging"
         Me.ChkEnableLogging.Size = New System.Drawing.Size(104, 24)
         Me.ChkEnableLogging.TabIndex = 7
@@ -178,7 +178,7 @@ Public Class FrmLog
         '
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(636, 80)
+        Me.Label4.Location = New System.Drawing.Point(636, 64)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(50, 13)
         Me.Label4.TabIndex = 61

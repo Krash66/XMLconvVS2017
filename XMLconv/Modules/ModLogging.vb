@@ -1,4 +1,5 @@
 ﻿Module ModLogging
+
     Public EnableLogging As Boolean = True
     Public TraceFile As String
     Public errorTrace As String
@@ -9,6 +10,13 @@
     Public objLog As ClsLogging
 
     Public Const MsgTitle As String = "XML Tool"
+
+    Public Enum EnumXMLActionType
+        Failed = 0
+        E_PrintwCldrn = 1
+        E_PrintAsCdata = 2
+        E_Ignore = 3
+    End Enum
 
     Public Function LoadTextFile(ByVal FilePath As String) As String
 
@@ -41,11 +49,9 @@
     Public Function LogError(ByVal ex As Exception, Optional ByVal p1 As String = "", Optional ByVal p2 As String = "", Optional ByVal ThrowError As Boolean = False, Optional ByVal displayMSG As Boolean = False) As Boolean
         ClsLogging.LogError(ex, p1, p2, ThrowError, displayMSG)
     End Function
-
     Public Function LogODBCError(ByVal ex As Exception, Optional ByVal p1 As String = "", Optional ByVal p2 As String = "", Optional ByVal ThrowError As Boolean = False, Optional ByVal displayMSG As Boolean = False) As Boolean
         ClsLogging.LogODBCerror(ex, p1, p2, ThrowError, displayMSG)
     End Function
-
     '//Creates a Logfolder in ..My Documents\Design Studio\Logs\
     Function GetAppLog(Optional ByVal LogFolderName As String = "Logs") As String
 
@@ -68,7 +74,7 @@
 
     End Function
 
-    '//Gets ..My Documents\Design Studio\
+    '//Gets ..My Documents\XML Tool\
     Function GetAppData() As String
 
         'set Appdata to global variable AppDataPath
@@ -178,4 +184,5 @@ tryagain:   diares = MsgBox("The 'XML Tool' Data directory has been moved" & Chr
         End Try
 
     End Function
+
 End Module
