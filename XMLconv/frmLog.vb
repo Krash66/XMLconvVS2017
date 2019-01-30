@@ -1,8 +1,6 @@
 Public Class FrmLog
     Inherits FrmBlank
 
-    Private objThis As ClsLogging
-
 #Region " Windows Form Designer generated code "
 
     Public Sub New()
@@ -57,27 +55,27 @@ Public Class FrmLog
         '
         'Panel1
         '
-        Me.Panel1.Size = New System.Drawing.Size(696, 78)
+        Me.Panel1.Size = New System.Drawing.Size(696, 68)
         '
         'GroupBox1
         '
-        Me.GroupBox1.Location = New System.Drawing.Point(1, 502)
-        Me.GroupBox1.Size = New System.Drawing.Size(699, 8)
+        Me.GroupBox1.Location = New System.Drawing.Point(1, 511)
+        Me.GroupBox1.Size = New System.Drawing.Size(698, 7)
         '
         'CmdOk
         '
         Me.CmdOk.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.CmdOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.CmdOk.Location = New System.Drawing.Point(360, 530)
-        Me.CmdOk.Size = New System.Drawing.Size(96, 28)
+        Me.CmdOk.Location = New System.Drawing.Point(416, 535)
+        Me.CmdOk.Size = New System.Drawing.Size(80, 25)
         Me.CmdOk.TabIndex = 2
         '
         'CmdCancel
         '
         Me.CmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.CmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.CmdCancel.Location = New System.Drawing.Point(475, 530)
-        Me.CmdCancel.Size = New System.Drawing.Size(96, 28)
+        Me.CmdCancel.Location = New System.Drawing.Point(512, 535)
+        Me.CmdCancel.Size = New System.Drawing.Size(80, 25)
         Me.CmdCancel.TabIndex = 3
         Me.CmdCancel.Visible = False
         '
@@ -85,19 +83,19 @@ Public Class FrmLog
         '
         Me.CmdHelp.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.CmdHelp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.CmdHelp.Location = New System.Drawing.Point(591, 530)
-        Me.CmdHelp.Size = New System.Drawing.Size(96, 28)
+        Me.CmdHelp.Location = New System.Drawing.Point(608, 535)
+        Me.CmdHelp.Size = New System.Drawing.Size(80, 25)
         '
         'Label1
         '
-        Me.Label1.Location = New System.Drawing.Point(116, 6)
-        Me.Label1.Size = New System.Drawing.Size(417, 18)
+        Me.Label1.Location = New System.Drawing.Point(97, 5)
+        Me.Label1.Size = New System.Drawing.Size(347, 16)
         Me.Label1.Text = "Log Window"
         '
         'Label2
         '
-        Me.Label2.Location = New System.Drawing.Point(120, 28)
-        Me.Label2.Size = New System.Drawing.Size(564, 45)
+        Me.Label2.Location = New System.Drawing.Point(100, 24)
+        Me.Label2.Size = New System.Drawing.Size(586, 39)
         Me.Label2.Text = "You can view detailed log of database activities and application errors. You can " &
     "also start/stop logging using this window."
         '
@@ -106,29 +104,29 @@ Public Class FrmLog
         Me.TxtLog.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtLog.Location = New System.Drawing.Point(10, 111)
+        Me.TxtLog.Location = New System.Drawing.Point(8, 96)
         Me.TxtLog.MaxLength = 100000
         Me.TxtLog.Multiline = True
         Me.TxtLog.Name = "TxtLog"
         Me.TxtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TxtLog.Size = New System.Drawing.Size(674, 188)
+        Me.TxtLog.Size = New System.Drawing.Size(678, 163)
         Me.TxtLog.TabIndex = 1
         Me.TxtLog.WordWrap = False
         '
         'CmdClearLog
         '
         Me.CmdClearLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.CmdClearLog.Location = New System.Drawing.Point(10, 528)
+        Me.CmdClearLog.Location = New System.Drawing.Point(8, 534)
         Me.CmdClearLog.Name = "CmdClearLog"
-        Me.CmdClearLog.Size = New System.Drawing.Size(144, 28)
+        Me.CmdClearLog.Size = New System.Drawing.Size(120, 24)
         Me.CmdClearLog.TabIndex = 4
         Me.CmdClearLog.Text = "Clear Log"
         '
         'ChkWordWrap
         '
-        Me.ChkWordWrap.Location = New System.Drawing.Point(10, 83)
+        Me.ChkWordWrap.Location = New System.Drawing.Point(8, 72)
         Me.ChkWordWrap.Name = "ChkWordWrap"
-        Me.ChkWordWrap.Size = New System.Drawing.Size(124, 28)
+        Me.ChkWordWrap.Size = New System.Drawing.Size(104, 24)
         Me.ChkWordWrap.TabIndex = 6
         Me.ChkWordWrap.Text = "Word Wrap"
         '
@@ -136,9 +134,9 @@ Public Class FrmLog
         '
         Me.ChkEnableLogging.Checked = True
         Me.ChkEnableLogging.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChkEnableLogging.Location = New System.Drawing.Point(144, 83)
+        Me.ChkEnableLogging.Location = New System.Drawing.Point(120, 72)
         Me.ChkEnableLogging.Name = "ChkEnableLogging"
-        Me.ChkEnableLogging.Size = New System.Drawing.Size(125, 28)
+        Me.ChkEnableLogging.Size = New System.Drawing.Size(104, 24)
         Me.ChkEnableLogging.TabIndex = 7
         Me.ChkEnableLogging.Text = "Enable Logging"
         '
@@ -147,11 +145,11 @@ Public Class FrmLog
         Me.SqlLog.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SqlLog.Location = New System.Drawing.Point(10, 321)
+        Me.SqlLog.Location = New System.Drawing.Point(8, 278)
         Me.SqlLog.Multiline = True
         Me.SqlLog.Name = "SqlLog"
         Me.SqlLog.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.SqlLog.Size = New System.Drawing.Size(674, 57)
+        Me.SqlLog.Size = New System.Drawing.Size(678, 126)
         Me.SqlLog.TabIndex = 58
         Me.SqlLog.WordWrap = False
         '
@@ -159,9 +157,9 @@ Public Class FrmLog
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(625, 302)
+        Me.Label3.Location = New System.Drawing.Point(637, 262)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(64, 17)
+        Me.Label3.Size = New System.Drawing.Size(49, 13)
         Me.Label3.TabIndex = 59
         Me.Label3.Text = "SQL Log"
         '
@@ -169,20 +167,20 @@ Public Class FrmLog
         '
         Me.ODBClog.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ODBClog.Location = New System.Drawing.Point(10, 400)
+        Me.ODBClog.Location = New System.Drawing.Point(8, 423)
         Me.ODBClog.Multiline = True
         Me.ODBClog.Name = "ODBClog"
         Me.ODBClog.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.ODBClog.Size = New System.Drawing.Size(674, 95)
+        Me.ODBClog.Size = New System.Drawing.Size(678, 82)
         Me.ODBClog.TabIndex = 60
         '
         'Label4
         '
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(624, 92)
+        Me.Label4.Location = New System.Drawing.Point(636, 80)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(68, 17)
+        Me.Label4.Size = New System.Drawing.Size(50, 13)
         Me.Label4.TabIndex = 61
         Me.Label4.Text = "Error Log"
         '
@@ -190,15 +188,15 @@ Public Class FrmLog
         '
         Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(585, 382)
+        Me.Label5.Location = New System.Drawing.Point(603, 407)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(111, 17)
+        Me.Label5.Size = New System.Drawing.Size(83, 13)
         Me.Label5.TabIndex = 62
         Me.Label5.Text = "ODBC Error Log"
         '
         'FrmLog
         '
-        Me.AutoScaleBaseSize = New System.Drawing.Size(6, 15)
+        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(696, 573)
         Me.Controls.Add(Me.Label5)
