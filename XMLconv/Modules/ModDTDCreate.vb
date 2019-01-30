@@ -1,3 +1,0 @@
-﻿Module ModDTDCreate
-
-End Module
