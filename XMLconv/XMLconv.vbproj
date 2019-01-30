@@ -74,6 +74,9 @@
     <Compile Include="frmXMLconv.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modules\ModCSV.vb" />
+    <Compile Include="Modules\ModDTDCreate.vb" />
+    <Compile Include="Modules\ModEditXML.vb" />
     <Compile Include="Modules\ModLogging.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
