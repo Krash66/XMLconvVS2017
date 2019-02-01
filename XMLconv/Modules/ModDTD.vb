@@ -1,13 +1,12 @@
-﻿Imports System.Xml
-Imports System.Data
-Imports System.Xml.XPath
-Module ModDTD
+﻿Module ModDTD
 
     Private ArrAllElements As New ArrayList           '** Array of all elements in Document
     Private ArrParentNodes As New ArrayList           '** Array of all elements that are parents of other elements
     Private ArrPrintedChildren As New ArrayList       '** Array of child elements that have children
     Private ArrCDataNodes As New ArrayList            '** Array of child elements that have NO children
     Private ddlOfElements As New ArrayList            '** Array of All Elements with parent objects for Drop Down List
+
+    Private sbDTD As New System.Text.StringBuilder           '** String Builder Object that is built to create DTD message
 
     Function CreateDTD(ByRef sb As System.Text.StringBuilder, ByRef xmlDoc As Xml.XmlDocument) As Boolean
 
@@ -30,13 +29,16 @@ Module ModDTD
             End If
 
             If PrintCData(ArrCDataNodes) = True Then
+                sb = sbDTD
                 Return True
             Else
+                sb = Nothing
                 Return False
             End If
 
         Catch ex As Exception
-            LogError(ex, "ModCSV CreateCSV")
+            LogError(ex, "ModDTD CreateDTD")
+            sb = Nothing
             Return False
         End Try
 
@@ -46,7 +48,7 @@ Module ModDTD
 
         Try
             Dim Action As EnumXMLActionType = GetNodeAction(Node)
-            Dim ElementValue As String = Node.InnerText
+            'Dim ElementValue As String = Node.InnerText
 
             Select Case Action
                 Case EnumXMLActionType.E_PrintwCldrn
@@ -65,8 +67,8 @@ Module ModDTD
 
                 Case EnumXMLActionType.E_PrintAsCdata
                     Dim QualName As String = GetCDataName(Node)
-                    Dim ArrayName As String = String.Format("{0,-32}{1, -8}{2,-40}", QualName, ",  value:,", ElementValue)
-                    ArrCDataNodes.Add(ArrayName)
+                    'Dim ArrayName As String = String.Format("{0,-32}{1, -8}{2,-40}", QualName, ",  value:,", ElementValue)
+                    ArrCDataNodes.Add(QualName)
                     'ArrAllElements.Add(QualName)
 
                 Case EnumXMLActionType.E_Ignore
@@ -107,7 +109,7 @@ Module ModDTD
             Return True
 
         Catch ex As Exception
-            LogError(ex, "frmXMLconv processNode")
+            LogError(ex, "ModDTD processNode")
             Return False
         End Try
 
@@ -148,7 +150,7 @@ Module ModDTD
             End If
 
         Catch ex As Exception
-            LogError(ex, "frmXMLconv GetNodeAction")
+            LogError(ex, "ModDTD GetNodeAction")
             GetNodeAction = EnumXMLActionType.Failed
             FrmXMLconv.sb.AppendLine("   --- Node action Failed ::" & nd.Name)
             FrmXMLconv.sb.AppendLine()
@@ -172,7 +174,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             GetElementName = NewName
 
         Catch ex As Exception
-            LogError(ex, "frmXMLconv GetNameToAdd")
+            LogError(ex, "ModDTD GetNameToAdd")
             GetElementName = ""
         End Try
 
@@ -194,7 +196,7 @@ TryAgain:   If ArrAllElements.Contains(NewName) = True Then
             GetChildName = NewName
 
         Catch ex As Exception
-            LogError(ex, "frmXMLconv GetChildName")
+            LogError(ex, "ModDTD GetChildName")
             GetChildName = ""
         End Try
 
@@ -222,7 +224,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             End If
 
         Catch ex As Exception
-            LogError(ex, "frmXMLconv GetCDataNameToAdd")
+            LogError(ex, "ModDTD GetCDataNameToAdd")
             GetCDataName = ""
         End Try
 
@@ -247,21 +249,21 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
                 ArrParentNodes.Add(QualName)
 
                 '*** Print element and it's children
-                'sb.AppendLine(Line1)                                        Uncomment for DTD convert
-                'sb.AppendLine(Line2)                                        Uncomment for DTD convert
+                sbDTD.AppendLine(Line1)                                        'Uncomment For DTD convert
+                sbDTD.AppendLine(Line2)                                        'Uncomment For DTD convert
                 For Each cld As Xml.XmlNode In node.ChildNodes
                     If cld.NodeType = Xml.XmlNodeType.Element Then
                         ChildElementName = GetChildName(cld)
                         Dim LineChild As String = String.Format("{0}{1}", Prefix, ChildElementName)
-                        'sb.AppendLine(LineChild)                                        Uncomment for DTD convert
-                        'Prefix = "    ,"                                        Uncomment for DTD convert
+                        sbDTD.AppendLine(LineChild)                                        'Uncomment For DTD convert
+                        Prefix = "    ,"                                        'Uncomment For DTD convert
                         '*** Add children to the child array
                         ArrAllElements.Add(ChildElementName)
                         ArrPrintedChildren.Add(ChildElementName)
                     End If
                 Next
-                'sb.AppendLine(LastLine)                                        Uncomment for DTD convert
-                'sb.AppendLine()                                        Uncomment for DTD convert
+                sbDTD.AppendLine(LastLine)                                        'Uncomment For DTD convert
+                sbDTD.AppendLine()                                        'Uncomment For DTD convert
 
                 Return True
             Else
@@ -270,7 +272,7 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
 
 
         Catch ex As Exception
-            LogError(ex, "frmXMLconv printNode")
+            LogError(ex, "ModDTD printNode")
             Return False
         End Try
 
@@ -282,15 +284,15 @@ TryAgain:   If ArrParentNodes.Contains(NewName) = True Then
             Dim FORfld As String
 
             For Each name As String In Arr
-                'FORfld = String.Format("{0}{1,30}{2,-100}", "<!ELEMENT ", name, " (#PCDATA)>")
-                FORfld = String.Format("{0}{1,30}", "Name:, ", name)
-                FrmXMLconv.sb.AppendLine(FORfld)
+                FORfld = String.Format("{0}{1,30}{2,-100}", "<!ELEMENT ", name, " (#PCDATA)>")
+                'FORfld = String.Format("{0}{1,30}", "Name:, ", name)
+                sbDTD.AppendLine(FORfld)
             Next
 
             Return True
 
         Catch ex As Exception
-            LogError(ex, "frmXMLconv printCData")
+            LogError(ex, "ModDTD printCData")
             Return False
         End Try
 

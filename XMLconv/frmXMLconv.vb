@@ -7,15 +7,15 @@ Public Class FrmXMLconv
 
     Public InFilePath As String                      '** Input XML Message File Path
 
-    Public CSVOutFilePath As String                     '** Output DTD XML Description File
+    Public CSVOutFilePath As String                     '** Output CSV XML Description File
     Public CSVFileName As String                        '** Name of the file without path and extension
     Public DTDOutFilePath As String                     '** Output DTD XML Description File
     Public DTDFileName As String                        '** Name of the file without path and extension
-    Public JSONOutFilePath As String                     '** Output DTD XML Description File
-    Public JSONFileName As String                        '** Name of the file without path and extension
-    Public XMLOutFilePath As String                     '** Output DTD XML Description File
+    Public JSONOutFilePath As String                    '** Output JSON XML Description File
+    Public JSONFileName As String                       '** Name of the file without path and extension
+    Public XMLOutFilePath As String                     '** Output XML XML Description File
     Public XMLFileName As String                        '** Name of the file without path and extension
-    Public SQLOutFilePath As String                     '** Output DTD XML Description File
+    Public SQLOutFilePath As String                     '** Output SQL XML Description File
     Public SQLFileName As String                        '** Name of the file without path and extension
 
     Public xml_Indoc As New Xml.XmlDocument          '** Windows XML doc that XML message is read into
@@ -229,9 +229,10 @@ Public Class FrmXMLconv
             InFilePath = OFD1.FileName
 
             CSVFileName = OFD1.SafeFileName.Remove(OFD1.SafeFileName.LastIndexOf("."))
-            '******************* add other file types here
-            '**********************************************************************
-
+            DTDFileName = OFD1.SafeFileName.Remove(OFD1.SafeFileName.LastIndexOf("."))
+            JSONFileName = OFD1.SafeFileName.Remove(OFD1.SafeFileName.LastIndexOf("."))
+            XMLFileName = OFD1.SafeFileName.Remove(OFD1.SafeFileName.LastIndexOf("."))
+            SQLFileName = OFD1.SafeFileName.Remove(OFD1.SafeFileName.LastIndexOf("."))
 
             If InFilePath <> "" Then
                 txtInPath.Text = InFilePath
@@ -240,6 +241,7 @@ Public Class FrmXMLconv
                 If FormatDoc() Then
                     LoadInText()
                     BtnCreateCSV.Enabled = True
+                    'load all the Element trees on all tabs
                     LoadTreeView()
                 End If
             End If
@@ -255,6 +257,10 @@ Public Class FrmXMLconv
         Try
             txtInMessage.Text = LoadTextFile(InFilePath)
             TxtCSVout.Text = ""
+            txtDTDout.Text = ""
+            TxtJSONout.Text = ""
+            TxtXMLOut.Text = ""
+            TxTSQLout.Text = ""
 
         Catch ex As Exception
             LogError(ex, "frmXMLconv LoadInText")
@@ -431,28 +437,78 @@ Public Class FrmXMLconv
     Private Sub SFD1_FileOk(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles SFD1.FileOk
 
         Try
+            Dim Saved As Boolean = False
             Select Case SFD1.Title
                 Case "CSV File"
                     CSVOutFilePath = SFD1.FileName
                     TxtCSVSavePath.Text = CSVOutFilePath
                     If CSVOutFilePath <> "" Then
                         If SaveCSV() = True Then
+                            Saved = True
                             'MsgBox("Save was successful", MsgBoxStyle.OkOnly)
                             'CmdOk.Enabled = True
-                            'btnImportDTD.Enabled = True
+                            btnbrowseIn.Enabled = True
                         End If
                     End If
                 Case "DTD File"
-
+                    DTDOutFilePath = SFD1.FileName
+                    TxtSaveDTDPath.Text = DTDOutFilePath
+                    If DTDOutFilePath <> "" Then
+                        If SaveDTD() = True Then
+                            Saved = True
+                            'MsgBox("Save was successful", MsgBoxStyle.OkOnly)
+                            'CmdOk.Enabled = True
+                            btnbrowseIn.Enabled = True
+                        End If
+                    End If
                 Case "JSON File"
-
+                    CSVOutFilePath = SFD1.FileName
+                    TxtCSVSavePath.Text = CSVOutFilePath
+                    If CSVOutFilePath <> "" Then
+                        If SaveJSON() = True Then
+                            Saved = True
+                            'MsgBox("Save was successful", MsgBoxStyle.OkOnly)
+                            'CmdOk.Enabled = True
+                            btnbrowseIn.Enabled = True
+                        End If
+                    End If
                 Case "XML File"
-
+                    CSVOutFilePath = SFD1.FileName
+                    TxtCSVSavePath.Text = CSVOutFilePath
+                    If CSVOutFilePath <> "" Then
+                        If SaveXML() = True Then
+                            Saved = True
+                            'MsgBox("Save was successful", MsgBoxStyle.OkOnly)
+                            'CmdOk.Enabled = True
+                            btnbrowseIn.Enabled = True
+                        End If
+                    End If
                 Case "SQL File"
-
+                    CSVOutFilePath = SFD1.FileName
+                    TxtCSVSavePath.Text = CSVOutFilePath
+                    If CSVOutFilePath <> "" Then
+                        If SaveSQL() = True Then
+                            Saved = True
+                            'MsgBox("Save was successful", MsgBoxStyle.OkOnly)
+                            'CmdOk.Enabled = True
+                            btnbrowseIn.Enabled = True
+                        End If
+                    End If
                 Case "Update XML File"
+                    CSVOutFilePath = SFD1.FileName
+                    TxtCSVSavePath.Text = CSVOutFilePath
+                    If CSVOutFilePath <> "" Then
+                        If SaveUpdate() = True Then
+                            Saved = True
+                            'MsgBox("Save was successful", MsgBoxStyle.OkOnly)
+                            'CmdOk.Enabled = True
+                            btnbrowseIn.Enabled = True
+                        End If
+                    End If
 
-
+                    If Saved = False Then
+                        MsgBox("Failed to save file. Please check your path and privilege", MsgBoxStyle.Critical, "Invalid Path")
+                    End If
             End Select
 
         Catch ex As Exception
@@ -464,6 +520,20 @@ Public Class FrmXMLconv
 #End Region
 
 #Region "Change Data Values"
+
+    Sub ClearElementTab()
+        Try
+            TxtElementName.Text = ""
+            TxtElementValue.Text = ""
+
+            DGVElement.Rows.Clear()
+            DGVAttrib.Rows.Clear()
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv ClearElementTab")
+        End Try
+    End Sub
+
 
     'Private Sub BtnNewValue_Click(sender As Object, e As EventArgs)
     '    Try
@@ -513,10 +583,59 @@ Public Class FrmXMLconv
         End If
     End Sub
 
+    Private Sub TxtElementValue_TextChanged(sender As Object, e As EventArgs) Handles TxtElementValue.TextChanged
+        Try
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv TxtElementValue_TextChanged")
+        End Try
+    End Sub
+
+    Private Sub TxtElementName_TextChanged(sender As Object, e As EventArgs) Handles TxtElementName.TextChanged
+        Try
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv TxtElementName_TextChanged")
+        End Try
+    End Sub
+
+    Private Sub DGVAttrib_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DGVAttrib.CellContentClick
+        Try
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv DGVAttrib_CellContentClick")
+        End Try
+    End Sub
+
+    Private Sub DGVElement_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DGVElement.CellContentClick
+        Try
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv DGVElement_CellContentClick")
+        End Try
+    End Sub
+
+    Private Sub BtnReplace_Click(sender As Object, e As EventArgs) Handles BtnReplaceXMLvalue.Click
+
+    End Sub
+
+    Function SaveUpdate() As Boolean
+
+        Try
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv SaveUpdate")
+        End Try
+
+    End Function
 
 #End Region
 
 #Region "CSV Events"
+
+    Private Sub TVcsv_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVcsv.AfterSelect
+
+    End Sub
 
     Private Sub BtnCreateCSV_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateCSV.Click
 
@@ -554,7 +673,6 @@ Public Class FrmXMLconv
 
     End Sub
 
-    '*** Save XML DTD to File
     Private Function SaveCSV() As Boolean
 
         Try
@@ -572,18 +690,327 @@ Public Class FrmXMLconv
 
     End Function
 
+    Private Sub BtnOpenCSV_Click(sender As Object, e As EventArgs) Handles BtnOpenCSV.Click
+
+        Try
+            If CSVOutFilePath <> "" Then
+                Dim OpenProcess As New System.Diagnostics.Process
+                Process.Start(CSVOutFilePath)
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLConv BtnOpenCSV_Click")
+        End Try
+
+    End Sub
+
+#End Region
+
+#Region "DTD Events"
+
+    Private Sub BtnCreateDTD_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateDTD.Click
+
+        Try
+            'Convert xml_doc to new string builder text
+            'EncodeXMLFile(InFilePath) '//encode some special characters like & to &amp;
+            xml_Indoc.Load(InFilePath)
+            sb = New System.Text.StringBuilder
+            txtDTDout.Text = ""
+
+            If CreateDTD(sb, xml_Indoc) = True Then
+                txtDTDout.Text = sb.ToString
+                BtnSaveDTD.Enabled = True
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv BtnCreateDTD_Click")
+        End Try
+
+    End Sub
+
+    Private Sub BtnSaveDTD_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSaveDTD.Click
+
+        Try
+            SFD1.Title = "DTD File"
+            If InputDir <> "" Then
+                SFD1.InitialDirectory = InputDir
+                SFD1.FileName = DTDFileName
+            End If
+            SFD1.ShowDialog()
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv BtnSaveDTD_Click")
+        End Try
+
+    End Sub
+
+    Private Function SaveDTD() As Boolean
+
+        Try
+            If SFD1.FileName <> "" Then
+                SaveDTD = SaveTextFile(DTDOutFilePath, txtDTDout.Text)
+            Else
+                MsgBox("Please enter a valid Output File Path", MsgBoxStyle.Information, "No Valid Output Path")
+                SaveDTD = False
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv SaveDTD")
+            SaveDTD = False
+        End Try
+
+    End Function
+
+    Private Sub BtnOpenDTD_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BtnOpenDTD.Click
+
+        Try
+            If DTDOutFilePath <> "" Then
+                Dim OpenProcess As New System.Diagnostics.Process
+                Process.Start(DTDOutFilePath)
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLConv BtnOpenDTD_Click")
+        End Try
+
+    End Sub
+
+#End Region
+
+#Region "XML Events"
+
+    Private Sub TVxml_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVxml.AfterSelect
+
+    End Sub
+
+    Private Sub BtnCreateXML_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateXML.Click
+
+        Try
+            'Convert xml_doc to new string builder text
+            'EncodeXMLFile(InFilePath) '//encode some special characters like & to &amp;
+            xml_Indoc.Load(InFilePath)
+            sb = New System.Text.StringBuilder
+            TxtXMLOut.Text = ""
+
+            If CreateXML(sb, xml_Indoc) = True Then
+                TxtXMLOut.Text = sb.ToString
+                BtnSaveXML.Enabled = True
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv BtnCreateCSV_Click")
+        End Try
+
+    End Sub
+
+    Private Sub BtnSaveXML_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSaveXML.Click
+
+        Try
+            SFD1.Title = "CSV File"
+            If InputDir <> "" Then
+                SFD1.InitialDirectory = InputDir
+                SFD1.FileName = XMLFileName
+            End If
+            SFD1.ShowDialog()
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv BtnSaveXML_Click")
+        End Try
+
+    End Sub
+
+    Private Function SaveXML() As Boolean
+
+        Try
+            If SFD1.FileName <> "" Then
+                SaveXML = SaveTextFile(CSVOutFilePath, TxtCSVout.Text)
+            Else
+                MsgBox("Please enter a valid Output File Path", MsgBoxStyle.Information, "No Valid Output Path")
+                SaveXML = False
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv SaveXML")
+            SaveXML = False
+        End Try
+
+    End Function
+
+    Private Sub BtnOpenXML_Click(sender As Object, e As EventArgs) Handles BtnOpenXML.Click
+
+        Try
+            If XMLOutFilePath <> "" Then
+                Dim OpenProcess As New System.Diagnostics.Process
+                Process.Start(XMLOutFilePath)
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLConv BtnOpenXML_Click")
+        End Try
+
+    End Sub
+
+#End Region
+
+#Region "JSON Events"
+
+    Private Sub TVjson_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVjson.AfterSelect
+
+    End Sub
+
+    Private Sub BtnCreateJSON_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateJSON.Click
+
+        Try
+            'Convert xml_doc to new string builder text
+            'EncodeXMLFile(InFilePath) '//encode some special characters like & to &amp;
+            xml_Indoc.Load(InFilePath)
+            'sb = New System.Text.StringBuilder
+            Dim JSONstr As String = ""
+            TxtJSONout.Text = ""
+
+            If CreateJSON(JSONstr, xml_Indoc) = True Then
+                TxtJSONout.Text = JSONstr
+                BtnSaveJSON.Enabled = True
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv BtnCreateCSV_Click")
+        End Try
+
+    End Sub
+
+    Private Sub BtnSaveJSON_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSaveJSON.Click
+
+        Try
+            SFD1.Title = "JSON File"
+            If InputDir <> "" Then
+                SFD1.InitialDirectory = InputDir
+                SFD1.FileName = JSONFileName
+            End If
+            SFD1.ShowDialog()
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv BtnSaveJSON_Click")
+        End Try
+
+    End Sub
+
+    Private Function SaveJSON() As Boolean
+
+        Try
+            If SFD1.FileName <> "" Then
+                SaveJSON = SaveTextFile(JSONOutFilePath, TxtJSONout.Text)
+            Else
+                MsgBox("Please enter a valid Output File Path", MsgBoxStyle.Information, "No Valid Output Path")
+                SaveJSON = False
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv SaveJSON")
+            SaveJSON = False
+        End Try
+
+    End Function
+
+    Private Sub BtnOpenJSON_Click(sender As Object, e As EventArgs) Handles BtnOpenJSON.Click
+
+        Try
+            If JSONOutFilePath <> "" Then
+                Dim OpenProcess As New System.Diagnostics.Process
+                Process.Start(JSONOutFilePath)
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLConv BtnOpenJSON_Click")
+        End Try
+
+    End Sub
+
+#End Region
+
+#Region "SQL Events"
+
+    Private Sub TVsql_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVsql.AfterSelect
+
+    End Sub
+
+    Private Sub BtnCreateSQL_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateSQL.Click
+
+        Try
+            'Convert xml_doc to new string builder text
+            'EncodeXMLFile(InFilePath) '//encode some special characters like & to &amp;
+            xml_Indoc.Load(InFilePath)
+            sb = New System.Text.StringBuilder
+            TxTSQLout.Text = ""
+
+            If CreateSQL(sb, xml_Indoc) = True Then
+                TxTSQLout.Text = sb.ToString
+                BtnSaveSQL.Enabled = True
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv BtnCreateSQL_Click")
+        End Try
+
+    End Sub
+
+    Private Sub BtnSaveSQL_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSaveSQL.Click
+
+        Try
+            SFD1.Title = "SQL File"
+            If InputDir <> "" Then
+                SFD1.InitialDirectory = InputDir
+                SFD1.FileName = SQLFileName
+            End If
+            SFD1.ShowDialog()
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv BtnSaveSQL_Click")
+        End Try
+
+    End Sub
+
+    Private Function SaveSQL() As Boolean
+
+        Try
+            If SFD1.FileName <> "" Then
+                SaveSQL = SaveTextFile(SQLOutFilePath, TxTSQLout.Text)
+            Else
+                MsgBox("Please enter a valid Output File Path", MsgBoxStyle.Information, "No Valid Output Path")
+                SaveSQL = False
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv SaveSQL")
+            SaveSQL = False
+        End Try
+
+    End Function
+
+    Private Sub BtnOpenSQL_Click(sender As Object, e As EventArgs) Handles BtnOpenSQL.Click
+
+        Try
+            If SQLOutFilePath <> "" Then
+                Dim OpenProcess As New System.Diagnostics.Process
+                Process.Start(SQLOutFilePath)
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLConv BtnOpenSQL_Click")
+        End Try
+
+    End Sub
 
 #End Region
 
 #Region "Old"
 
-
     'Private Sub CmdOk_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) ' Handles CmdOk.Click
 
-    '    'Me.Close()
-    '    'If Save() = True Then
-    '    '    MsgBox("Save was successful", MsgBoxStyle.OkOnly)
-    '    'End If
+    '    Me.Close()
+    '    If Save() = True Then
+    '        MsgBox("Save was successful", MsgBoxStyle.OkOnly)
+    '    End If
     '    Try
     '        If CSVOutFilePath <> "" Then
     '            Dim OpenProcess As New System.Diagnostics.Process
@@ -598,160 +1025,6 @@ Public Class FrmXMLconv
 
     'End Sub
 
-
-
-    Private Sub TVelement_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVelement.AfterSelect
-
-        Try
-            Dim SelNode As XmlNode = TVelement.SelectedNode.Tag
-            'Clear TabPage
-            ClearElementTab()
-            'populate TabPage
-            TxtElementName.Text = SelNode.LocalName
-            If SelNode.NodeType = XmlNodeType.Element Then
-                TxtElementValue.Text = SelNode.InnerText
-            Else
-                TxtElementValue.Text = ""
-            End If
-
-            'Now set DataGridViews
-            For Each Attr As XmlAttribute In SelNode.Attributes
-                Dim NewRow() As String = {Attr.LocalName, Attr.Value}
-                DGVAttrib.Rows.Add(NewRow)
-            Next
-            For Each nd As XmlNode In SelNode.ChildNodes
-                If nd.NodeType = XmlNodeType.Element Then
-                    Dim NewRowEle() As String = {nd.LocalName, nd.InnerText}
-                    DGVElement.Rows.Add(NewRowEle)
-                End If
-            Next
-
-        Catch ex As Exception
-            LogError(ex, "FrmXMLconv SaveTextFile")
-        End Try
-
-    End Sub
-
-    Sub ClearElementTab()
-        Try
-            TxtElementName.Text = ""
-            TxtElementValue.Text = ""
-
-            DGVElement.Rows.Clear()
-            DGVAttrib.Rows.Clear()
-
-        Catch ex As Exception
-            LogError(ex, "FrmXMLconv ClearElementTab")
-        End Try
-    End Sub
-
-    Private Sub TxtElementValue_TextChanged(sender As Object, e As EventArgs) Handles TxtElementValue.TextChanged
-        Try
-
-        Catch ex As Exception
-            LogError(ex, "FrmXMLconv TxtElementValue_TextChanged")
-        End Try
-    End Sub
-
-    Private Sub TxtElementName_TextChanged(sender As Object, e As EventArgs) Handles TxtElementName.TextChanged
-        Try
-
-        Catch ex As Exception
-            LogError(ex, "FrmXMLconv TxtElementName_TextChanged")
-        End Try
-    End Sub
-
-    Private Sub DGVAttrib_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DGVAttrib.CellContentClick
-        Try
-
-        Catch ex As Exception
-            LogError(ex, "FrmXMLconv DGVAttrib_CellContentClick")
-        End Try
-    End Sub
-
-    Private Sub DGVElement_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DGVElement.CellContentClick
-        Try
-
-        Catch ex As Exception
-            LogError(ex, "FrmXMLconv DGVElement_CellContentClick")
-        End Try
-    End Sub
-
-
-
-    Private Sub BtnOpenDTD_Click(sender As Object, e As EventArgs) Handles BtnOpneDTD.Click
-
-    End Sub
-
-    Private Sub BtnSaveDTD_Click(sender As Object, e As EventArgs) Handles BtnSaveDTD.Click
-
-    End Sub
-
-    Private Sub BtnReplace_Click(sender As Object, e As EventArgs) Handles BtnReplaceXMLvalue.Click
-
-    End Sub
-
-    Private Sub BtnCreateDTD_Click(sender As Object, e As EventArgs) Handles BtnCreateDTD.Click
-
-    End Sub
-
-    Private Sub BtnSaveXML_Click(sender As Object, e As EventArgs) Handles BtnSaveXML.Click
-
-    End Sub
-
-    Private Sub BtnOpenXML_Click(sender As Object, e As EventArgs) Handles BtnOpenXML.Click
-
-    End Sub
-
-    Private Sub BtnCreateXML_Click(sender As Object, e As EventArgs) Handles BtnCreateXML.Click
-
-    End Sub
-
-
 #End Region
-
-
-
-    Private Sub TVcsv_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVcsv.AfterSelect
-
-    End Sub
-
-    Private Sub TVdtd_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVdtd.AfterSelect
-
-    End Sub
-
-    Private Sub TVxml_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVxml.AfterSelect
-
-    End Sub
-
-    Private Sub TVjson_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVjson.AfterSelect
-
-    End Sub
-
-    Private Sub TVsql_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVsql.AfterSelect
-
-    End Sub
-
-    Private Sub BtnCreateJSON_Click(sender As Object, e As EventArgs) Handles BtnCreateJSON.Click
-
-    End Sub
-
-    Private Sub BtnSaveJSON_Click(sender As Object, e As EventArgs) Handles BtnSaveJSON.Click
-
-    End Sub
-
-    Private Sub BtnOpenJSON_Click(sender As Object, e As EventArgs) Handles BtnOpenJSON.Click
-
-    End Sub
-
-    Private Sub BtnSaveSQL_Click(sender As Object, e As EventArgs) Handles BtnSaveSQL.Click
-
-    End Sub
-
-    Private Sub BtnOpenSQL_Click(sender As Object, e As EventArgs) Handles BtnOpenSQL.Click
-
-    End Sub
-
-
 
 End Class
