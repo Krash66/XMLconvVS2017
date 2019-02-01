@@ -63,7 +63,7 @@ Partial Class FrmXMLconv
         Me.TVdtd = New System.Windows.Forms.TreeView()
         Me.BtnCreateDTD = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.BtnOpneDTD = New System.Windows.Forms.Button()
+        Me.BtnOpenDTD = New System.Windows.Forms.Button()
         Me.txtDTDout = New System.Windows.Forms.TextBox()
         Me.BtnSaveDTD = New System.Windows.Forms.Button()
         Me.TxtSaveDTDPath = New System.Windows.Forms.TextBox()
@@ -90,6 +90,7 @@ Partial Class FrmXMLconv
         Me.TabPage5 = New System.Windows.Forms.TabPage()
         Me.SplitContainer6 = New System.Windows.Forms.SplitContainer()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.BtnCreateSQL = New System.Windows.Forms.Button()
         Me.TVsql = New System.Windows.Forms.TreeView()
         Me.GBsqlOut = New System.Windows.Forms.GroupBox()
         Me.BtnOpenSQL = New System.Windows.Forms.Button()
@@ -726,7 +727,7 @@ Partial Class FrmXMLconv
         'GroupBox2
         '
         Me.GroupBox2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.GroupBox2.Controls.Add(Me.BtnOpneDTD)
+        Me.GroupBox2.Controls.Add(Me.BtnOpenDTD)
         Me.GroupBox2.Controls.Add(Me.txtDTDout)
         Me.GroupBox2.Controls.Add(Me.BtnSaveDTD)
         Me.GroupBox2.Controls.Add(Me.TxtSaveDTDPath)
@@ -740,15 +741,15 @@ Partial Class FrmXMLconv
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "DTD File output"
         '
-        'BtnOpneDTD
+        'BtnOpenDTD
         '
-        Me.BtnOpneDTD.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnOpneDTD.Location = New System.Drawing.Point(413, 381)
-        Me.BtnOpneDTD.Name = "BtnOpneDTD"
-        Me.BtnOpneDTD.Size = New System.Drawing.Size(61, 23)
-        Me.BtnOpneDTD.TabIndex = 4
-        Me.BtnOpneDTD.Text = "Open"
-        Me.BtnOpneDTD.UseVisualStyleBackColor = True
+        Me.BtnOpenDTD.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnOpenDTD.Location = New System.Drawing.Point(413, 381)
+        Me.BtnOpenDTD.Name = "BtnOpenDTD"
+        Me.BtnOpenDTD.Size = New System.Drawing.Size(61, 23)
+        Me.BtnOpenDTD.TabIndex = 4
+        Me.BtnOpenDTD.Text = "Open"
+        Me.BtnOpenDTD.UseVisualStyleBackColor = True
         '
         'txtDTDout
         '
@@ -1067,6 +1068,7 @@ Partial Class FrmXMLconv
         'GroupBox6
         '
         Me.GroupBox6.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.GroupBox6.Controls.Add(Me.BtnCreateSQL)
         Me.GroupBox6.Controls.Add(Me.TVsql)
         Me.GroupBox6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1077,6 +1079,15 @@ Partial Class FrmXMLconv
         Me.GroupBox6.TabIndex = 64
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Choose Output Elements"
+        '
+        'BtnCreateSQL
+        '
+        Me.BtnCreateSQL.Location = New System.Drawing.Point(138, 374)
+        Me.BtnCreateSQL.Name = "BtnCreateSQL"
+        Me.BtnCreateSQL.Size = New System.Drawing.Size(75, 23)
+        Me.BtnCreateSQL.TabIndex = 70
+        Me.BtnCreateSQL.Text = "Button1"
+        Me.BtnCreateSQL.UseVisualStyleBackColor = True
         '
         'TVsql
         '
@@ -1320,7 +1331,7 @@ Partial Class FrmXMLconv
     Friend WithEvents RbOnlyThisElement As RadioButton
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents BtnReplaceXMLvalue As Button
-    Friend WithEvents BtnOpneDTD As Button
+    Friend WithEvents BtnOpenDTD As Button
     Friend WithEvents TabPage4 As TabPage
     Friend WithEvents GBOutXML As GroupBox
     Friend WithEvents TxtXMLOut As TextBox
@@ -1354,4 +1365,5 @@ Partial Class FrmXMLconv
     Friend WithEvents TxtOutJSONpath As TextBox
     Friend WithEvents CldName As DataGridViewTextBoxColumn
     Friend WithEvents CldValue As DataGridViewTextBoxColumn
+    Friend WithEvents BtnCreateSQL As Button
 End Class
