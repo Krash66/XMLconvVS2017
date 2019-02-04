@@ -49,6 +49,7 @@
     Public Function LogError(ByVal ex As Exception, Optional ByVal p1 As String = "", Optional ByVal p2 As String = "", Optional ByVal ThrowError As Boolean = False, Optional ByVal displayMSG As Boolean = False) As Boolean
         ClsLogging.LogError(ex, p1, p2, ThrowError, displayMSG)
     End Function
+
     Public Function LogODBCError(ByVal ex As Exception, Optional ByVal p1 As String = "", Optional ByVal p2 As String = "", Optional ByVal ThrowError As Boolean = False, Optional ByVal displayMSG As Boolean = False) As Boolean
         ClsLogging.LogODBCerror(ex, p1, p2, ThrowError, displayMSG)
     End Function
