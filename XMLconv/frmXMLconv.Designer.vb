@@ -1082,6 +1082,7 @@ Partial Class FrmXMLconv
         '
         'BtnCreateSQL
         '
+        Me.BtnCreateSQL.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BtnCreateSQL.Location = New System.Drawing.Point(138, 374)
         Me.BtnCreateSQL.Name = "BtnCreateSQL"
         Me.BtnCreateSQL.Size = New System.Drawing.Size(75, 23)
