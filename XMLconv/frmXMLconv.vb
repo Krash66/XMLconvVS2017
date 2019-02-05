@@ -534,37 +534,6 @@ Public Class FrmXMLconv
         End Try
     End Sub
 
-    Private Sub TVelement_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVelement.AfterSelect
-
-        Try
-            Dim SelNode As XmlNode = TVelement.SelectedNode.Tag
-            'Clear TabPage
-            ClearElementTab()
-            'populate TabPage
-            TxtElementName.Text = SelNode.LocalName
-            If SelNode.NodeType = XmlNodeType.Element Then
-                TxtElementValue.Text = SelNode.InnerText
-            Else
-                TxtElementValue.Text = ""
-            End If
-
-            'Now set DataGridViews
-            For Each Attr As XmlAttribute In SelNode.Attributes
-                Dim NewRow() As String = {Attr.LocalName, Attr.Value}
-                DGVAttrib.Rows.Add(NewRow)
-            Next
-            For Each nd As XmlNode In SelNode.ChildNodes
-                If nd.NodeType = XmlNodeType.Element Then
-                    Dim NewRowEle() As String = {nd.LocalName, nd.InnerText}
-                    DGVElement.Rows.Add(NewRowEle)
-                End If
-            Next
-
-        Catch ex As Exception
-            LogError(ex, "FrmXMLconv SaveTextFile")
-        End Try
-
-    End Sub
 
     'Private Sub BtnNewValue_Click(sender As Object, e As EventArgs)
     '    Try
@@ -738,10 +707,6 @@ Public Class FrmXMLconv
 #End Region
 
 #Region "DTD Events"
-
-    Private Sub TVdtd_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVdtd.AfterSelect
-
-    End Sub
 
     Private Sub BtnCreateDTD_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateDTD.Click
 
@@ -1035,8 +1000,6 @@ Public Class FrmXMLconv
         End Try
 
     End Sub
-
-
 
 #End Region
 
