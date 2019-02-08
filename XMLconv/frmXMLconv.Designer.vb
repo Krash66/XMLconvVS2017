@@ -90,6 +90,8 @@ Partial Class FrmXMLconv
         Me.TabPage5 = New System.Windows.Forms.TabPage()
         Me.SplitContainer6 = New System.Windows.Forms.SplitContainer()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.RbUseValue = New System.Windows.Forms.RadioButton()
+        Me.RbUseTag = New System.Windows.Forms.RadioButton()
         Me.BtnCreateSQL = New System.Windows.Forms.Button()
         Me.TVsql = New System.Windows.Forms.TreeView()
         Me.GBsqlOut = New System.Windows.Forms.GroupBox()
@@ -100,6 +102,8 @@ Partial Class FrmXMLconv
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.GBframe1 = New System.Windows.Forms.GroupBox()
         Me.GBframe2 = New System.Windows.Forms.GroupBox()
+        Me.CbMasterFld = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.gbIn.SuspendLayout()
         Me.gbXMLout.SuspendLayout()
@@ -324,8 +328,8 @@ Partial Class FrmXMLconv
         '
         'SFD1
         '
-        Me.SFD1.Filter = "Comma Sep|*.csv|XML Files|*.xml|XML DTD Files|*.DTD|All Files|*.*"
-        Me.SFD1.Title = "DTD File Save"
+        Me.SFD1.RestoreDirectory = True
+        Me.SFD1.Title = "Save File"
         '
         'BtnCreateCSV
         '
@@ -1068,6 +1072,10 @@ Partial Class FrmXMLconv
         'GroupBox6
         '
         Me.GroupBox6.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.GroupBox6.Controls.Add(Me.Label3)
+        Me.GroupBox6.Controls.Add(Me.CbMasterFld)
+        Me.GroupBox6.Controls.Add(Me.RbUseValue)
+        Me.GroupBox6.Controls.Add(Me.RbUseTag)
         Me.GroupBox6.Controls.Add(Me.BtnCreateSQL)
         Me.GroupBox6.Controls.Add(Me.TVsql)
         Me.GroupBox6.Dock = System.Windows.Forms.DockStyle.Fill
@@ -1080,13 +1088,38 @@ Partial Class FrmXMLconv
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Choose Output Elements"
         '
+        'RbUseValue
+        '
+        Me.RbUseValue.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RbUseValue.AutoSize = True
+        Me.RbUseValue.Location = New System.Drawing.Point(9, 322)
+        Me.RbUseValue.Name = "RbUseValue"
+        Me.RbUseValue.Size = New System.Drawing.Size(97, 19)
+        Me.RbUseValue.TabIndex = 72
+        Me.RbUseValue.Text = "Use Values"
+        Me.RbUseValue.UseVisualStyleBackColor = True
+        '
+        'RbUseTag
+        '
+        Me.RbUseTag.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RbUseTag.AutoSize = True
+        Me.RbUseTag.Checked = True
+        Me.RbUseTag.Location = New System.Drawing.Point(9, 297)
+        Me.RbUseTag.Name = "RbUseTag"
+        Me.RbUseTag.Size = New System.Drawing.Size(127, 19)
+        Me.RbUseTag.TabIndex = 71
+        Me.RbUseTag.TabStop = True
+        Me.RbUseTag.Text = "Use Tag Names"
+        Me.RbUseTag.UseVisualStyleBackColor = True
+        '
         'BtnCreateSQL
         '
-        Me.BtnCreateSQL.Location = New System.Drawing.Point(138, 374)
+        Me.BtnCreateSQL.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnCreateSQL.Location = New System.Drawing.Point(145, 386)
         Me.BtnCreateSQL.Name = "BtnCreateSQL"
-        Me.BtnCreateSQL.Size = New System.Drawing.Size(75, 23)
+        Me.BtnCreateSQL.Size = New System.Drawing.Size(93, 23)
         Me.BtnCreateSQL.TabIndex = 70
-        Me.BtnCreateSQL.Text = "Button1"
+        Me.BtnCreateSQL.Text = "Create SQL"
         Me.BtnCreateSQL.UseVisualStyleBackColor = True
         '
         'TVsql
@@ -1094,9 +1127,12 @@ Partial Class FrmXMLconv
         Me.TVsql.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TVsql.CheckBoxes = True
+        Me.TVsql.FullRowSelect = True
+        Me.TVsql.HotTracking = True
         Me.TVsql.Location = New System.Drawing.Point(9, 20)
         Me.TVsql.Name = "TVsql"
-        Me.TVsql.Size = New System.Drawing.Size(229, 300)
+        Me.TVsql.Size = New System.Drawing.Size(229, 270)
         Me.TVsql.TabIndex = 69
         '
         'GBsqlOut
@@ -1209,6 +1245,25 @@ Partial Class FrmXMLconv
         Me.GBframe2.TabIndex = 66
         Me.GBframe2.TabStop = False
         '
+        'CbMasterFld
+        '
+        Me.CbMasterFld.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.CbMasterFld.FormattingEnabled = True
+        Me.CbMasterFld.Location = New System.Drawing.Point(6, 362)
+        Me.CbMasterFld.Name = "CbMasterFld"
+        Me.CbMasterFld.Size = New System.Drawing.Size(121, 23)
+        Me.CbMasterFld.TabIndex = 73
+        '
+        'Label3
+        '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(6, 344)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(103, 15)
+        Me.Label3.TabIndex = 74
+        Me.Label3.Text = "Choose Master"
+        '
         'FrmXMLconv
         '
         Me.BackColor = System.Drawing.SystemColors.Control
@@ -1275,6 +1330,7 @@ Partial Class FrmXMLconv
         Me.SplitContainer6.Panel2.ResumeLayout(False)
         Me.SplitContainer6.ResumeLayout(False)
         Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
         Me.GBsqlOut.ResumeLayout(False)
         Me.GBsqlOut.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
@@ -1366,4 +1422,8 @@ Partial Class FrmXMLconv
     Friend WithEvents CldName As DataGridViewTextBoxColumn
     Friend WithEvents CldValue As DataGridViewTextBoxColumn
     Friend WithEvents BtnCreateSQL As Button
+    Friend WithEvents RbUseValue As RadioButton
+    Friend WithEvents RbUseTag As RadioButton
+    Friend WithEvents Label3 As Label
+    Friend WithEvents CbMasterFld As ComboBox
 End Class

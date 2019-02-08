@@ -80,6 +80,7 @@
     <Compile Include="Modules\ModCSV.vb" />
     <Compile Include="Modules\ModDTD.vb" />
     <Compile Include="Modules\ModEditXML.vb" />
+    <Compile Include="Modules\ModGeneral.vb" />
     <Compile Include="Modules\ModJSON.vb" />
     <Compile Include="Modules\ModLogging.vb" />
     <Compile Include="Modules\ModSQL.vb" />

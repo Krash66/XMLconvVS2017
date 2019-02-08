@@ -166,17 +166,17 @@ tryagain:   diares = MsgBox("The 'XML Tool' Data directory has been moved" & Chr
                 'System.IO.File.Delete(GetAppPath() & "*.log")
             End If
             EnableLogging = True
-            If Not System.IO.File.Exists(GetAppLog() & TraceFile) Then
-                System.IO.File.Create(GetAppLog() & TraceFile)
-            End If
-            If Not System.IO.File.Exists(GetAppLog() & errorTrace) Then
-                System.IO.File.Create(GetAppLog() & errorTrace)
-            End If
-            If Not System.IO.File.Exists(GetAppLog() & ODBCTrace) Then
-                System.IO.File.Create(GetAppLog() & ODBCTrace)
-            End If
+            'If Not System.IO.File.Exists(GetAppLog() & TraceFile) Then
+            '    System.IO.File.Create(GetAppLog() & TraceFile)
+            'End If
+            'If Not System.IO.File.Exists(GetAppLog() & errorTrace) Then
+            '    System.IO.File.Create(GetAppLog() & errorTrace)
+            'End If
+            'If Not System.IO.File.Exists(GetAppLog() & ODBCTrace) Then
+            '    System.IO.File.Create(GetAppLog() & ODBCTrace)
+            'End If
 
-            'Log("Trace Enabled")
+            Log("Trace Enabled")
             Return True
 
         Catch ex As Exception
