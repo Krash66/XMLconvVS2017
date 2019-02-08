@@ -89,8 +89,7 @@ Public Class FrmLog
         'Label1
         '
         Me.Label1.Location = New System.Drawing.Point(115, 5)
-        Me.Label1.Size = New System.Drawing.Size(347, 16)
-        Me.Label1.Text = "Log Window"
+        Me.Label1.Text = "Log Reader"
         '
         'Label2
         '
@@ -159,9 +158,9 @@ Public Class FrmLog
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(637, 262)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(49, 13)
+        Me.Label3.Size = New System.Drawing.Size(56, 13)
         Me.Label3.TabIndex = 59
-        Me.Label3.Text = "SQL Log"
+        Me.Label3.Text = "Event Log"
         '
         'ODBClog
         '

@@ -23,7 +23,7 @@ Public Class ClsLogging
         Catch ex As Exception
             MsgBox("LogEvent : " & ex.Message, MsgBoxStyle.Information, MsgTitle)
         Finally
-            If Not oStreamWriter Is Nothing Then oStreamWriter.Close()
+            If oStreamWriter IsNot Nothing Then oStreamWriter.Close()
         End Try
 
         RaiseEvent OnEvent(Msg)
@@ -47,7 +47,7 @@ Public Class ClsLogging
         Catch ex As Exception
             MsgBox("ErrorEvent : " & ex.Message, MsgBoxStyle.Information, MsgTitle)
         Finally
-            If Not oStreamWriter Is Nothing Then oStreamWriter.Close()
+            If oStreamWriter IsNot Nothing Then oStreamWriter.Close()
         End Try
 
         RaiseEvent OnEvent(Msg)
@@ -71,7 +71,7 @@ Public Class ClsLogging
         Catch ex As Exception
             MsgBox("ODBCEvent : " & ex.Message, MsgBoxStyle.Information, MsgTitle)
         Finally
-            If Not oStreamWriter Is Nothing Then oStreamWriter.Close()
+            If oStreamWriter IsNot Nothing Then oStreamWriter.Close()
         End Try
 
         RaiseEvent OnEvent(Msg)
