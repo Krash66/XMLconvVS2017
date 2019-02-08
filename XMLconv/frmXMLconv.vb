@@ -534,40 +534,9 @@ Public Class FrmXMLconv
         End Try
     End Sub
 
+    Private Sub TVelement_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVelement.AfterSelect
 
-    'Private Sub BtnNewValue_Click(sender As Object, e As EventArgs)
-    '    Try
-    '        ArrAllElements.Clear()
-    '        ArrParentNodes.Clear()
-    '        ArrPrintedChildren.Clear()
-    '        ArrCDataNodes.Clear()
-    '        'Convert xml_doc to new string builder text
-    '        'EncodeXMLFile(InFilePath) '//encode some special characters like & to &amp;
-    '        'xml_Indoc.Load(InFilePath)
-    '        sb = New System.Text.StringBuilder
-    '        txtCSVout.Text = ""
-
-    '        'Start processing each node in the Message
-    '        If xml_Indoc.HasChildNodes = True Then
-    '            For Each nd As Xml.XmlNode In xml_Indoc.ChildNodes
-    '                '*** Process each Node, if it is an element
-    '                '*** if it's not an element, ignore it
-    '                If nd.NodeType = Xml.XmlNodeType.Element Then
-    '                    processNode(nd)
-    '                End If
-    '            Next 'next doc child
-    '        End If
-
-    '        If printCData(ArrCDataNodes) = True Then
-    '            txtCSVout.Text = sb.ToString
-    '            btnbrowseOut.Enabled = True
-    '        End If
-
-    '    Catch ex As Exception
-    '        'LogError(ex, "frmXMLconv btnConv_Click")
-    '    End Try
-
-    'End Sub
+    End Sub
 
     Private Sub RbOnlyThisElement_CheckedChanged(sender As Object, e As EventArgs)
         If RbOnlyThisElement.Checked = True Then
