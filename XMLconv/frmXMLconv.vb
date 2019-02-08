@@ -7,16 +7,18 @@ Public Class FrmXMLconv
 
     Public InFilePath As String                      '** Input XML Message File Path
 
-    Public CSVOutFilePath As String                     '** Output CSV XML Description File
+    Public CSVOutFilePath As String                     '** Output CSV Description File
     Public CSVFileName As String                        '** Name of the file without path and extension
-    Public DTDOutFilePath As String                     '** Output DTD XML Description File
+    Public DTDOutFilePath As String                     '** Output DTD Description File
     Public DTDFileName As String                        '** Name of the file without path and extension
-    Public JSONOutFilePath As String                    '** Output JSON XML Description File
+    Public JSONOutFilePath As String                    '** Output JSON Description File
     Public JSONFileName As String                       '** Name of the file without path and extension
-    Public XMLOutFilePath As String                     '** Output XML XML Description File
+    Public XMLOutFilePath As String                     '** Output XML Description File
     Public XMLFileName As String                        '** Name of the file without path and extension
-    Public SQLOutFilePath As String                     '** Output SQL XML Description File
+    Public SQLOutFilePath As String                     '** Output SQL Description File
     Public SQLFileName As String                        '** Name of the file without path and extension
+    Public UpdXMLOutFilePath As String                     '** Output XML Description File
+    Public UpdXMLFileName As String                        '** Name of the file without path and extension
 
     Public xml_Indoc As New Xml.XmlDocument          '** Windows XML doc that XML message is read into
 
@@ -25,6 +27,7 @@ Public Class FrmXMLconv
     Public sb As System.Text.StringBuilder           '** String Builder Object that is built to create DTD message
 
     Public IsAll As Boolean = False
+    Public SQLuseVal As Boolean = False
 
 #Region "Form actions"
 
@@ -237,10 +240,11 @@ Public Class FrmXMLconv
             If InFilePath <> "" Then
                 txtInPath.Text = InFilePath
                 xml_Indoc = LoadXMLdoc()
+                InputDir = InFilePath.Remove(InFilePath.LastIndexOf("\")) & "\"
                 'Format the XML Document
                 If FormatDoc() Then
                     LoadInText()
-                    BtnCreateCSV.Enabled = True
+                    'BtnCreateCSV.Enabled = True
                     'load all the Element trees on all tabs
                     LoadTreeView()
                 End If
@@ -308,9 +312,11 @@ Public Class FrmXMLconv
                     '*** Process each Node, if it is an element
                     '*** if it's not an element, ignore it
                     If nd.NodeType = XmlNodeType.Element Then
+                        Dim Cnode As New ClsXMLNode(nd)
                         Dim tnode As New TreeNode(nd.Name) With {
-                            .Tag = nd
+                            .Tag = Cnode
                         }
+                        Cnode.TVnode = tnode
                         TVelement.Nodes.Add(tnode)
                         TVelement.SelectedNode = tnode
                         ProcessTreeChild(nd, tnode)
@@ -319,13 +325,16 @@ Public Class FrmXMLconv
                 TVelement.ExpandAll()
                 TVelement.CheckBoxes = True
                 TVelement.SelectedNode.EnsureVisible()
+
                 For Each nd As XmlNode In xml_Indoc.ChildNodes
                     '*** Process each Node, if it is an element
                     '*** if it's not an element, ignore it
                     If nd.NodeType = XmlNodeType.Element Then
+                        Dim Cnode As New ClsXMLNode(nd)
                         Dim tnode As New TreeNode(nd.Name) With {
-                            .Tag = nd
+                            .Tag = Cnode
                         }
+                        Cnode.TVnode = tnode
                         TVcsv.Nodes.Add(tnode)
                         TVcsv.SelectedNode = tnode
                         ProcessTreeChild(nd, tnode)
@@ -339,9 +348,11 @@ Public Class FrmXMLconv
                     '*** Process each Node, if it is an element
                     '*** if it's not an element, ignore it
                     If nd.NodeType = XmlNodeType.Element Then
+                        Dim Cnode As New ClsXMLNode(nd)
                         Dim tnode As New TreeNode(nd.Name) With {
-                            .Tag = nd
+                            .Tag = Cnode
                         }
+                        Cnode.TVnode = tnode
                         TVdtd.Nodes.Add(tnode)
                         TVdtd.SelectedNode = tnode
                         ProcessTreeChild(nd, tnode)
@@ -355,9 +366,11 @@ Public Class FrmXMLconv
                     '*** Process each Node, if it is an element
                     '*** if it's not an element, ignore it
                     If nd.NodeType = XmlNodeType.Element Then
+                        Dim Cnode As New ClsXMLNode(nd)
                         Dim tnode As New TreeNode(nd.Name) With {
-                            .Tag = nd
+                            .Tag = Cnode
                         }
+                        Cnode.TVnode = tnode
                         TVxml.Nodes.Add(tnode)
                         TVxml.SelectedNode = tnode
                         ProcessTreeChild(nd, tnode)
@@ -371,9 +384,11 @@ Public Class FrmXMLconv
                     '*** Process each Node, if it is an element
                     '*** if it's not an element, ignore it
                     If nd.NodeType = XmlNodeType.Element Then
+                        Dim Cnode As New ClsXMLNode(nd)
                         Dim tnode As New TreeNode(nd.Name) With {
-                            .Tag = nd
+                            .Tag = Cnode
                         }
+                        Cnode.TVnode = tnode
                         TVjson.Nodes.Add(tnode)
                         TVjson.SelectedNode = tnode
                         ProcessTreeChild(nd, tnode)
@@ -387,9 +402,11 @@ Public Class FrmXMLconv
                     '*** Process each Node, if it is an element
                     '*** if it's not an element, ignore it
                     If nd.NodeType = XmlNodeType.Element Then
+                        Dim Cnode As New ClsXMLNode(nd)
                         Dim tnode As New TreeNode(nd.Name) With {
-                            .Tag = nd
+                            .Tag = Cnode
                         }
+                        Cnode.TVnode = tnode
                         TVsql.Nodes.Add(tnode)
                         TVsql.SelectedNode = tnode
                         ProcessTreeChild(nd, tnode)
@@ -410,9 +427,11 @@ Public Class FrmXMLconv
             If nd.HasChildNodes = True Then
                 For Each cn As XmlNode In nd.ChildNodes
                     If cn.NodeType = XmlNodeType.Element Then
+                        Dim Cnode As New ClsXMLNode(cn)
                         Dim tn As New TreeNode(cn.Name) With {
-                            .Tag = cn
+                            .Tag = Cnode
                         }  ' & " " & cn.InnerText
+                        Cnode.TVnode = tn
                         tnd.Nodes.Add(tn)
                         ProcessTreeChild(cn, tn)
                     End If
@@ -422,6 +441,108 @@ Public Class FrmXMLconv
             LogError(ex, "frmXMLconv ProcessTreeChild")
         End Try
     End Sub
+
+    '//If onput node has parent then Check parent node
+    '//if input node has childeren then check all
+    '//Input: Node to be processed
+    Function CheckUncheckNodes(ByVal cNode As TreeNode, Optional ByVal IsSingleSelect As Boolean = False) As Boolean
+
+        Dim bState As Boolean = cNode.Checked
+        Dim oldIsEventFromCode As Boolean = IsEventFromCode
+
+        Try
+            '//Process parent
+            If cNode.Parent IsNot Nothing Then
+                IsEventFromCode = True
+                ChangeAllParentState(cNode, bState)
+                IsEventFromCode = False
+            End If
+
+            '//Node we will take care all children
+            CheckUnchecAllChildren(cNode.Nodes, bState)
+
+        Catch ex As Exception
+            LogError(ex, "modGeneral CheckUncheckNodes")
+            '//TODO
+        Finally
+            IsEventFromCode = oldIsEventFromCode
+        End Try
+
+    End Function
+
+    Private Function ChangeAllParentState(ByVal cNode As TreeNode, ByVal bState As Boolean) As Boolean
+
+        Try
+            If cNode.Parent IsNot Nothing Then
+                If bState = True Then
+                    cNode.Parent.Checked = bState
+                    ChangeAllParentState(cNode.Parent, bState)
+                Else
+                    '//Only uncheck parent if all children unchecked
+                    If IsAllChildrenSameState(cNode.Parent, bState) = True Then
+                        cNode.Parent.Checked = bState
+                        ChangeAllParentState(cNode.Parent, bState)
+                    End If
+                End If
+            End If
+
+            Return True
+
+        Catch ex As Exception
+            LogError(ex, "modGeneral ChangeAllParentState")
+            Return False
+        End Try
+
+    End Function
+
+    Private Function IsAllChildrenSameState(ByVal cNode As TreeNode, ByVal bState As Boolean) As Boolean
+
+        Dim cnt As Long
+        Dim nd As TreeNode
+
+        Try
+            For Each nd In cNode.Nodes
+                If nd.Checked = bState Then
+                    cnt = cnt + 1
+                End If
+            Next
+            If cnt = cNode.GetNodeCount(False) Then
+                IsAllChildrenSameState = True
+            End If
+
+            Return True
+
+        Catch ex As Exception
+            LogError(ex, "modGeneral IsAllChildrenSameState")
+            Return False
+        End Try
+
+    End Function
+
+    Private Function CheckUnchecAllChildren(ByRef cNode As TreeNodeCollection, ByVal bState As Boolean) As Boolean
+
+        Dim c As TreeNode
+        Dim oldIsEventFromCode As Boolean = IsEventFromCode
+
+        Try
+            '//Process children
+            For Each c In cNode
+                IsEventFromCode = True
+                c.Checked = bState
+                IsEventFromCode = False
+                CheckUnchecAllChildren(c.Nodes, bState)
+            Next
+
+            Return True
+
+        Catch ex As Exception
+            LogError(ex, "modGeneral CheckUncheckAllChildren")
+            Return False
+        Finally
+            IsEventFromCode = oldIsEventFromCode
+        End Try
+
+    End Function
 
     Friend Function FormatDoc() As Boolean
         Try
@@ -462,9 +583,9 @@ Public Class FrmXMLconv
                         End If
                     End If
                 Case "JSON File"
-                    CSVOutFilePath = SFD1.FileName
-                    TxtCSVSavePath.Text = CSVOutFilePath
-                    If CSVOutFilePath <> "" Then
+                    JSONOutFilePath = SFD1.FileName
+                    TxtCSVSavePath.Text = JSONOutFilePath
+                    If JSONOutFilePath <> "" Then
                         If SaveJSON() = True Then
                             Saved = True
                             'MsgBox("Save was successful", MsgBoxStyle.OkOnly)
@@ -473,9 +594,9 @@ Public Class FrmXMLconv
                         End If
                     End If
                 Case "XML File"
-                    CSVOutFilePath = SFD1.FileName
-                    TxtCSVSavePath.Text = CSVOutFilePath
-                    If CSVOutFilePath <> "" Then
+                    XMLOutFilePath = SFD1.FileName
+                    TxtCSVSavePath.Text = XMLOutFilePath
+                    If XMLOutFilePath <> "" Then
                         If SaveXML() = True Then
                             Saved = True
                             'MsgBox("Save was successful", MsgBoxStyle.OkOnly)
@@ -484,9 +605,9 @@ Public Class FrmXMLconv
                         End If
                     End If
                 Case "SQL File"
-                    CSVOutFilePath = SFD1.FileName
-                    TxtCSVSavePath.Text = CSVOutFilePath
-                    If CSVOutFilePath <> "" Then
+                    SQLOutFilePath = SFD1.FileName
+                    TxtCSVSavePath.Text = SQLOutFilePath
+                    If SQLOutFilePath <> "" Then
                         If SaveSQL() = True Then
                             Saved = True
                             'MsgBox("Save was successful", MsgBoxStyle.OkOnly)
@@ -495,9 +616,9 @@ Public Class FrmXMLconv
                         End If
                     End If
                 Case "Update XML File"
-                    CSVOutFilePath = SFD1.FileName
-                    TxtCSVSavePath.Text = CSVOutFilePath
-                    If CSVOutFilePath <> "" Then
+                    UpdXMLOutFilePath = SFD1.FileName
+                    TxtCSVSavePath.Text = UpdXMLOutFilePath
+                    If UpdXMLOutFilePath <> "" Then
                         If SaveUpdate() = True Then
                             Saved = True
                             'MsgBox("Save was successful", MsgBoxStyle.OkOnly)
@@ -535,6 +656,34 @@ Public Class FrmXMLconv
     End Sub
 
     Private Sub TVelement_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVelement.AfterSelect
+
+        Try
+            Dim SelNode As XmlNode = CType(TVelement.SelectedNode.Tag, ClsXMLNode).Node
+            'Clear TabPage
+            ClearElementTab()
+            'populate TabPage
+            TxtElementName.Text = SelNode.LocalName
+            If SelNode.NodeType = XmlNodeType.Element Then
+                TxtElementValue.Text = SelNode.InnerText
+            Else
+                TxtElementValue.Text = ""
+            End If
+
+            'Now set DataGridViews
+            For Each Attr As XmlAttribute In SelNode.Attributes
+                Dim NewRow() As String = {Attr.LocalName, Attr.Value}
+                DGVAttrib.Rows.Add(NewRow)
+            Next
+            For Each nd As XmlNode In SelNode.ChildNodes
+                If nd.NodeType = XmlNodeType.Element Then
+                    Dim NewRowEle() As String = {nd.LocalName, nd.InnerText}
+                    DGVElement.Rows.Add(NewRowEle)
+                End If
+            Next
+
+        Catch ex As Exception
+            LogError(ex, "FrmXMLconv TVelement_AfterSelect")
+        End Try
 
     End Sub
 
@@ -899,8 +1048,37 @@ Public Class FrmXMLconv
 
 #Region "SQL Events"
 
-    Private Sub TVsql_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TVsql.AfterSelect
+    Private Sub TVsql_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles TVsql.AfterCheck
 
+        Try
+            If IsEventFromCode = False Then
+                CheckUncheckNodes(e.Node)
+                If e.Node.Checked Then
+                    Dim NewItem As Mylist = New Mylist(e.Node.Text, e.Node)
+                    If CbMasterFld.Items.Contains(NewItem) = False Then
+                        CbMasterFld.Items.Add(NewItem)
+                    End If
+                End If
+            End If
+
+        Catch ex As Exception
+            LogError(ex, "frmXMLconv TVsql_AfterCheck")
+        End Try
+
+    End Sub
+
+    Private Sub RbUseValue_CheckedChanged(sender As Object, e As EventArgs) Handles RbUseValue.CheckedChanged
+        If RbUseValue.Checked = True Then
+            SQLuseVal = True
+            RbUseTag.Checked = False
+        End If
+    End Sub
+
+    Private Sub RbUseTag_CheckedChanged(sender As Object, e As EventArgs) Handles RbUseTag.CheckedChanged
+        If RbUseTag.Checked = True Then
+            SQLuseVal = False
+            RbUseValue.Checked = False
+        End If
     End Sub
 
     Private Sub BtnCreateSQL_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnCreateSQL.Click
@@ -908,13 +1086,17 @@ Public Class FrmXMLconv
         Try
             'Convert xml_doc to new string builder text
             'EncodeXMLFile(InFilePath) '//encode some special characters like & to &amp;
+            Dim MasterNode As String = CType(CbMasterFld.SelectedItem, Mylist).Name   'TreeNode = CType(CType(CbMasterFld.SelectedItem, Mylist).ItemData, TreeNode)
+
             xml_Indoc.Load(InFilePath)
             sb = New System.Text.StringBuilder
             TxTSQLout.Text = ""
-
-            If CreateSQL(sb, xml_Indoc) = True Then
+            SQLFileName = CreateSQL(sb, xml_Indoc, SQLuseVal, MasterNode)
+            If SQLFileName <> "" Then
                 TxTSQLout.Text = sb.ToString
                 BtnSaveSQL.Enabled = True
+            Else
+                MsgBox("You have not named your File")
             End If
 
         Catch ex As Exception
@@ -927,6 +1109,11 @@ Public Class FrmXMLconv
 
         Try
             SFD1.Title = "SQL File"
+            SFD1.AddExtension = True
+            'SFD1.CheckFileExists = True
+            SFD1.CheckPathExists = True
+            SFD1.DefaultExt = "SQL"
+            SFD1.Filter = "SQL Files|*.SQL|All Files|*.*"
             If InputDir <> "" Then
                 SFD1.InitialDirectory = InputDir
                 SFD1.FileName = SQLFileName
@@ -969,6 +1156,7 @@ Public Class FrmXMLconv
         End Try
 
     End Sub
+
 
 #End Region
 
